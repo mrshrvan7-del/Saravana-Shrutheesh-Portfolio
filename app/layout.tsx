@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const playfair = Playfair_Display({ subsets: ['latin'], weight: ['700', '800'], variable: '--font-playfair' });
+const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '500', '700', '800'], variable: '--font-playfair' });
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-dm-sans' });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-jetbrains' });
 

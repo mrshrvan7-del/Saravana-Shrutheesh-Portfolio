@@ -1,83 +1,131 @@
 'use client';
-import { useEffect, useState } from 'react';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <section id="home" className="section-container section-padding min-h-[90vh] flex items-center mt-10 md:mt-0">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full gap-16 md:gap-8">
-        <div className="flex-1 flex flex-col items-start w-full">
-          <div 
-            className={`inline-flex items-center gap-2 border border-[var(--border-color)] px-4 py-1.5 rounded-full mb-8 ${mounted ? 'fade-in visible' : 'fade-in'}`}
-            style={{ transitionDelay: '150ms' }}
-          >
-            <span className="text-[13px] font-medium" style={{ color: 'var(--text-body)' }}>Available for Global Opportunities</span>
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot" />
-          </div>
+    <section id="home" className="relative min-h-[95vh] flex items-center justify-center overflow-hidden py-12 md:py-24">
+      
+      {/* Background stock chart/trend lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-40 select-none z-0">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
+          {/* Vertical Grid Lines */}
+          <g stroke="rgba(156, 142, 53, 0.08)" strokeWidth="1">
+            <line x1="100" y1="0" x2="100" y2="600" />
+            <line x1="200" y1="0" x2="200" y2="600" />
+            <line x1="300" y1="0" x2="300" y2="600" />
+            <line x1="400" y1="0" x2="400" y2="600" />
+            <line x1="500" y1="0" x2="500" y2="600" />
+            <line x1="600" y1="0" x2="600" y2="600" />
+            <line x1="700" y1="0" x2="700" y2="600" />
+            <line x1="800" y1="0" x2="800" y2="600" />
+            <line x1="900" y1="0" x2="900" y2="600" />
+          </g>
+          {/* Trend Line (Optimized slope showing data growth/operations trend) */}
+          <path
+            d="M 0 500 Q 150 480 300 420 T 600 250 T 900 120 L 1000 100"
+            fill="none"
+            stroke="rgba(156, 142, 53, 0.15)"
+            strokeWidth="2"
+            strokeDasharray="4 4"
+          />
+          <path
+            d="M 0 450 Q 200 400 400 320 T 800 180 L 1000 150"
+            fill="none"
+            stroke="rgba(26, 26, 10, 0.04)"
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
 
-          <p 
-            className={`text-[16px] mb-2 ${mounted ? 'fade-up visible' : 'fade-up'}`}
-            style={{ color: 'var(--text-body)', transitionDelay: '300ms' }}
-          >
-            Hello, I&apos;m Saravana,
-          </p>
-
-          <h1 className="flex flex-col leading-[1.1] mb-6">
-            <span 
-              className={`text-[48px] md:text-[64px] ${mounted ? 'slide-left visible' : 'slide-left'}`}
-              style={{ transitionDelay: '450ms' }}
-            >
-              Business &
-            </span>
-            <span 
-              className={`text-[48px] md:text-[64px] ${mounted ? 'slide-left visible' : 'slide-left'}`}
-              style={{ transitionDelay: '550ms' }}
-            >
-              Ops Analyst
-            </span>
-          </h1>
-
-          <p 
-            className={`text-[15px] mb-8 max-w-md ${mounted ? 'fade-in visible' : 'fade-in'}`}
-            style={{ color: 'var(--text-muted)', transitionDelay: '700ms' }}
-          >
-            based in Bengaluru, India.
-          </p>
-
-          <div 
-            className={`flex items-center gap-4 ${mounted ? 'fade-up visible' : 'fade-up'}`}
-            style={{ transitionDelay: '850ms' }}
-          >
-            <button className="bg-[var(--text-primary)] text-[var(--bg-page)] px-8 py-3 rounded-full text-[14px] font-medium hover:scale-[1.02] transition-transform">
-              Resume
-            </button>
-            <button className="border border-[var(--border-color)] text-[var(--text-primary)] px-8 py-3 rounded-full text-[14px] font-medium hover:bg-[var(--text-primary)] hover:text-[var(--bg-page)] hover:border-[var(--text-primary)] transition-colors duration-200">
-              Let&apos;s Talk →
-            </button>
-          </div>
-        </div>
-
-        <div 
-          className={`relative flex-shrink-0 ${mounted ? 'scale-in visible' : 'scale-in'}`}
-          style={{ transitionDelay: '1000ms' }}
-        >
-          <div className="absolute -top-6 -right-6 flex flex-col gap-1 text-[var(--text-primary)] font-bold text-2xl leading-none">
-            <div className="flex gap-1"><span>+</span><span>+</span></div>
-            <div className="flex gap-1 ml-4"><span>+</span><span>+</span></div>
-          </div>
+      <div className="section-container z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8">
           
-          <div className="absolute -bottom-4 -left-6 flex gap-1 text-[var(--text-primary)] font-bold text-xl transform -rotate-45">
-            <span>/</span><span>/</span><span>/</span><span>/</span>
-          </div>
+          {/* Left Column Content */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-1 flex flex-col items-start w-full"
+          >
+            {/* Sub-header */}
+            <p className="text-[16px] font-sans font-normal text-[#3D3A1A] opacity-90 mb-3">
+              Hey, I&apos;m Saravana Shrutheesh M &mdash;
+            </p>
 
-          <div className="w-[180px] h-[180px] md:w-[240px] md:h-[240px] rounded-full border-[3px] border-[var(--text-primary)] bg-[var(--bg-accent)] flex items-center justify-center overflow-hidden hover:rotate-1 transition-transform duration-500 origin-center relative z-10">
-            <span className="text-[64px] text-[var(--bg-page)] opacity-80" style={{ fontFamily: 'var(--font-playfair)' }}>SS</span>
-          </div>
+            {/* Primary Title */}
+            <h1 className="font-display font-extrabold text-[44px] sm:text-[54px] md:text-[68px] text-[#1A1A0A] leading-[1.1] tracking-tight mb-4">
+              <span className="block">Results-Driven</span>
+              <span className="block text-[#9C8E35]">Operations</span>
+              <span className="block">Analyst.</span>
+            </h1>
+
+            {/* Subtext metric line */}
+            <p className="font-mono text-[12px] font-medium tracking-[0.06em] text-[#5A5530] mb-6 uppercase">
+              1.8 YRS EXP • FORTUNE 1 & MULTINATIONAL COMPANIES
+            </p>
+
+            {/* Core Narrative */}
+            <div className="max-w-2xl my-4 border-l-2 border-[#9C8E35]/30 pl-4 py-1">
+              <p className="text-[14.5px] sm:text-[16px] leading-relaxed text-[#3D3A1A]">
+                I specialize in root cause analysis, process optimization, and data-driven intelligence&mdash;bridging technical insights with business strategies to build resilient, scalable business systems.
+              </p>
+            </div>
+
+            {/* Call-to-Actions */}
+            <div className="flex flex-wrap items-center gap-4 mt-6">
+              <a 
+                href="#work" 
+                className="bg-[#A3963C] hover:bg-[#9C8E35] text-[#1A1A0A] font-medium px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center shadow-md select-none touch-target"
+              >
+                See my work &darr;
+              </a>
+              <a 
+                href="#contact" 
+                className="bg-[#1A1A0A] hover:bg-[#2A2A1A] text-[#FAF7EC] border border-[#9C8E35]/40 font-medium px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center shadow-md select-none touch-target"
+              >
+                Contact Me
+              </a>
+            </div>
+
+          </motion.div>
+
+          {/* Right Column Content - Avatar Frame */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            className="relative flex-shrink-0 w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[420px] md:h-[420px] flex items-center justify-center select-none"
+          >
+            {/* Glowing gold background circle */}
+            <div className="absolute inset-0 bg-[#EDE8C4]/60 rounded-full border-4 border-[#9C8E35]/10 animate-pulse duration-[6s] z-0 scale-[0.96]" />
+            <div className="absolute inset-4 bg-gradient-to-tr from-[#E6DFB3] to-[#F5F2E6] rounded-full shadow-inner z-10" />
+
+            {/* Portrait Image */}
+            <div className="absolute inset-0 flex items-end justify-center z-20 overflow-hidden rounded-full">
+              <Image 
+                src="/profile.png" 
+                alt="Saravana Shrutheesh" 
+                width={500} 
+                height={500}
+                className="w-[110%] h-[110%] object-contain object-bottom transform hover:scale-[1.03] transition-transform duration-700"
+                priority
+              />
+            </div>
+
+            {/* Plus / line decorative element top-right */}
+            <div className="absolute -top-4 -right-4 font-mono text-[#9C8E35] font-bold text-sm tracking-wide flex items-center gap-1 z-30 pointer-events-none select-none">
+              +<span className="w-12 h-[2px] bg-[#9C8E35]/60 inline-block" />+
+            </div>
+
+            {/* Slashes decorative element bottom-left */}
+            <div className="absolute -bottom-4 -left-4 font-mono text-[#9C8E35] font-bold text-lg rotate-12 z-30 pointer-events-none select-none">
+              ////
+            </div>
+
+          </motion.div>
+
         </div>
       </div>
     </section>

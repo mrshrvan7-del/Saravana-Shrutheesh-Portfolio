@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saravana Shrutheesh &mdash; Data Portfolio
 
-## Getting Started
+A premium, custom-designed data portfolio showcasing projects, professional experience, skills, and credentials. Built with Next.js 15+ and optimized for performance and responsive layout.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🎨 Design Philosophy & Themes
+The portfolio is designed with a **warm-cream luxury editorial** aesthetic:
+* **Typography**: Elegant serif titles paired with clean, functional monospaced tags for meta-information.
+* **Palette**: Tailored HSL color variables (warm wheat backgrounds, soft charcoal borders, and dark charcoal texts).
+* **Interactivity**: Smooth CSS/JS scroll reveal animations, interactive chips in the skills grid, and clean transitions.
+* **Responsive Layout**: Designed for seamless viewing across mobile, tablet, and desktop devices with optimized grid columns and centered text blocks.
+
+---
+
+## ✨ Features
+
+1. **Editorial Hero Section**: Minimalist introduction featuring custom visual typography, optimized subheadings, and quick links.
+2. **Interactive Bento Grid (Skills)**: Custom dashboard showcasing tools and proficiency across Data Analysis, Databases, Cloud & Big Data, and Languages with hover-triggered descriptive captions.
+3. **Experience Timeline**: Vertical chronological layout highlighting key roles, contributions, and project deliveries.
+4. **Education Timeline**: Structured academic records detailing courses from Surana College.
+5. **Projects Showcase**: Grid representation of 5 production projects (Walmart Copilot, Hyperlocal Marketplace, Sign Language Recognition, AI Call Auditor, and ServeIn Marketplace) featuring compact specification lists and zero-void-space styling.
+6. **Credentials Split List**: Clean list format for professional certifications (Google Advanced Data Analytics, Microsoft Power BI Analyst, etc.) and leadership records (Rotaract Club Director, College Hackathon runner-up).
+
+---
+
+## 📁 Repository Structure
+
+```
+├── app/                     # Next.js App Router code
+│   ├── globals.css          # Design system & responsive styles
+│   ├── layout.tsx           # Base page layout & metadata
+│   └── page.tsx             # Main page layout orchestrator
+├── components/              # Reusable React components
+│   ├── About.tsx            # Intro summary block
+│   ├── Certs.tsx            # Redesigned Credentials section
+│   ├── Contact.tsx          # Connect form and links
+│   ├── Education.tsx        # Education timeline
+│   ├── Experience.tsx       # Professional experience timeline
+│   ├── Hero.tsx             # Minimalist hero component
+│   ├── Nav.tsx              # Navigation bar
+│   ├── Projects.tsx         # Projects list and grid details
+│   └── Skills.tsx           # Interactive Bento Grid
+├── public/                  # PDF downloads, SVGs, and project images
+├── vanilla-build/           # Standard HTML/CSS/JS version of the portfolio
+│   ├── index.html           # Main markup file
+│   ├── script.js            # Hover and scroll interaction scripts
+│   └── style.css            # Static styles
+└── package.json             # Build configuration and scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prerequisites
+Ensure you have [Node.js](https://nodejs.org) installed on your system.
 
-## Learn More
+### 2. Installation
+Install the project dependencies:
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Running Development Server
+Start the Next.js development server locally:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Build Production Bundle
+Generate the optimized build output:
+```bash
+npm run build
+```
+The application will compile static files ready to be deployed.

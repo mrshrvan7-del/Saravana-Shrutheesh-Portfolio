@@ -1,30 +1,57 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
+// Project data reflecting the repositories in the GitHub profile
 const projects = [
   {
-    title: 'SLA Intelligence Dashboard',
-    date: 'Jan 2024',
-    stack: 'BigQuery · SQL · Power BI',
-    impact: '98.4% SLA compliance — real-time monitoring',
+    meta: '01 / AI VOICE ANALYTICS',
+    title: 'Ai-Call-Auditor',
+    image: '/ai_call_auditor.png',
+    description: 'An AI-powered call auditing system designed to automatically analyze and evaluate sales and customer support call recordings. Leverages Natural Language Processing (NLP) to extract customer sentiment, compliance flags, and key performance metrics.',
+    role: 'Concept design, business operations workflow mapping, and prototype development.',
+    impact: 'Proposed automation concepts to reduce support auditing SLA times by 80%. Prototype code is fully available.',
+    coreTech: 'Python · NLP · OpenAI API',
+    repo: 'https://github.com/mrshrvan7-del/Ai-Call-Auditor',
   },
   {
-    title: 'AI-Assisted RCA Workflow',
-    date: 'Aug 2023',
-    stack: 'Python · Claude API · Confluence',
-    impact: '40% faster root cause identification',
+    meta: '02 / COMPUTER VISION',
+    title: 'Sign-language-recognition-',
+    image: '/sign_language_recognition.png',
+    description: 'Real-time Sign Language Recognition system using Computer Vision and Deep Learning. Translates hand gestures into text and speech to bridge communication barriers, optimized for high-performance mobile deployment.',
+    role: 'Concept design, mobile accessibility design, and deep learning model integration.',
+    impact: 'Proposed ideas for inclusive workplace communications. Full prototype code is available.',
+    coreTech: 'Flutter · Dart · TensorFlow Lite',
+    repo: 'https://github.com/mrshrvan7-del/Sign-language-recognition-',
   },
   {
-    title: 'Process Optimization Engine',
-    date: 'Mar 2024',
-    stack: 'n8n · Looker Studio · Jira',
-    impact: '35% reduction in manual reporting hours',
+    meta: '03 / GIG MARKETPLACE SYSTEMS',
+    title: 'serve-in-customer-app',
+    image: '/hyperlocal_marketplace.png',
+    description: 'A real-time hyperlocal service marketplace mobile application connecting customers with nearby service providers. Integrates live tracking and interactive interfaces for seamless scheduling and booking.',
+    role: 'Frontend mobile app development, state management, and API integration.',
+    impact: 'Proposed user workflows for gig workers, optimizing order dispatching. Prototype code is fully available.',
+    coreTech: 'Flutter · Dart · Google Maps API',
+    repo: 'https://github.com/mrshrvan7-del/serve-in-customer-app',
   },
   {
-    title: 'Stakeholder Reporting Portal',
-    date: 'Nov 2023',
-    stack: 'Google Sheets · Advanced Excel · Power BI',
-    impact: 'Executive-ready weekly ops reports',
+    meta: '04 / BACKEND SYSTEMS',
+    title: 'SERVE_In',
+    image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&q=80&w=800',
+    description: 'The robust backend engine powering the ServeIn marketplace. Implements real-time WebSockets communication, geolocation sorting, secure authentication, and a scalable database architecture.',
+    role: 'Backend systems architect, database design, and API engineering.',
+    impact: 'Designed resilient data workflows to handle concurrent service requests. Full prototype code is available.',
+    coreTech: 'NestJS · PostgreSQL · Socket.IO · TypeScript',
+    repo: 'https://github.com/mrshrvan7-del/SERVE_In',
+  },
+  {
+    meta: '05 / WEB ENGINEERING',
+    title: 'Saravana-Shrutheesh-Portfolio',
+    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800',
+    description: 'A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.',
+    role: 'Full-stack web engineering, CSS architecture, and animation orchestration.',
+    impact: 'Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.',
+    coreTech: 'Next.js · React · TypeScript · Vanilla CSS',
+    repo: 'https://github.com/mrshrvan7-del/Saravana-Shrutheesh-Portfolio',
   },
 ];
 
@@ -33,8 +60,8 @@ export default function Projects() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
@@ -44,50 +71,67 @@ export default function Projects() {
     );
 
     const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach((el) => observer.observe(el));
+    elements?.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
 
   return (
     <section id="work" className="section-container section-padding" ref={sectionRef}>
-      <h2 className="section-heading animate-on-scroll fade-up">work.</h2>
-      
-      <div className="max-w-3xl mb-16 animate-on-scroll fade-up" style={{ transitionDelay: '150ms' }}>
-        <p className="text-[15px] leading-relaxed">
-          I build systems that transform raw data into operational clarity. Here are select projects where analytics and automation drove measurable business impact.
-        </p>
-      </div>
+      <h2 className="section-heading animate-on-scroll fade-up">projects.</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
-        {projects.map((project, index) => (
-          <div 
-            key={project.title}
-            className="group cursor-pointer animate-on-scroll fade-up"
-            style={{ transitionDelay: `${300 + (index * 100)}ms` }}
+      <div className="editorial-projects-list">
+        {projects.map((proj, idx) => (
+          <div
+            key={proj.title}
+            className={`project-row animate-on-scroll fade-up ${idx % 2 !== 0 ? 'project-row-reverse' : ''}`}
+            style={{ 
+              transitionDelay: `${100 + idx * 50}ms`
+            }}
           >
-            <div className="h-[240px] bg-[var(--bg-card)] mb-6 rounded-sm overflow-hidden relative transition-transform duration-300 group-hover:-translate-y-1">
-              {/* Abstract Data Viz Pattern */}
-              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300" style={{
-                backgroundImage: 'radial-gradient(var(--text-primary) 1.5px, transparent 1.5px)',
-                backgroundSize: '24px 24px'
-              }} />
-              <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[var(--bg-card)] to-transparent" />
-            </div>
-
-            <div>
-              <div className="mono text-[11px] text-[var(--text-muted)] mb-2 uppercase tracking-wide">
-                {project.date}
+            <div className="project-media-col">
+              <div className="project-image-wrapper">
+                <div
+                  className="project-image"
+                  style={{ 
+                    backgroundImage: `url('${proj.image}')`
+                  }}
+                />
+                <div className="project-image-overlay" />
               </div>
-              <h3 className="text-[15px] font-semibold text-[var(--text-primary)] mb-2 group-hover:underline underline-offset-4 decoration-1" style={{ fontFamily: 'var(--font-dm-sans)' }}>
-                {project.title}
-              </h3>
-              <p className="text-[13px] text-[var(--text-body)] leading-relaxed mb-1">
-                <span className="font-medium text-[var(--text-primary)]">Stack:</span> {project.stack}
-              </p>
-              <p className="text-[13px] text-[var(--text-body)] leading-relaxed">
-                <span className="font-medium text-[var(--text-primary)]">Impact:</span> {project.impact}
-              </p>
+            </div>
+            <div className="project-content-col">
+              <div className="project-meta mono-label">{proj.meta}</div>
+              <h3 className="project-title-editorial">{proj.title}</h3>
+              <p className="project-desc-editorial">{proj.description}</p>
+              
+              <div className="project-compact-specs">
+                <div className="compact-spec-item">
+                  <span className="spec-label-compact">Role &amp; Delivery:</span>
+                  <span className="spec-value-compact">{proj.role}</span>
+                </div>
+                <div className="compact-spec-item">
+                  <span className="spec-label-compact">Business &amp; Ops Impact:</span>
+                  <span className="spec-value-compact">{proj.impact}</span>
+                </div>
+                <div className="compact-spec-item">
+                  <span className="spec-label-compact">Core Tech:</span>
+                  <span className="spec-value-compact">{proj.coreTech}</span>
+                </div>
+              </div>
+              
+              <a
+                href={proj.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-github-btn"
+              >
+                <span>View Repository</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '6px' }}>
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
             </div>
           </div>
         ))}
