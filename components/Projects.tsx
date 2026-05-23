@@ -4,7 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 // Project data reflecting the repositories in the GitHub profile
 const projects = [
   {
-    meta: '01 / AI VOICE ANALYTICS',
+    meta: '01 / SAAS PLATFORM ARCHITECTURE',
+    title: 'Colide',
+    image: '/colide.png',
+    description: 'An enterprise-grade multi-branch retail operations and business intelligence platform. Centralizes real-time sales intelligence, inventory management, cash flow tracking, billing operations, and AI-driven business insights across distributed store/warehouse locations.',
+    role: 'Platform architect, backend database design, and real-time offline-first sync engine designer.',
+    impact: 'Designed a resilient multi-tenant architecture for retail operations. Supports real-time monitoring and offline branch resiliency.',
+    coreTech: 'Next.js 15 · Node.js/FastAPI · PostgreSQL · Redis · WebSockets · TailwindCSS',
+    repo: 'https://github.com/mrshrvan7-del/colide',
+  },
+  {
+    meta: '02 / AI VOICE ANALYTICS',
     title: 'Ai-Call-Auditor',
     image: '/ai_call_auditor.png',
     description: 'An AI-powered call auditing system designed to automatically analyze and evaluate sales and customer support call recordings. Leverages Natural Language Processing (NLP) to extract customer sentiment, compliance flags, and key performance metrics.',
@@ -14,7 +24,7 @@ const projects = [
     repo: 'https://github.com/mrshrvan7-del/Ai-Call-Auditor',
   },
   {
-    meta: '02 / COMPUTER VISION',
+    meta: '03 / COMPUTER VISION',
     title: 'Sign-language-recognition-',
     image: '/sign_language_recognition.png',
     description: 'Real-time Sign Language Recognition system using Computer Vision and Deep Learning. Translates hand gestures into text and speech to bridge communication barriers, optimized for high-performance mobile deployment.',
@@ -24,7 +34,7 @@ const projects = [
     repo: 'https://github.com/mrshrvan7-del/Sign-language-recognition-',
   },
   {
-    meta: '03 / GIG MARKETPLACE SYSTEMS',
+    meta: '04 / GIG MARKETPLACE SYSTEMS',
     title: 'serve-in-customer-app',
     image: '/hyperlocal_marketplace.png',
     description: 'A real-time hyperlocal service marketplace mobile application connecting customers with nearby service providers. Integrates live tracking and interactive interfaces for seamless scheduling and booking.',
@@ -34,7 +44,7 @@ const projects = [
     repo: 'https://github.com/mrshrvan7-del/serve-in-customer-app',
   },
   {
-    meta: '04 / BACKEND SYSTEMS',
+    meta: '05 / BACKEND SYSTEMS',
     title: 'SERVE_In',
     image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&q=80&w=800',
     description: 'The robust backend engine powering the ServeIn marketplace. Implements real-time WebSockets communication, geolocation sorting, secure authentication, and a scalable database architecture.',
@@ -44,7 +54,7 @@ const projects = [
     repo: 'https://github.com/mrshrvan7-del/SERVE_In',
   },
   {
-    meta: '05 / WEB ENGINEERING',
+    meta: '06 / WEB ENGINEERING',
     title: 'Saravana-Shrutheesh-Portfolio',
     image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800',
     description: 'A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.',

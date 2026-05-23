@@ -68,42 +68,50 @@ This document contains the complete text copy of the portfolio website, structur
 
 ## 5. Projects Section
 * **Heading**: projects.
-* **Reporsitories Listed**:
+* **Repositories Listed**:
 
-### Project 1: Ai-Call-Auditor
-* **Category/Meta**: 01 / AI VOICE ANALYTICS
+### Project 1: Colide
+* **Category/Meta**: 01 / SAAS PLATFORM ARCHITECTURE
+* **Description**: An enterprise-grade multi-branch retail operations and business intelligence platform. Centralizes real-time sales intelligence, inventory management, cash flow tracking, billing operations, and AI-driven business insights across distributed store/warehouse locations.
+* **Role & Delivery**: Platform architect, backend database design, and real-time offline-first sync engine designer.
+* **Business & Ops Impact**: Designed a resilient multi-tenant architecture for retail operations. Supports real-time monitoring and offline branch resiliency.
+* **Core Tech**: Next.js 15 · Node.js/FastAPI · PostgreSQL · Redis · WebSockets · TailwindCSS
+* **Repository Link**: https://github.com/mrshrvan7-del/colide
+
+### Project 2: Ai-Call-Auditor
+* **Category/Meta**: 02 / AI VOICE ANALYTICS
 * **Description**: An AI-powered call auditing system designed to automatically analyze and evaluate sales and customer support call recordings. Leverages Natural Language Processing (NLP) to extract customer sentiment, compliance flags, and key performance metrics.
 * **Role & Delivery**: Concept design, business operations workflow mapping, and prototype development.
 * **Business & Ops Impact**: Proposed automation concepts to reduce support auditing SLA times by 80%. Prototype code is fully available.
 * **Core Tech**: Python · NLP · OpenAI API
 * **Repository Link**: https://github.com/mrshrvan7-del/Ai-Call-Auditor
 
-### Project 2: Sign-language-recognition-
-* **Category/Meta**: 02 / COMPUTER VISION
+### Project 3: Sign-language-recognition-
+* **Category/Meta**: 03 / COMPUTER VISION
 * **Description**: Real-time Sign Language Recognition system using Computer Vision and Deep Learning. Translates hand gestures into text and speech to bridge communication barriers, optimized for high-performance mobile deployment.
 * **Role & Delivery**: Concept design, mobile accessibility design, and deep learning model integration.
 * **Business & Ops Impact**: Proposed ideas for inclusive workplace communications. Full prototype code is available.
 * **Core Tech**: Flutter · Dart · TensorFlow Lite
 * **Repository Link**: https://github.com/mrshrvan7-del/Sign-language-recognition-
 
-### Project 3: serve-in-customer-app
-* **Category/Meta**: 03 / GIG MARKETPLACE SYSTEMS
+### Project 4: serve-in-customer-app
+* **Category/Meta**: 04 / GIG MARKETPLACE SYSTEMS
 * **Description**: A real-time hyperlocal service marketplace mobile application connecting customers with nearby service providers. Integrates live tracking and interactive interfaces for seamless scheduling and booking.
 * **Role & Delivery**: Frontend mobile app development, state management, and API integration.
 * **Business & Ops Impact**: Proposed user workflows for gig workers, optimizing order dispatching. Prototype code is fully available.
 * **Core Tech**: Flutter · Dart · Google Maps API
 * **Repository Link**: https://github.com/mrshrvan7-del/serve-in-customer-app
 
-### Project 4: SERVE_In
-* **Category/Meta**: 04 / BACKEND SYSTEMS
+### Project 5: SERVE_In
+* **Category/Meta**: 05 / BACKEND SYSTEMS
 * **Description**: The robust backend engine powering the ServeIn marketplace. Implements real-time WebSockets communication, geolocation sorting, secure authentication, and a scalable database architecture.
 * **Role & Delivery**: Backend systems architect, database design, and API engineering.
 * **Business & Ops Impact**: Designed resilient data workflows to handle concurrent service requests. Full prototype code is available.
 * **Core Tech**: NestJS · PostgreSQL · Socket.IO · TypeScript
 * **Repository Link**: https://github.com/mrshrvan7-del/SERVE_In
 
-### Project 5: Saravana-Shrutheesh-Portfolio
-* **Category/Meta**: 05 / WEB ENGINEERING
+### Project 6: Saravana-Shrutheesh-Portfolio
+* **Category/Meta**: 06 / WEB ENGINEERING
 * **Description**: A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.
 * **Role & Delivery**: Full-stack web engineering, CSS architecture, and animation orchestration.
 * **Business & Ops Impact**: Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.
