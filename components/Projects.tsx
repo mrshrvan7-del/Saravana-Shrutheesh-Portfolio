@@ -44,17 +44,7 @@ const projects = [
     repo: 'https://github.com/mrshrvan7-del/serve-in-customer-app',
   },
   {
-    meta: '05 / BACKEND SYSTEMS',
-    title: 'SERVE_In',
-    image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&q=80&w=800',
-    description: 'The robust backend engine powering the ServeIn marketplace. Implements real-time WebSockets communication, geolocation sorting, secure authentication, and a scalable database architecture.',
-    role: 'Backend systems architect, database design, and API engineering.',
-    impact: 'Designed resilient data workflows to handle concurrent service requests. Full prototype code is available.',
-    coreTech: 'NestJS · PostgreSQL · Socket.IO · TypeScript',
-    repo: 'https://github.com/mrshrvan7-del/SERVE_In',
-  },
-  {
-    meta: '06 / WEB ENGINEERING',
+    meta: '05 / WEB ENGINEERING',
     title: 'Saravana-Shrutheesh-Portfolio',
     image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800',
     description: 'A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.',

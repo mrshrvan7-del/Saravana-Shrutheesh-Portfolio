@@ -102,16 +102,8 @@ This document contains the complete text copy of the portfolio website, structur
 * **Core Tech**: Flutter · Dart · Google Maps API
 * **Repository Link**: https://github.com/mrshrvan7-del/serve-in-customer-app
 
-### Project 5: SERVE_In
-* **Category/Meta**: 05 / BACKEND SYSTEMS
-* **Description**: The robust backend engine powering the ServeIn marketplace. Implements real-time WebSockets communication, geolocation sorting, secure authentication, and a scalable database architecture.
-* **Role & Delivery**: Backend systems architect, database design, and API engineering.
-* **Business & Ops Impact**: Designed resilient data workflows to handle concurrent service requests. Full prototype code is available.
-* **Core Tech**: NestJS · PostgreSQL · Socket.IO · TypeScript
-* **Repository Link**: https://github.com/mrshrvan7-del/SERVE_In
-
-### Project 6: Saravana-Shrutheesh-Portfolio
-* **Category/Meta**: 06 / WEB ENGINEERING
+### Project 5: Saravana-Shrutheesh-Portfolio
+* **Category/Meta**: 05 / WEB ENGINEERING
 * **Description**: A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.
 * **Role & Delivery**: Full-stack web engineering, CSS architecture, and animation orchestration.
 * **Business & Ops Impact**: Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.
