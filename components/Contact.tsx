@@ -61,6 +61,20 @@ export default function Contact() {
                 <span className="text-[#9C8E35]">Relocation</span>
               </h3>
             </div>
+
+            {/* Easter Egg URL Sub-card */}
+            <div className="relative z-10 mt-auto p-4 bg-[#1A1A0A]/5 border border-dashed border-[#9C8E35]/40 rounded-xl backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-sm">🤫</span>
+                <span className="font-mono text-[9px] tracking-wider text-[#9C8E35] uppercase font-bold">Easter Egg</span>
+              </div>
+              <p className="font-mono text-[11px] text-[#1A1A0A] font-semibold mb-0.5">
+                &ldquo;PRO + portfolio = Protfolio&rdquo;
+              </p>
+              <span className="font-mono text-[9px] text-[#5A5530] opacity-80 break-all">
+                protfolio.saravanashrutheesh.workers.dev
+              </span>
+            </div>
           </div>
 
           {/* Right Column - Interaction & Links */}
