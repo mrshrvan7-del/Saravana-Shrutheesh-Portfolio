@@ -31,7 +31,7 @@ export default function Hero() {
           >
             {/* Sub-header */}
             <p className="text-[15px] font-sans font-medium text-[#5A5530] mb-4">
-              Hey, I&apos;m <span className="font-bold text-[#1A1A0A]">Saravana Shrutheesh M M</span> 👋
+              Hey, I&apos;m <span className="font-bold text-[#1A1A0A]">Saravana Shrutheesh M</span> 👋
             </p>
 
             {/* Primary Title */}
