@@ -147,69 +147,6 @@ export default function Hero() {
           </motion.div>
 
         </div>
-
-        {/* Bottom Horizontal Stats Bar Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="w-full mt-20 lg:mt-24 bg-white/95 backdrop-blur-md rounded-3xl md:rounded-full border border-[#3D3A1A]/10 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 z-20"
-        >
-          {/* Stat 1 */}
-          <div className="flex-1 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#FAF7EC] border border-[#3D3A1A]/5 flex items-center justify-center text-[#8A7C38] shrink-0">
-              <Briefcase className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[28px] font-extrabold text-[#1A1A0A] leading-none">1.8+</span>
-              <span className="text-[13px] font-bold text-[#1A1A0A] mt-1.5">Years Experience</span>
-              <span className="text-[11px] text-[#5A5530] font-medium leading-tight mt-0.5">Across Fortune 1 Companies</span>
-            </div>
-          </div>
-          
-          <div className="w-[1px] bg-[#3D3A1A]/10 hidden md:block" />
-          
-          {/* Stat 2 */}
-          <div className="flex-1 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#FAF7EC] border border-[#3D3A1A]/5 flex items-center justify-center text-[#8A7C38] shrink-0">
-              <Globe className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[28px] font-extrabold text-[#1A1A0A] leading-none">2</span>
-              <span className="text-[13px] font-bold text-[#1A1A0A] mt-1.5">Global Giants</span>
-              <span className="text-[11px] text-[#5A5530] font-medium leading-tight mt-0.5">Walmart Global Tech & Toyota Motors India</span>
-            </div>
-          </div>
-          
-          <div className="w-[1px] bg-[#3D3A1A]/10 hidden md:block" />
-          
-          {/* Stat 3 */}
-          <div className="flex-1 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#FAF7EC] border border-[#3D3A1A]/5 flex items-center justify-center text-[#8A7C38] shrink-0">
-              <BarChart3 className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[28px] font-extrabold text-[#1A1A0A] leading-none">10+</span>
-              <span className="text-[13px] font-bold text-[#1A1A0A] mt-1.5">Dashboards Built</span>
-              <span className="text-[11px] text-[#5A5530] font-medium leading-tight mt-0.5">Power BI • BigQuery • Data-Driven Insights</span>
-            </div>
-          </div>
-          
-          <div className="w-[1px] bg-[#3D3A1A]/10 hidden md:block" />
-          
-          {/* Stat 4 */}
-          <div className="flex-1 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#FAF7EC] border border-[#3D3A1A]/5 flex items-center justify-center text-[#8A7C38] shrink-0">
-              <Star className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[28px] font-extrabold text-[#1A1A0A] leading-none">AI-Driven</span>
-              <span className="text-[13px] font-bold text-[#1A1A0A] mt-1.5">Solutions Built</span>
-              <span className="text-[11px] text-[#5A5530] font-medium leading-tight mt-0.5">Automation • NLP • Intelligence</span>
-            </div>
-          </div>
-        </motion.div>
-
       </div>
     </section>
   );
