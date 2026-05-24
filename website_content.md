@@ -36,8 +36,24 @@ This document contains the complete text copy of the portfolio website, structur
 
 ## 3. About Section
 * **Heading**: about.
-* **Content**: 
-  > I am a results-driven Operations and Process Analyst with 1.8 years of experience driving operational excellence at global leaders like Walmart Global Tech and Toyota Motors India. With an educational foundation in Computer Applications and a major in Data Analysis, I bridge the gap between technical data insights and practical business solutions. I am passionate about optimizing workflows and currently looking to bring my expertise in process improvement to the dynamic business landscape of New Zealand.
+* **Sub-tag**: WHO I AM
+* **Tagline**: I turn complexity into clarity and data into decisions.
+* **Text**:
+  * I am a results-driven Business Analyst and Operations Strategist with over 1.8 years of experience driving operational excellence at global leaders like Walmart Global Tech and Toyota Motors India.
+  * Having a strong foundation in Computer Applications and Data Analysis, I thrive at the intersection of process optimization and business intelligence.
+  * By integrating AI-augmented workflows and advanced telemetry dashboards into daily operations, I help enterprises shift from reactive troubleshooting to proactive, scalable forecasting.
+  * My ambition is to bring this structured clarity and technical bridge to global teams, engineering operational intelligence that scales across borders, timezones, and complex organizational layers.
+* **Bento Card (What I Bring)**:
+  * Data-driven insights that drive measurable impact
+  * Process optimization with a scalable mindset
+  * AI-augmented workflows for smarter operations
+  * Cross-functional collaboration across global teams
+* **Stats**:
+  * 1.8+ Years of Experience
+  * 2 Global Companies
+  * ∞ Curiosity & Learning
+  * 100% Commitment to Excellence
+
 
 ---
 

@@ -89,12 +89,146 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="section reveal">
-      <div class="container">
+    <section id="about" class="section reveal" style="position: relative; overflow: hidden;">
+      <!-- Background Grid & Globe Decoration -->
+      <div style="position: absolute; top: 2rem; right: 2rem; opacity: 0.15; pointer-events: none; user-select: none;" class="hidden-mobile">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1A1A0A" stroke-width="1">
+          <circle cx="8" cy="8" r="1.5" fill="#1A1A0A" />
+          <circle cx="24" cy="8" r="1.5" fill="#1A1A0A" />
+          <circle cx="40" cy="8" r="1.5" fill="#1A1A0A" />
+          <circle cx="56" cy="8" r="1.5" fill="#1A1A0A" />
+          <circle cx="8" cy="24" r="1.5" fill="#1A1A0A" />
+          <circle cx="24" cy="24" r="1.5" fill="#1A1A0A" />
+          <circle cx="40" cy="24" r="1.5" fill="#1A1A0A" />
+          <circle cx="56" cy="24" r="1.5" fill="#1A1A0A" />
+          <circle cx="8" cy="40" r="1.5" fill="#1A1A0A" />
+          <circle cx="24" cy="40" r="1.5" fill="#1A1A0A" />
+          <circle cx="40" cy="40" r="1.5" fill="#1A1A0A" />
+          <circle cx="56" cy="40" r="1.5" fill="#1A1A0A" />
+          <circle cx="8" cy="56" r="1.5" fill="#1A1A0A" />
+          <circle cx="24" cy="56" r="1.5" fill="#1A1A0A" />
+          <circle cx="40" cy="56" r="1.5" fill="#1A1A0A" />
+          <circle cx="56" cy="56" r="1.5" fill="#1A1A0A" />
+        </svg>
+      </div>
+
+      <svg style="position: absolute; right: 0; bottom: 0; width: 450px; height: 450px; opacity: 0.08; pointer-events: none; transform: translate(48px, 48px); color: #1A1A0A;" viewBox="0 0 400 400" fill="none" stroke="currentColor">
+        <circle cx="200" cy="200" r="180" stroke-width="1" stroke-dasharray="4 4" />
+        <ellipse cx="200" cy="200" rx="180" ry="60" stroke-width="1" stroke-dasharray="4 4" />
+        <ellipse cx="200" cy="200" rx="180" ry="120" stroke-width="1" stroke-dasharray="4 4" />
+        <ellipse cx="200" cy="200" rx="60" ry="180" stroke-width="1" stroke-dasharray="4 4" />
+        <ellipse cx="200" cy="200" rx="120" ry="180" stroke-width="1" stroke-dasharray="4 4" />
+        <line x1="200" y1="20" x2="200" y2="380" stroke-width="1" stroke-dasharray="4 4" />
+        <line x1="20" y1="200" x2="380" y2="200" stroke-width="1" stroke-dasharray="4 4" />
+      </svg>
+
+      <div class="container" style="position: relative; z-index: 10;">
         <h2 class="section-head">about.</h2>
-        <p class="about-intro">
-          I am a results-driven Business Analyst and Operations Strategist with over 1.8 years of experience driving operational excellence at global leaders like Walmart Global Tech and Toyota Motors India. Having a strong foundation in Computer Applications and Data Analysis, I thrive at the intersection of process optimization and business intelligence. By integrating AI-augmented workflows and advanced telemetry dashboards into daily operations, I help enterprises shift from reactive troubleshooting to proactive, scalable forecasting. My ambition is to bring this structured clarity and technical bridge to global teams, engineering operational intelligence that scales across borders, timezones, and complex organizational layers.
-        </p>
+        
+        <div class="about-grid">
+          <!-- Left Column - WHO I AM -->
+          <div class="about-left">
+            <span class="mono-label" style="color: #9C8E35; font-size: 11px; letter-spacing: 0.08em; font-weight: 700; display: block; margin-bottom: 0.75rem;">WHO I AM</span>
+            
+            <h3 class="about-tagline">
+              I turn complexity into clarity <br>
+              and data into <span class="gold-text">decisions.</span>
+            </h3>
+
+            <div class="about-text-paragraphs">
+              <p>I am a results-driven Business Analyst and Operations Strategist with over 1.8 years of experience driving operational excellence at global leaders like <span class="gold-highlight">Walmart Global Tech</span> and <span class="gold-highlight">Toyota Motors India</span>.</p>
+              <p>Having a strong foundation in Computer Applications and Data Analysis, I thrive at the intersection of process optimization and business intelligence.</p>
+              <p>By integrating AI-augmented workflows and advanced telemetry dashboards into daily operations, I help enterprises shift from reactive troubleshooting to proactive, scalable forecasting.</p>
+              <p>My ambition is to bring this structured clarity and technical bridge to global teams, engineering operational intelligence that scales across borders, timezones, and complex organizational layers.</p>
+            </div>
+          </div>
+
+          <!-- Right Column - WHAT I BRING & STATS -->
+          <div class="about-right">
+            
+            <!-- Bento Card Box -->
+            <div class="what-i-bring-box">
+              <span class="mono-label" style="color: #9C8E35; font-size: 11px; letter-spacing: 0.08em; font-weight: 700; display: block; margin-bottom: 1.5rem;">WHAT I BRING</span>
+              
+              <ul class="what-i-bring-list">
+                <!-- Item 1 -->
+                <li class="what-i-bring-item">
+                  <div class="what-i-bring-icon-wrapper">
+                    <svg class="what-i-bring-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="what-i-bring-title">Data-driven insights</h4>
+                    <p class="what-i-bring-desc">that drive measurable impact</p>
+                  </div>
+                </li>
+
+                <!-- Item 2 -->
+                <li class="what-i-bring-item">
+                  <div class="what-i-bring-icon-wrapper">
+                    <svg class="what-i-bring-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="what-i-bring-title">Process optimization</h4>
+                    <p class="what-i-bring-desc">with a scalable mindset</p>
+                  </div>
+                </li>
+
+                <!-- Item 3 -->
+                <li class="what-i-bring-item">
+                  <div class="what-i-bring-icon-wrapper">
+                    <svg class="what-i-bring-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="what-i-bring-title">AI-augmented workflows</h4>
+                    <p class="what-i-bring-desc">for smarter operations</p>
+                  </div>
+                </li>
+
+                <!-- Item 4 -->
+                <li class="what-i-bring-item">
+                  <div class="what-i-bring-icon-wrapper">
+                    <svg class="what-i-bring-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="what-i-bring-title">Cross-functional collaboration</h4>
+                    <p class="what-i-bring-desc">across global teams</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="about-stats-grid">
+              <div class="about-stat-card">
+                <span class="about-stat-number">1.8+</span>
+                <span class="about-stat-label">Years Exp</span>
+              </div>
+              <div class="about-stat-card">
+                <span class="about-stat-number">2</span>
+                <span class="about-stat-label">Global Cos</span>
+              </div>
+              <div class="about-stat-card">
+                <span class="about-stat-number">∞</span>
+                <span class="about-stat-label">Learning</span>
+              </div>
+              <div class="about-stat-card">
+                <span class="about-stat-number">100%</span>
+                <span class="about-stat-label">Commitment</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
