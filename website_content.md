@@ -184,8 +184,7 @@ This document contains the complete text copy of the portfolio website, structur
 
 ## 8. Contact Section & Footer
 * **Heading**: contact.
-* **Text**: I hope I have made my impact.
+* **Text**: Looking for an experienced Operations Analyst to elevate your processes? I am actively seeking opportunities in New Zealand and am open to relocation. Let's connect to discuss how my expertise can drive value for your team.
 * **Action**: Button to copy email address ("Copy Email Address")
 * **Social Links**: LinkedIn, GitHub
 * **Footer**: © 2026 Saravana Shrutheesh. All rights reserved.
-
