@@ -2085,7 +2085,7 @@ button, a.nav-link, .touch-target {
    ========================================================================== */
 
 .hero-section {
-  background-color: #FBF9F2 !important;
+  background: linear-gradient(to bottom, #FBF9F2 0%, #FAF8F0 60%, #F5F0D8 100%) !important;
   position: relative;
   overflow: hidden;
   padding-top: 5rem;
