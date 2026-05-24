@@ -46,7 +46,7 @@ const projects = [
   {
     meta: '05 / WEB ENGINEERING',
     title: 'Saravana-Shrutheesh-Portfolio',
-    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800',
+    image: '/portfolio_theme.png',
     description: 'A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.',
     role: 'Full-stack web engineering, CSS architecture, and animation orchestration.',
     impact: 'Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.',
