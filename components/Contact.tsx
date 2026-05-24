@@ -80,7 +80,7 @@ export default function Contact() {
           {/* Right Column - Interaction & Links */}
           <div className="lg:col-span-7 flex flex-col justify-center animate-on-scroll fade-up" style={{ transitionDelay: '300ms' }}>
             <p className="text-[18px] md:text-[22px] font-bold text-[#1A1A0A] leading-relaxed mb-8 max-w-2xl">
-              I hope I have made my impact. <span className="text-[#9C8E35]">Let&apos;s connect and get my interview scheduled.</span>
+              I hope I have made my impact.
             </p>
 
             {/* Action Buttons Row */}
@@ -105,18 +105,6 @@ export default function Contact() {
                   </>
                 )}
               </button>
-              
-              <a
-                href="/Saravana_Shrutheesh_CV.pdf"
-                download="Saravana_Shrutheesh_CV.pdf"
-                aria-label="Download Saravana Shrutheesh's CV as PDF"
-                className="w-full sm:w-auto text-center px-8 py-4 border-[1.5px] border-[#1A1A0A] bg-transparent hover:bg-[#1A1A0A] hover:text-[#FAF7EC] text-[#1A1A0A] font-sans font-semibold text-[14px] cursor-pointer transition-all duration-300 rounded-full flex items-center justify-center gap-2 shadow-md hover:scale-[1.02] transform no-underline"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                <span>Download Resume</span>
-              </a>
             </div>
 
             {/* Social Link Cards Stack */}
