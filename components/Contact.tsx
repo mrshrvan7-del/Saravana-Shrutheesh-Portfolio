@@ -172,7 +172,10 @@ export default function Contact() {
       <footer className="bg-[var(--bg-nav)] py-8">
         <div className="section-container flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-[var(--bg-page)] opacity-50">
           <p>© 2026 Saravana Shrutheesh · Bengaluru, India</p>
-          <p>Built with intent. Open to opportunities.</p>
+          <div className="flex flex-col items-center md:items-end gap-1">
+            <p>Built with intent. Open to opportunities.</p>
+            <p className="font-mono text-[10px] tracking-wider italic opacity-75">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>
+          </div>
         </div>
       </footer>
     </>
