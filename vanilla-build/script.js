@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
   dots.forEach(dot => dotObserver.observe(dot));
 
   // 5. Stat Counter Animation
-  const statNumbers = document.querySelectorAll('.stat-number');
+  const statNumbers = document.querySelectorAll('.stat-number, .stats-bar-num');
   const animateValue = (obj, start, end, duration, suffix = "") => {
     let startTimestamp = null;
     const step = (timestamp) => {
