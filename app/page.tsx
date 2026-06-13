@@ -1,6 +1,5 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
-import Stats from '@/components/Stats';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
 import Education from '@/components/Education';
@@ -14,13 +13,42 @@ export default function Home() {
     <main>
       <Nav />
       <Hero />
-      <Stats />
       <About />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Experience />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Education />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Projects />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Skills />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Certs />
+      
+      <div className="section-divider section-container">
+        <span>+</span>
+      </div>
+      
       <Contact />
     </main>
   );

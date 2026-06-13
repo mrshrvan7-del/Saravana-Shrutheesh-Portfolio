@@ -21,8 +21,8 @@ export default function AnimatedCounter({ value, decimals = 0, suffix = '', pref
       if (!node) return;
 
       const controls = animate(0, value, {
-        duration: 1.5,
-        ease: 'easeOut',
+        duration: 2,
+        ease: [0.33, 1, 0.68, 1], // easeOutExpo style
         onUpdate(value) {
           node.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
         },

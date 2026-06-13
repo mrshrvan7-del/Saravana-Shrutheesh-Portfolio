@@ -1,221 +1,157 @@
 'use client';
+import { useState, useEffect, useRef } from 'react';
 
-import FadeUp from './ui/FadeUp';
-
+// Project data reflecting the repositories in the GitHub profile
 const projects = [
   {
-    num: '01',
-    label: 'SaaS Platform Architecture',
+    meta: '01 / SAAS PLATFORM ARCHITECTURE',
     title: 'Colide',
+    image: '/colide.png',
     description: 'An enterprise-grade multi-branch retail operations and business intelligence platform. Centralizes real-time sales intelligence, inventory management, cash flow tracking, billing operations, and AI-driven business insights across distributed store/warehouse locations.',
-    techs: ['Next.js 15', 'Node.js/FastAPI', 'PostgreSQL', 'Redis', 'WebSockets', 'TailwindCSS'],
+    role: 'Platform architect, backend database design, and real-time offline-first sync engine designer.',
+    impact: 'Designed a resilient multi-tenant architecture for retail operations. Supports real-time monitoring and offline branch resiliency.',
+    coreTech: 'Next.js 15 · Node.js/FastAPI · PostgreSQL · Redis · WebSockets · TailwindCSS',
     repo: 'https://github.com/mrshrvan7-del/COLIDE-',
   },
   {
-    num: '02',
-    label: 'AI Voice Analytics',
+    meta: '02 / AI VOICE ANALYTICS',
     title: 'Ai-Call-Auditor',
+    image: '/ai_call_auditor.png',
     description: 'An AI-powered call auditing system designed to automatically analyze and evaluate sales and customer support call recordings. Leverages Natural Language Processing (NLP) to extract customer sentiment, compliance flags, and key performance metrics.',
-    techs: ['Python', 'NLP', 'OpenAI API'],
+    role: 'Concept design, business operations workflow mapping, and prototype development.',
+    impact: 'Proposed automation concepts to reduce support auditing SLA times by 80%. Prototype code is fully available.',
+    coreTech: 'Python · NLP · OpenAI API',
     repo: 'https://github.com/mrshrvan7-del/Ai-Call-Auditor',
   },
   {
-    num: '03',
-    label: 'Computer Vision',
-    title: 'Sign-Language-Recognition',
+    meta: '03 / COMPUTER VISION',
+    title: 'Sign-language-recognition-',
+    image: '/sign_language_recognition.png',
     description: 'Real-time Sign Language Recognition system using Computer Vision and Deep Learning. Translates hand gestures into text and speech to bridge communication barriers, optimized for high-performance mobile deployment.',
-    techs: ['Flutter', 'Dart', 'TensorFlow Lite'],
+    role: 'Concept design, mobile accessibility design, and deep learning model integration.',
+    impact: 'Proposed ideas for inclusive workplace communications. Full prototype code is available.',
+    coreTech: 'Flutter · Dart · TensorFlow Lite',
     repo: 'https://github.com/mrshrvan7-del/Sign-language-recognition-',
   },
   {
-    num: '04',
-    label: 'Gig Marketplace Systems',
-    title: 'Serve-In Customer App',
+    meta: '04 / GIG MARKETPLACE SYSTEMS',
+    title: 'serve-in-customer-app',
+    image: '/hyperlocal_marketplace.png',
     description: 'A real-time hyperlocal service marketplace mobile application connecting customers with nearby service providers. Integrates live tracking and interactive interfaces for seamless scheduling and booking.',
-    techs: ['Flutter', 'Dart', 'Google Maps API'],
+    role: 'Frontend mobile app development, state management, and API integration.',
+    impact: 'Proposed user workflows for gig workers, optimizing order dispatching. Prototype code is fully available.',
+    coreTech: 'Flutter · Dart · Google Maps API',
     repo: 'https://github.com/mrshrvan7-del/serve-in-customer-app',
   },
   {
-    num: '05',
-    label: 'AI Interview Systems',
-    title: 'ARIA',
-    description: 'An AI-powered mock interview platform designed to simulate realistic coding and behavioral interview environments. Leverages generative models to ask dynamic follow-up questions, evaluate response quality, and output structured scorecards with detailed feedback.',
-    techs: ['Next.js', 'React', 'Web Speech API', 'OpenAI API', 'WebSockets'],
-    repo: 'https://github.com/mrshrvan7-del/ARIA',
+    meta: '05 / WEB ENGINEERING',
+    title: 'Saravana-Shrutheesh-Portfolio',
+    image: '/portfolio_theme.png',
+    description: 'A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.',
+    role: 'Full-stack web engineering, CSS architecture, and animation orchestration.',
+    impact: 'Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.',
+    coreTech: 'Next.js · React · TypeScript · Vanilla CSS',
+    repo: 'https://github.com/mrshrvan7-del/Saravana-Shrutheesh-Portfolio',
   },
 ];
 
 export default function Projects() {
+  const [isPaused, setIsPaused] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
+    elements?.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section
-      id="work"
-      style={{
-        backgroundColor: 'var(--color-bg)',
-      }}
-    >
-      <div className="section-container">
-        <div style={{ textAlign: 'left', marginBottom: '3.5rem' }}>
-          <span className="micro-text" style={{ marginBottom: '1rem' }}>
-            MY WORK
-          </span>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(28px, 4vw, 44px)',
-              lineHeight: 1.15,
-              color: 'var(--color-text-primary)',
-              margin: 0,
-            }}
-          >
-            Featured Projects & Systems
-          </h2>
-        </div>
+    <section id="work" className="section-container section-padding" ref={sectionRef}>
+      <h2 className="section-heading animate-on-scroll fade-up">projects.</h2>
 
-        {/* CSS Grid with 2 columns, collapses to 1 column on mobile */}
-        <FadeUp
-          staggerChildren={0.08}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      <div className="marquee-container animate-on-scroll fade-up">
+        <div 
+          className={`marquee-content ${isPaused ? 'paused' : ''}`}
+          onClick={() => setIsPaused(!isPaused)}
         >
-          {projects.map((proj, idx) => (
-            <div
-              key={idx}
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '14px',
-                padding: '2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: '1.5rem',
-                boxShadow: 'var(--shadow-card)',
-                transition: 'all 0.25s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = 'var(--shadow-hover)';
-                e.currentTarget.style.transform = 'translateY(-3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'var(--shadow-card)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <div>
-                {/* Top Row */}
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '0.85rem',
-                      color: 'var(--color-text-muted)',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {proj.num}
-                  </span>
-                  <span
-                    style={{
-                      backgroundColor: 'var(--color-tag-bg)',
-                      color: 'var(--color-tag-text)',
-                      borderRadius: '4px',
-                      padding: '2px 8px',
-                      fontSize: '0.7rem',
-                      fontFamily: 'var(--font-sans)',
-                      fontWeight: 600,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.03em',
-                    }}
-                  >
-                    {proj.label}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.5rem',
-                    color: 'var(--color-text-primary)',
-                    fontWeight: 400,
-                    marginBottom: '0.75rem',
-                  }}
-                >
-                  {proj.title}
-                </h3>
-
-                {/* Description */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.6,
-                    color: 'var(--color-text-secondary)',
-                    margin: 0,
-                  }}
-                >
-                  {proj.description}
-                </p>
-              </div>
-
-              <div>
-                {/* Tech tags */}
-                <div
-                  style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '0.5rem',
-                    marginBottom: '1.25rem',
-                  }}
-                >
-                  {proj.techs.map((tech, techIdx) => (
-                    <span
-                      key={techIdx}
-                      style={{
-                        backgroundColor: 'var(--color-tag-bg)',
-                        color: 'var(--color-tag-text)',
-                        fontSize: '0.72rem',
-                        borderRadius: '4px',
-                        padding: '2px 8px',
-                        fontFamily: 'var(--font-sans)',
-                        fontWeight: 500,
-                      }}
+          {[...Array(2)].map((_, groupIdx) => (
+            <div key={`marquee-group-${groupIdx}`} className="marquee-group">
+              {projects.map((proj, idx) => (
+                <div key={`${proj.title}-${idx}`} className="marquee-card">
+                  <div className="project-media-col">
+                    <a
+                      href={proj.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-image-link"
+                      style={{ display: 'block' }}
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <div className="project-image-wrapper">
+                        <div
+                          className="project-image"
+                          style={{ backgroundImage: `url('${proj.image}')` }}
+                        />
+                        <div className="project-image-overlay" />
+                      </div>
+                    </a>
+                  </div>
+                  <div className="project-content-col">
+                    <div className="project-meta mono-label">{proj.meta}</div>
+                    <h3 className="project-title-editorial">
+                      <a
+                        href={proj.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-title-link"
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        {proj.title}
+                      </a>
+                    </h3>
+                    <p className="project-desc-editorial" style={{ flexGrow: 1, minHeight: '80px' }}>{proj.description}</p>
+                    
+                    <div className="project-compact-specs">
+                      <div className="compact-spec-item">
+                        <span className="spec-label-compact">Role:</span>
+                        <span className="spec-value-compact">{proj.role}</span>
+                      </div>
+                      <div className="compact-spec-item">
+                        <span className="spec-label-compact">Tech:</span>
+                        <span className="spec-value-compact">{proj.coreTech}</span>
+                      </div>
+                    </div>
+                    
+                    <a
+                      href={proj.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-github-btn"
+                      style={{ marginTop: 'auto' }}
+                    >
+                      <span>View Repository</span>
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '6px' }}>
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-
-                {/* Bottom Row Link */}
-                <a
-                  href={proj.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                    color: 'var(--color-accent)',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    transition: 'opacity 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
-                >
-                  View Repository &rarr;
-                </a>
-              </div>
+              ))}
             </div>
           ))}
-        </FadeUp>
+        </div>
       </div>
     </section>
   );
