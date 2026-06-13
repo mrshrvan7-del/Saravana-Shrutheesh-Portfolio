@@ -9,7 +9,8 @@ import Education from '@/components/Education';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Certs from '@/components/Certs';
-import Contact from '@/components/Contact';
+import BlogPreview from '@/components/BlogPreview';
+import Footer from '@/components/Footer';
 import SplashScreen from '@/src/components/SplashScreen/SplashScreen';
 
 export default function Home() {
@@ -90,9 +91,9 @@ export default function Home() {
           <div className="section-divider section-container">
             <span>+</span>
           </div>
-          
-          <Contact />
+          <BlogPreview />
         </main>
+        <Footer />
       </div>
     </>
   );

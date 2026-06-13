@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "title": "Optimizing Warehouse Operations: A Data-Driven Approach",
+    "summary": "How we reduced picker travel time and increased dispatch efficiency by 18% through heat-map profiling and dynamic slotting algorithms.",
+    "category": "Operations",
+    "content": "### The Challenge\nIn high-volume fulfillment centers, picker travel time accounts for up to **50%** of total order processing duration. Inefficient inventory placement (slotting) forced pickers to crisscross the floor, resulting in bottlenecks during peak shifts.\n\n### The Data-Driven Strategy\nWe extracted six months of transactional order line data using SQL from our database. By analyzing order frequency and correlation matrices (which items are frequently purchased together), we identified:\n1. **A-Category Items:** 20% of inventory that contributed to 80% of picks.\n2. **Co-Pick Pairs:** Common product combinations (e.g., matching accessories).\n\n```sql\n-- Sample query to find top co-picked items\nSELECT \n  a.item_id AS item_1,\n  b.item_id AS item_2,\n  COUNT(*) AS combination_count\nFROM order_lines a\nJOIN order_lines b ON a.order_id = b.order_id AND a.item_id < b.item_id\nGROUP BY 1, 2\nORDER BY combination_count DESC\nLIMIT 10;\n```\n\n### The Solution\nUsing these insights, we repositioned high-frequency items close to the packing areas (dynamic slotting). Co-picked items were placed in adjacent racks.\n\n### The Results\n- **18% increase** in dispatch throughput.\n- **14.2% decrease** in picking cycle times.\n- **$40,000+** estimated annual labor savings per zone.",
+    "tags": ["SQL", "Operations", "Process Improvement"],
+    "date": "June 10, 2026",
+    "image": ""
+  },
+  {
+    "id": "2",
+    "title": "AI-Augmented Decision Making in SLA Tracking",
+    "summary": "Leveraging predictive models and automated notification loops to forecast SLA breach risks in dispatch queues before they occur.",
+    "category": "AI",
+    "content": "### The Challenge\nIn global operations, missing Service Level Agreements (SLAs) for shipment dispatches results in heavy chargebacks and customer churn. Traditional reports are lagging indicators—telling managers about breaches *after* they happen.\n\n### Predictive Modeling Approach\nWe built a lightweight python-based classification model that scores open orders based on:\n- Carrier performance history\n- Order volume spikes\n- Staffing levels\n- Weather/traffic conditions\n\nOrders with an SLA breach risk score exceeding **85%** are automatically flagged.\n\n### Automated Notification Loop\nUsing Python and Slack/Email APIs, the flagged orders are pushed directly to floor supervisors as action alerts, allowing them to shift staffing resources dynamically.\n\n```python\n# Trigger alert if risk exceeds threshold\nif order['breach_risk'] > 0.85:\n    slack.send_message(\n        channel='#dispatch-alerts',\n        text=f\"⚠️ Warning: Order {order['id']} has a {order['breach_risk']:.1%} risk of breaching SLA. Assign priority picker.\"\n    )\n```\n\n### Impact\n- **SLA breaches reduced by 64%** in the first quarter.\n- **Average dispatch latency reduced by 12 minutes** for flagged items.\n- Elevated supervisor decision speed by replacing static PDF reports with real-time proactive alerts.",
+    "tags": ["Python", "Automation", "SLA Management", "AI"],
+    "date": "May 28, 2026",
+    "image": ""
+  },
+  {
+    "id": "3",
+    "title": "Designing the Walmart Global Tech Operations Dashboard",
+    "summary": "A deep-dive into how we consolidated 5 fragmented data streams into a single Executive Power BI dashboard with sub-second reload latency.",
+    "category": "Analytics",
+    "content": "### The Challenge\nWalmart Global Tech managers had to consult five separate dashboard instances (spanning Jira, ServiceNow, databases, and spreadsheets) to review operational performance. This fragmented view led to long reporting cycles and mismatched data definitions.\n\n### Architecture & Aggregation\nWe constructed an ETL pipeline using BigQuery that aggregates these five sources every hour. We established a unified key structure based on operational teams and timestamps.\n\n### Power BI Optimization Techniques\nTo support sub-second query latency for executive users, we implemented:\n1. **Aggregations:** Pre-calculating summary tables in BigQuery rather than doing heavy DAX computations at runtime.\n2. **Star Schema Design:** Re-architecting the data model into a clean star schema with explicit dimension and fact tables.\n3. **Optimized DAX:** Replacing complex iterators like `SUMX` with simpler filter functions where possible.\n\n### The Unified Dashboard\n- Consolidated operations KPIs onto **one single page**.\n- Provided drill-downs for operational lead times, ticket resolution rates, and SLA trends.\n- Reduced manual reporting prep time for managers from **6 hours a week to zero**.",
+    "tags": ["Power BI", "SQL", "BigQuery", "Analytics"],
+    "date": "May 15, 2026",
+    "image": ""
+  }
+]

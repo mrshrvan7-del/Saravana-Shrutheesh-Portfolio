@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail } from 'lucide-react';
 
 export default function Hero() {
@@ -72,12 +73,12 @@ export default function Hero() {
               >
                 See my work <span className="font-sans text-[15px]">→</span>
               </a>
-              <a 
-                href="#contact" 
-                className="bg-white hover:bg-[#FAF7EC] text-[#1A1A0A] border border-[#3D3A1A]/15 font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target"
+              <Link 
+                href="/blog" 
+                className="bg-white hover:bg-[#FAF7EC] text-[#1A1A0A] border border-[#3D3A1A]/15 font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target no-underline"
               >
-                Contact Me <Mail className="w-4 h-4 text-[#1A1A0A]/70" />
-              </a>
+                Read Blog <TrendingUp className="w-4 h-4 text-[#1A1A0A]/70" />
+              </Link>
             </div>
 
           </motion.div>
