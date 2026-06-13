@@ -1,0 +1,91 @@
+/* Splash Screen Stylesheet */
+
+.splash-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #F5F0D8; /* Matches page background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Signature SVG Container */
+.signature-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+.signature-svg {
+  transition: filter 300ms ease-in-out;
+  /* Start with no shadow */
+  filter: drop-shadow(0 1px 2px rgba(26, 26, 10, 0));
+}
+
+.signature-svg path {
+  stroke: #1A1A0A; /* Dark charcoal/black ink */
+}
+
+.signature-svg.glow-active {
+  /* Subtle ink-on-paper shadow instead of neon glow */
+  filter: drop-shadow(0 1px 3px rgba(26, 26, 10, 0.15));
+}
+
+/* Pen tip group */
+.pen-tip-group {
+  will-change: transform, opacity;
+}
+
+/* Pen tip radius variables & overrides for responsive sizing */
+.pen-outer-ring {
+  --pen-outer-r: 14px;
+  r: var(--pen-outer-r);
+  transition: r 150ms ease-out, fill 200ms ease-out;
+}
+
+.pen-outer-ring.loading {
+  --pen-outer-r: 3px;
+}
+
+/* Tagline Typography */
+.tagline {
+  font-family: var(--font-sans), 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(0.65rem, 1.4vw, 0.82rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #5A5530; /* Muted olive/gold */
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* Responsive Overrides */
+@media (max-width: 480px) {
+  .signature-svg {
+    width: min(92vw, 380px) !important;
+  }
+
+  .pen-outer-ring {
+    --pen-outer-r: 10px;
+  }
+
+  .pen-outer-ring.loading {
+    --pen-outer-r: 2.5px;
+  }
+
+  .tagline {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.2em;
+  }
+}

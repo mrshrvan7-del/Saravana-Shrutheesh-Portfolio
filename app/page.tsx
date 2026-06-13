@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -7,49 +10,90 @@ import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Certs from '@/components/Certs';
 import Contact from '@/components/Contact';
+import SplashScreen from '@/src/components/SplashScreen/SplashScreen';
 
 export default function Home() {
+  const [splashDone, setSplashDone] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('splash-played') === 'true';
+    }
+    return false;
+  });
+
+  const handleSplashComplete = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('splash-played', 'true');
+    }
+    setSplashDone(true);
+  };
+
+  useEffect(() => {
+    if (!splashDone) {
+      document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [splashDone]);
+
   return (
-    <main>
-      <Nav />
-      <Hero />
-      <About />
+    <>
+      {!splashDone && (
+        <SplashScreen onComplete={handleSplashComplete} />
+      )}
       
-      <div className="section-divider section-container">
-        <span>+</span>
+      <div
+        style={{
+          opacity: splashDone ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+          pointerEvents: splashDone ? 'auto' : 'none',
+        }}
+      >
+        <main>
+          <Nav />
+          <Hero />
+          <About />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Experience />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Education />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Projects />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Skills />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Certs />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+          
+          <Contact />
+        </main>
       </div>
-      
-      <Experience />
-      
-      <div className="section-divider section-container">
-        <span>+</span>
-      </div>
-      
-      <Education />
-      
-      <div className="section-divider section-container">
-        <span>+</span>
-      </div>
-      
-      <Projects />
-      
-      <div className="section-divider section-container">
-        <span>+</span>
-      </div>
-      
-      <Skills />
-      
-      <div className="section-divider section-container">
-        <span>+</span>
-      </div>
-      
-      <Certs />
-      
-      <div className="section-divider section-container">
-        <span>+</span>
-      </div>
-      
-      <Contact />
-    </main>
+    </>
   );
 }
