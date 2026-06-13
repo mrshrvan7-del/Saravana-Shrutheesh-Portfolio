@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { generateSignaturePaths, SignaturePathData } from './generateSignaturePaths';
+import { SIGNATURE_PATHS } from './signaturePaths';
 import { useHandwritingAnimation } from './useHandwritingAnimation';
 import './SplashScreen.css';
 
@@ -14,8 +14,8 @@ type AnimationPhase = 'loading' | 'writing' | 'settling' | 'tagline' | 'exit';
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const shouldReduceMotion = useReducedMotion();
-  const [paths, setPaths] = useState<SignaturePathData[]>([]);
-  const [pathsLoaded, setPathsLoaded] = useState(false);
+  const paths = SIGNATURE_PATHS;
+  const pathsLoaded = true;
   const [phase, setPhase] = useState<AnimationPhase>('loading');
 
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -26,26 +26,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const midCircleRef = useRef<SVGCircleElement | null>(null);
   const coreCircleRef = useRef<SVGCircleElement | null>(null);
 
-  // Initialize and load font & generate signature paths
-  useEffect(() => {
-    let active = true;
-    generateSignaturePaths('Saravana Shrutheesh.M')
-      .then((generatedPaths) => {
-        if (active) {
-          setPaths(generatedPaths);
-          setPathsLoaded(true);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to generate signature paths:', err);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const isWritingActive = pathsLoaded && phase === 'writing' && !shouldReduceMotion;
+  const isWritingActive = phase === 'writing' && !shouldReduceMotion;
 
   // Run the sequential handwriting animation
   const { isComplete } = useHandwritingAnimation(
@@ -59,8 +40,6 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   // Phase scheduling sequence
   useEffect(() => {
-    if (!pathsLoaded) return;
-
     if (shouldReduceMotion) {
       setPhase('tagline');
       
@@ -68,7 +47,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       pathRefs.current.forEach((pathEl) => {
         if (pathEl) {
           pathEl.style.strokeDashoffset = '0';
-          pathEl.setAttribute('stroke', '#2AADBA');
+          pathEl.setAttribute('stroke', '#0F2D40');
         }
       });
 
@@ -87,13 +66,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     // Standard motion sequence
     setPhase('loading');
 
-    // Transiton from loading (glow point) to writing
+    // Transition from loading (glow point) to writing
     const startWritingTimer = setTimeout(() => {
       setPhase('writing');
     }, 300);
 
     return () => clearTimeout(startWritingTimer);
-  }, [pathsLoaded, shouldReduceMotion, onComplete]);
+  }, [shouldReduceMotion, onComplete]);
 
   // Handle transitions after writing is complete
   useEffect(() => {
@@ -101,17 +80,17 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
     setPhase('settling');
 
-    // 2900ms - 3200ms: settling phase lasts 300ms
+    // settling phase lasts 300ms
     const taglineTimer = setTimeout(() => {
       setPhase('tagline');
     }, 300);
 
-    // 3200ms - 3700ms: tagline phase lasts 500ms
+    // tagline phase lasts 500ms
     const exitTimer = setTimeout(() => {
       setPhase('exit');
     }, 800);
 
-    // 3700ms - 4200ms: exit phase lasts 500ms, then call onComplete
+    // exit phase lasts 500ms, then call onComplete
     const completeTimer = setTimeout(() => {
       onComplete();
     }, 1300);
@@ -125,12 +104,12 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   // Extract start position coordinates for the first stroke
   const getStartPoint = () => {
-    if (paths.length === 0) return { x: 400, y: 100 }; // fallback center-ish
+    if (paths.length === 0) return { x: 400, y: 120 }; // fallback center-ish
     const match = paths[0].d.match(/^M\s+([-\d.]+)\s+([-\d.]+)/);
     if (match) {
       return { x: parseFloat(match[1]), y: parseFloat(match[2]) };
     }
-    return { x: 400, y: 100 };
+    return { x: 400, y: 120 };
   };
 
   const startPt = getStartPoint();
@@ -145,9 +124,6 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         ease: phase === 'exit' ? [0.4, 0, 1, 1] : 'easeOut'
       }}
     >
-      {/* Background Glow */}
-      <div className="splash-bg-glow" />
-
       {/* Main Signature Container */}
       <div className="signature-container">
         {pathsLoaded && (
@@ -165,13 +141,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             aria-label="Saravana Shrutheesh.M signature"
           >
             <defs>
-              {/* Pressure filter for subtle organic wobble */}
+              {/* Pressure filter for subtle organic wobble - scale adjusted to 0.25 */}
               <filter id="pressure" x="-10%" y="-10%" width="120%" height="120%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
                 <feDisplacementMap
                   in="SourceGraphic"
                   in2="noise"
-                  scale="0.4"
+                  scale="0.25"
                   xChannelSelector="R"
                   yChannelSelector="G"
                 />
@@ -182,10 +158,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                 <feGaussianBlur stdDeviation="0.3" />
               </filter>
 
-              {/* Ink gradient: leading bright edges fade into settled dry color */}
+              {/* Ink gradient: leading wet edge fades to settled navy ink */}
               <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#2AADBA" />
-                <stop offset="100%" stopColor="#38C9CE" />
+                <stop offset="0%" stopColor="#0F2D40" />
+                <stop offset="100%" stopColor="#1A3D52" />
               </linearGradient>
             </defs>
 
@@ -223,19 +199,20 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   duration: phase === 'settling' ? 0.3 : 0.2
                 }}
                 style={{
-                  filter: 'url(#pen-blur)'
+                  filter: 'url(#pen-blur)',
+                  willChange: 'transform, opacity'
                 }}
               >
-                {/* Outer halo: expands from r=3 (loading) to r=10 (writing) */}
+                {/* Outer halo: expands to r=14 */}
                 <motion.circle
                   ref={outerCircleRef}
                   className={`pen-outer-ring ${phase === 'loading' ? 'loading' : ''}`}
                   cx={startPt.x}
                   cy={startPt.y}
-                  r={phase === 'loading' ? 3 : 10}
-                  fill={phase === 'loading' ? '#38C9CE' : 'rgba(56, 201, 206, 0.08)'}
+                  r={phase === 'loading' ? 3 : 14}
+                  fill={phase === 'loading' ? '#0F2D40' : 'rgba(56, 201, 206, 0.12)'}
                   style={{
-                    filter: phase === 'loading' ? 'drop-shadow(0 0 8px #38C9CE)' : 'none'
+                    filter: phase === 'loading' ? 'drop-shadow(0 0 8px rgba(15, 45, 64, 0.3))' : 'none'
                   }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
                 />
@@ -245,8 +222,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   ref={midCircleRef}
                   cx={startPt.x}
                   cy={startPt.y}
-                  r="5"
-                  fill={phase === 'loading' ? 'transparent' : 'rgba(56, 201, 206, 0.22)'}
+                  r={phase === 'loading' ? 1 : 6}
+                  fill={phase === 'loading' ? 'transparent' : 'rgba(15, 45, 64, 0.18)'}
                   style={{ transition: 'fill 150ms ease-out' }}
                 />
 
@@ -255,8 +232,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   ref={coreCircleRef}
                   cx={startPt.x}
                   cy={startPt.y}
-                  r={phase === 'loading' ? 3 : 1.8}
-                  fill="#38C9CE"
+                  r={phase === 'loading' ? 3 : 2}
+                  fill="#0F2D40"
                   transition={{ duration: 0.15, ease: 'easeOut' }}
                 />
               </motion.g>

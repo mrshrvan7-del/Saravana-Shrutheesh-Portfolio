@@ -1,3 +1,3 @@
 export { default as SplashScreen } from './SplashScreen';
-export * from './generateSignaturePaths';
+export * from './signaturePaths';
 export * from './useHandwritingAnimation';

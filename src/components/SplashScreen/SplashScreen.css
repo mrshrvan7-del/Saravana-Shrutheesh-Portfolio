@@ -4,7 +4,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background-color: #0C0E0F;
+  background-color: #FAFBFC;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,15 +12,6 @@
   gap: 2.5rem;
   overflow: hidden;
   user-select: none;
-}
-
-/* Background Ambient Glow */
-.splash-bg-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 50% 35% at 50% 50%, rgba(56, 201, 206, 0.04) 0%, transparent 100%);
-  z-index: 0;
 }
 
 /* Signature SVG Container */
@@ -36,23 +27,27 @@
 
 .signature-svg {
   transition: filter 300ms ease-in-out;
-  /* Start with no shadow glow */
-  filter: drop-shadow(0 0 0px rgba(56, 201, 206, 0));
+  /* Start with no shadow */
+  filter: drop-shadow(0 1px 2px rgba(15, 45, 64, 0));
+}
+
+.signature-svg path {
+  stroke: #0F2D40;
 }
 
 .signature-svg.glow-active {
-  /* Set settling glow */
-  filter: drop-shadow(0 0 6px rgba(56, 201, 206, 0.15));
+  /* Subtle ink-on-paper shadow instead of neon glow */
+  filter: drop-shadow(0 1px 2px rgba(15, 45, 64, 0.15));
 }
 
-/* Pen tip group: only place where will-change is permitted */
+/* Pen tip group */
 .pen-tip-group {
   will-change: transform, opacity;
 }
 
 /* Pen tip radius variables & overrides for responsive sizing */
 .pen-outer-ring {
-  --pen-outer-r: 10px;
+  --pen-outer-r: 14px;
   r: var(--pen-outer-r);
   transition: r 150ms ease-out, fill 200ms ease-out;
 }
@@ -67,7 +62,7 @@
   font-size: clamp(0.65rem, 1.4vw, 0.82rem);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #7A8A96;
+  color: #8A95A3;
   font-weight: 400;
   position: relative;
   z-index: 1;
@@ -75,18 +70,18 @@
   padding: 0 1rem;
 }
 
-/* Responsive Overrides (Step 10) */
+/* Responsive Overrides */
 @media (max-width: 480px) {
   .signature-svg {
     width: min(92vw, 380px) !important;
   }
 
   .pen-outer-ring {
-    --pen-outer-r: 7px;
+    --pen-outer-r: 10px;
   }
 
   .pen-outer-ring.loading {
-    --pen-outer-r: 3px;
+    --pen-outer-r: 2.5px;
   }
 
   .tagline {
