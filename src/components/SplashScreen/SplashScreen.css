@@ -1,0 +1,96 @@
+/* Splash Screen Stylesheet */
+
+.splash-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #0C0E0F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Background Ambient Glow */
+.splash-bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 35% at 50% 50%, rgba(56, 201, 206, 0.04) 0%, transparent 100%);
+  z-index: 0;
+}
+
+/* Signature SVG Container */
+.signature-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+.signature-svg {
+  transition: filter 300ms ease-in-out;
+  /* Start with no shadow glow */
+  filter: drop-shadow(0 0 0px rgba(56, 201, 206, 0));
+}
+
+.signature-svg.glow-active {
+  /* Set settling glow */
+  filter: drop-shadow(0 0 6px rgba(56, 201, 206, 0.15));
+}
+
+/* Pen tip group: only place where will-change is permitted */
+.pen-tip-group {
+  will-change: transform, opacity;
+}
+
+/* Pen tip radius variables & overrides for responsive sizing */
+.pen-outer-ring {
+  --pen-outer-r: 10px;
+  r: var(--pen-outer-r);
+  transition: r 150ms ease-out, fill 200ms ease-out;
+}
+
+.pen-outer-ring.loading {
+  --pen-outer-r: 3px;
+}
+
+/* Tagline Typography */
+.tagline {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(0.65rem, 1.4vw, 0.82rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7A8A96;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* Responsive Overrides (Step 10) */
+@media (max-width: 480px) {
+  .signature-svg {
+    width: min(92vw, 380px) !important;
+  }
+
+  .pen-outer-ring {
+    --pen-outer-r: 7px;
+  }
+
+  .pen-outer-ring.loading {
+    --pen-outer-r: 3px;
+  }
+
+  .tagline {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.15em;
+  }
+}
