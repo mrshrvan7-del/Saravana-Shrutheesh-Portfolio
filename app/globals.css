@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F7F8FA;
+  --color-bg-muted: #F0F2F5;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FAFBFC;
+  --color-border: #E5E8EE;
+  --color-border-subtle: #EEF0F4;
+  --color-text-primary: #0D1117;
+  --color-text-secondary: #4A5568;
+  --color-text-muted: #8A95A3;
+  --color-accent: #1A56DB;
+  --color-accent-light: #EBF2FF;
+  --color-accent-text: #1A40B0;
+  --color-tag-bg: #F0F4FF;
+  --color-tag-text: #2B4FAD;
+  --color-hero-gradient: linear-gradient(160deg, #F7F9FC 0%, #EDF1F8 50%, #F7F9FC 100%);
+  --color-section-alt: #F7F8FA;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);
+
+  /* Font mappings */
+  --font-display: var(--font-instrument), 'Instrument Serif', Georgia, serif;
+  --font-sans: var(--font-dm-sans), 'DM Sans', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans), sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2 {
+    font-family: var(--font-display), serif;
+    color: var(--color-text-primary);
+    font-weight: 400;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: var(--font-sans), sans-serif;
+    color: var(--color-text-primary);
+    font-weight: 500;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), sans-serif;
+}
+
+/* Micro-text label style */
+.micro-text {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Global containers */
+.container, .section-container {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Alternating Section Backgrounds & Paddings */
+section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+/* Alternating section colors */
+section:nth-of-type(odd) {
+  background-color: var(--color-bg);
+}
+
+section:nth-of-type(even) {
+  background-color: var(--color-section-alt);
+}
+
+@media (max-width: 768px) {
+  section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Infinite Marquee Styles */
+.marquee-container {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+  display: flex;
+  gap: 2rem;
+  min-width: 100%;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  gap: 2rem;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
+/* Status Pulsing Dot */
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22C55E;
+  display: inline-block;
+  animation: pulse 2s infinite;
 }
