@@ -7,7 +7,7 @@ import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail } from '
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 md:py-32 bg-[var(--bg-page)]">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 md:py-32 bg-transparent">
       
       {/* Concentric topography circles / background graphic */}
       <div className="absolute right-0 bottom-0 pointer-events-none opacity-20 select-none z-0">

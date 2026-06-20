@@ -141,7 +141,7 @@ export default function BlogPage() {
     <>
       <Nav />
 
-      <main className="min-h-screen bg-[var(--bg-page)] pt-32 pb-24">
+      <main className="min-h-screen bg-transparent pt-32 pb-24">
         <div className="section-container">
           
           {/* Header */}

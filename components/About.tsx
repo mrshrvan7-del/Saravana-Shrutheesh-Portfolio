@@ -24,7 +24,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="section-container section-padding bg-[var(--bg-page)] relative overflow-hidden" ref={sectionRef}>
+    <section id="about" className="section-container section-padding bg-transparent relative overflow-hidden" ref={sectionRef}>
       
       {/* Background Globe/Coordinates SVG */}
       <svg className="absolute right-0 bottom-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] opacity-[0.05] pointer-events-none translate-x-16 translate-y-16 text-[var(--text-primary)]" viewBox="0 0 400 400" fill="none" stroke="currentColor">
@@ -38,7 +38,7 @@ export default function About() {
       </svg>
 
       {/* 1. Top Metrics Bar (Sleek Horizontal Capsule, merged seamlessly with warm cream background) */}
-      <div className="w-full mb-20 bg-[var(--bg-page)] rounded-3xl md:rounded-full border border-[var(--text-body)]/10 shadow-[inset_0_1px_2px_rgba(42,42,36,0.05),_0_8px_30px_rgba(42,42,36,0.03)] p-6 md:p-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 animate-on-scroll fade-up">
+      <div className="w-full mb-20 bg-[var(--bg-card)]/40 backdrop-blur-sm rounded-3xl md:rounded-full border border-[var(--text-body)]/10 shadow-[inset_0_1px_2px_rgba(42,42,36,0.05),_0_8px_30px_rgba(42,42,36,0.03)] p-6 md:p-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 animate-on-scroll fade-up">
         {/* Stat 1 */}
         <div className="flex-1 flex items-start gap-4">
           <div className="w-12 h-12 rounded-full border border-[var(--text-body)]/10 flex items-center justify-center text-[var(--accent-dark)] shrink-0 bg-transparent">
@@ -129,7 +129,7 @@ export default function About() {
         {/* Right Column - WHAT I BRING Bento Card (seamlessly merged with warm cream background) */}
         <div className="lg:col-span-5 flex flex-col justify-start animate-on-scroll fade-up" style={{ transitionDelay: '300ms' }}>
           
-          <div className="p-8 bg-[var(--bg-page)] border border-[var(--text-body)]/10 rounded-2xl shadow-[0_4px_30px_rgba(42,42,36,0.02)]">
+          <div className="p-8 bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl shadow-[0_4px_30px_rgba(42,42,36,0.02)]">
             <span className="font-mono text-[11px] tracking-wider text-[var(--accent-dark)] uppercase font-bold mb-8 block">WHAT I BRING</span>
             
             <ul className="space-y-8">
