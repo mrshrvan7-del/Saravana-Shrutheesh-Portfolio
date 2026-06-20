@@ -47,7 +47,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       pathRefs.current.forEach((pathEl) => {
         if (pathEl) {
           pathEl.style.strokeDashoffset = '0';
-          pathEl.setAttribute('stroke', '#1A1A0A'); // Luxury Gold primary text
+          pathEl.setAttribute('stroke', 'var(--text-primary)'); // Wet ink color
         }
       });
 
@@ -160,8 +160,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
               {/* Ink gradient: leading wet edge fades to settled luxury charcoal ink */}
               <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1A1A0A" />
-                <stop offset="100%" stopColor="#B8A830" />
+                <stop offset="0%" stopColor="var(--text-primary)" />
+                <stop offset="100%" stopColor="var(--accent-dark)" />
               </linearGradient>
             </defs>
 
@@ -210,9 +210,9 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   cx={startPt.x}
                   cy={startPt.y}
                   r={phase === 'loading' ? 3 : 14}
-                  fill={phase === 'loading' ? '#1A1A0A' : 'rgba(212, 201, 122, 0.12)'}
+                  fill={phase === 'loading' ? 'var(--text-primary)' : 'rgba(143, 185, 150, 0.12)'}
                   style={{
-                    filter: phase === 'loading' ? 'drop-shadow(0 0 8px rgba(26, 26, 10, 0.3))' : 'none'
+                    filter: phase === 'loading' ? 'drop-shadow(0 0 8px rgba(26, 26, 22, 0.3))' : 'none'
                   }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
                 />
@@ -223,7 +223,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   cx={startPt.x}
                   cy={startPt.y}
                   r={phase === 'loading' ? 1 : 6}
-                  fill={phase === 'loading' ? 'transparent' : 'rgba(26, 26, 10, 0.18)'}
+                  fill={phase === 'loading' ? 'transparent' : 'rgba(26, 26, 22, 0.18)'}
                   style={{ transition: 'fill 150ms ease-out' }}
                 />
 
@@ -233,7 +233,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                   cx={startPt.x}
                   cy={startPt.y}
                   r={phase === 'loading' ? 3 : 2}
-                  fill="#1A1A0A"
+                  fill="var(--text-primary)"
                   transition={{ duration: 0.15, ease: 'easeOut' }}
                 />
               </motion.g>

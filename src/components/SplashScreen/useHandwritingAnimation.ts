@@ -110,7 +110,7 @@ export function useHandwritingAnimation(
       if (rawProgress >= 1) {
         if (pathEl) {
           pathEl.style.strokeDashoffset = '0';
-          pathEl.setAttribute('stroke', '#1A1A0A'); // Wet ink color (Luxury Gold primary text)
+          pathEl.setAttribute('stroke', 'var(--text-primary)'); // Wet ink color
         }
 
         const nextIndex = currentIndex + 1;

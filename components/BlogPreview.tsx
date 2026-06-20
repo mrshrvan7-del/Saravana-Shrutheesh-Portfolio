@@ -29,13 +29,13 @@ export default function BlogPreview() {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
         <div>
           <h2 className="section-heading mb-4">updates.</h2>
-          <p className="text-[15px] text-[#5A5530] max-w-xl font-medium">
+          <p className="text-[15px] text-[var(--text-muted)] max-w-xl font-medium">
             Case studies, industry analyses, and tactical reports on business intelligence and automation.
           </p>
         </div>
         <Link 
           href="/blog" 
-          className="mt-6 md:mt-0 inline-flex items-center gap-2 text-[#8A7C38] hover:text-[#73672D] font-bold text-[14px] group no-underline transition-colors"
+          className="mt-6 md:mt-0 inline-flex items-center gap-2 text-[var(--accent-dark)] hover:text-[var(--bg-accent)] font-bold text-[14px] group no-underline transition-colors"
         >
           <span>View all posts</span>
           <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -46,35 +46,35 @@ export default function BlogPreview() {
         {posts.map((post, idx) => (
           <article 
             key={post.id || idx}
-            className="flex flex-col bg-[#EDE8C4] border border-[#3D3A1A]/12 rounded-xl p-6 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md hover:border-[#3D3A1A]/25 group relative min-h-[320px] justify-between"
+            className="flex flex-col bg-[var(--bg-card)] border border-[var(--text-body)]/12 rounded-xl p-6 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md hover:border-[var(--text-body)]/25 group relative min-h-[320px] justify-between"
           >
             <div>
               {/* Category & Date Info */}
               <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#FAF7EC] bg-[#1A1A0A] px-2.5 py-1 rounded-md font-bold">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--text-cream)] bg-[var(--text-primary)] px-2.5 py-1 rounded-md font-bold">
                   {post.category}
                 </span>
-                <span className="font-mono text-[10px] text-[#5A5530] font-semibold flex items-center gap-1">
+                <span className="font-mono text-[10px] text-[var(--text-muted)] font-semibold flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {post.date}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-bold text-[20px] text-[#1A1A0A] leading-snug mb-3 group-hover:text-[#8A7C38] transition-colors">
+              <h3 className="font-display font-bold text-[20px] text-[var(--text-primary)] leading-snug mb-3 group-hover:text-[var(--accent-dark)] transition-colors">
                 <Link href={`/blog#post-${post.id}`} className="no-underline text-inherit after:absolute after:inset-0">
                   {post.title}
                 </Link>
               </h3>
 
               {/* Summary */}
-              <p className="text-[13.5px] leading-relaxed text-[#5A5530] line-clamp-3">
+              <p className="text-[13.5px] leading-relaxed text-[var(--text-muted)] line-clamp-3">
                 {post.summary}
               </p>
             </div>
 
             {/* Read action */}
-            <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#8A7C38] group-hover:text-[#1A1A0A] transition-colors mt-6">
+            <div className="flex items-center gap-1.5 text-[12px] font-bold text-[var(--accent-dark)] group-hover:text-[var(--text-primary)] transition-colors mt-6">
               <span>Read report</span>
               <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
             </div>

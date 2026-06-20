@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg-page: #F5F0D8;
-  --bg-nav: #1A1A0A;
-  --bg-card: #EDE8C4;
-  --bg-accent: #D4C97A;
-  --accent-dark: #B8A830;
-  --text-primary: #1A1A0A;
-  --text-body: #3D3A1A;
-  --text-muted: #5A5530;
-  --text-cream: #F5F0D8;
-  --border-color: rgba(61,58,26,0.12);
-  --border: rgba(61, 58, 26, 0.15);
-  --dot-bullet: #1A1A0A;
+  --bg-page: #F6F4EC;
+  --bg-nav: #2A2A24;
+  --bg-card: #FFFFFF;
+  --bg-accent: #8FB996;
+  --accent-dark: #6B8E7F;
+  --text-primary: #1A1A16;
+  --text-body: #2A2A24;
+  --text-muted: #6B7280;
+  --text-cream: #F6F4EC;
+  --border-color: rgba(26, 26, 22, 0.12);
+  --border: rgba(26, 26, 22, 0.15);
+  --dot-bullet: #1A1A16;
   --font-display: var(--font-playfair);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains);
@@ -335,8 +335,8 @@
 
 /* Highlight styling for python/SQL (Technical Familiarity) card to match the editorial style */
 .bento-item-manageable {
-  background: linear-gradient(135deg, var(--bg-card) 0%, #E6DFB3 100%);
-  border: 1px solid rgba(166, 155, 86, 0.28);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #D8EADF 100%);
+  border: 1px solid rgba(107, 142, 127, 0.28);
 }
 
 .bento-item-manageable .bento-title {

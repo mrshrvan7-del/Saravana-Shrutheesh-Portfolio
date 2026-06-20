@@ -7,11 +7,11 @@ import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail } from '
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 md:py-32 bg-gradient-to-b from-[#FBF9F2] via-[#FAF8F0] to-[#F5F0D8]">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 md:py-32 bg-[var(--bg-page)]">
       
       {/* Concentric topography circles / background graphic */}
       <div className="absolute right-0 bottom-0 pointer-events-none opacity-20 select-none z-0">
-        <svg className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] text-[#1A1A0A] transform translate-x-20 translate-y-20" viewBox="0 0 400 400" fill="none" stroke="currentColor">
+        <svg className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] text-[var(--text-primary)] transform translate-x-20 translate-y-20" viewBox="0 0 400 400" fill="none" stroke="currentColor">
           <circle cx="200" cy="200" r="180" strokeWidth="1.5" strokeDasharray="4 4" />
           <circle cx="200" cy="200" r="140" strokeWidth="1" />
           <circle cx="200" cy="200" r="100" strokeWidth="1" strokeDasharray="6 6" />
@@ -31,37 +31,37 @@ export default function Hero() {
             className="flex-1 flex flex-col items-start w-full text-left"
           >
             {/* Sub-header */}
-            <p className="text-[15px] font-sans font-medium text-[#5A5530] mb-4">
-              Hey, I&apos;m <span className="font-bold text-[#1A1A0A]">Saravana Shrutheesh M</span> 👋
+            <p className="text-[15px] font-sans font-medium text-[var(--text-muted)] mb-4">
+              Hey, I&apos;m <span className="font-bold text-[var(--text-primary)]">Saravana Shrutheesh M</span> 👋
             </p>
 
             {/* Primary Title */}
-            <h1 className="font-display font-extrabold text-[46px] sm:text-[56px] md:text-[68px] text-[#1A1A0A] leading-[1.08] tracking-tight mb-6">
+            <h1 className="font-display font-extrabold text-[46px] sm:text-[56px] md:text-[68px] text-[var(--text-primary)] leading-[1.08] tracking-tight mb-6">
               <span className="block">Results-Driven</span>
-              <span className="block text-[#8A7C38] my-1">Operations</span>
-              <span className="block">Analyst<span className="text-[#8A7C38]">.</span></span>
+              <span className="block text-[var(--accent-dark)] my-1">Operations</span>
+              <span className="block">Analyst<span className="text-[var(--accent-dark)]">.</span></span>
             </h1>
 
             {/* Badges row */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text.5 font-bold text-[#5A5530] tracking-wider uppercase mb-8 text-[11px]">
-              <div className="flex items-center gap-1.5 bg-[#1A1A0A]/5 px-3 py-1.5 rounded-md">
-                <Briefcase className="w-3.5 h-3.5 text-[#8A7C38]" />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-bold text-[var(--text-muted)] tracking-wider uppercase mb-8 text-[11px]">
+              <div className="flex items-center gap-1.5 bg-[var(--text-primary)]/5 px-3 py-1.5 rounded-md">
+                <Briefcase className="w-3.5 h-3.5 text-[var(--accent-dark)]" />
                 <span>1.8 YRS EXP</span>
               </div>
-              <div className="w-[1px] h-3 bg-[#3D3A1A]/20 hidden sm:block" />
-              <div className="flex items-center gap-1.5 bg-[#1A1A0A]/5 px-3 py-1.5 rounded-md">
-                <Building2 className="w-3.5 h-3.5 text-[#8A7C38]" />
+              <div className="w-[1px] h-3 bg-[var(--text-body)]/20 hidden sm:block" />
+              <div className="flex items-center gap-1.5 bg-[var(--text-primary)]/5 px-3 py-1.5 rounded-md">
+                <Building2 className="w-3.5 h-3.5 text-[var(--accent-dark)]" />
                 <span>FORTUNE 1 COMPANIES</span>
               </div>
-              <div className="w-[1px] h-3 bg-[#3D3A1A]/20 hidden sm:block" />
-              <div className="flex items-center gap-1.5 bg-[#1A1A0A]/5 px-3 py-1.5 rounded-md">
-                <Globe className="w-3.5 h-3.5 text-[#8A7C38]" />
+              <div className="w-[1px] h-3 bg-[var(--text-body)]/20 hidden sm:block" />
+              <div className="flex items-center gap-1.5 bg-[var(--text-primary)]/5 px-3 py-1.5 rounded-md">
+                <Globe className="w-3.5 h-3.5 text-[var(--accent-dark)]" />
                 <span>GLOBAL IMPACT</span>
               </div>
             </div>
 
             {/* Core Narrative */}
-            <p className="text-[15px] sm:text-[16px] leading-relaxed text-[#3D3A1A] max-w-xl mb-8">
+            <p className="text-[15px] sm:text-[16px] leading-relaxed text-[var(--text-body)] max-w-xl mb-8">
               I specialize in root cause analysis, process optimization, and data-driven intelligence&mdash;bridging technical insights with business strategies to build resilient, scalable business systems.
             </p>
 
@@ -69,15 +69,16 @@ export default function Hero() {
             <div className="flex flex-wrap items-center gap-4">
               <a 
                 href="#work" 
-                className="bg-[#8A7C38] hover:bg-[#73672D] text-[#FAF7EC] font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target"
+                className="text-[var(--text-cream)] font-semibold px-8 py-3.5 rounded-full transition-opacity hover:opacity-90 text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target"
+                style={{ background: 'linear-gradient(135deg, #6B8E7F 0%, #8FB996 50%, #A8C9B3 100%)' }}
               >
                 See my work <span className="font-sans text-[15px]">→</span>
               </a>
               <Link 
                 href="/blog" 
-                className="bg-white hover:bg-[#FAF7EC] text-[#1A1A0A] border border-[#3D3A1A]/15 font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target no-underline"
+                className="bg-white hover:bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--text-body)]/15 font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target no-underline"
               >
-                Read Blog <TrendingUp className="w-4 h-4 text-[#1A1A0A]/70" />
+                Read Blog <TrendingUp className="w-4 h-4 text-[var(--text-primary)]/70" />
               </Link>
             </div>
 
@@ -93,37 +94,37 @@ export default function Hero() {
             {/* Dot grid decoration top-right */}
             <div className="absolute -top-6 -right-6 pointer-events-none select-none z-0 hidden sm:block">
               <svg width="60" height="120" viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="10" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="10" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="10" cy="30" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="30" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="30" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="10" cy="50" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="50" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="50" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="10" cy="70" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="70" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="70" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="10" cy="90" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="90" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="90" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="10" cy="110" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="30" cy="110" r="2" fill="#8A7C38" opacity="0.6"/>
-                <circle cx="50" cy="110" r="2" fill="#8A7C38" opacity="0.6"/>
+                <circle cx="10" cy="10" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="10" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="10" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="10" cy="30" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="30" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="30" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="10" cy="50" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="50" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="50" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="10" cy="70" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="70" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="70" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="10" cy="90" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="90" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="90" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="10" cy="110" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="30" cy="110" r="2" fill="var(--accent-dark)" opacity="0.6"/>
+                <circle cx="50" cy="110" r="2" fill="var(--accent-dark)" opacity="0.6"/>
               </svg>
             </div>
 
             {/* Double border circles */}
             {/* Outer dotted gold circle */}
-            <div className="absolute inset-[-8px] rounded-full border-2 border-dashed border-[#8A7C38]/40 animate-[spin_60s_linear_infinite] z-0" />
+            <div className="absolute inset-[-8px] rounded-full border-2 border-dashed border-[var(--accent-dark)]/40 animate-[spin_60s_linear_infinite] z-0" />
             {/* Inner solid gold circle */}
-            <div className="absolute inset-0 rounded-full border border-[#8A7C38] z-0" />
+            <div className="absolute inset-0 rounded-full border border-[var(--accent-dark)] z-0" />
             {/* Inner fill circle */}
-            <div className="absolute inset-[8px] bg-gradient-to-tr from-[#EDE8C4]/40 to-[#F5F2E6]/10 rounded-full z-10" />
+            <div className="absolute inset-[8px] bg-gradient-to-tr from-[var(--bg-card)]/40 to-[var(--bg-page)]/10 rounded-full z-10" />
 
             {/* Portrait Image */}
-            <div className="absolute inset-[10px] flex items-end justify-center z-20 overflow-hidden rounded-full bg-[#1A1A0A]/5">
+            <div className="absolute inset-[10px] flex items-end justify-center z-20 overflow-hidden rounded-full bg-[var(--text-primary)]/5">
               <Image 
                 src="/profile.png" 
                 alt="Saravana Shrutheesh" 
@@ -135,13 +136,13 @@ export default function Hero() {
             </div>
 
             {/* Floating Status Badge Card */}
-            <div className="absolute bottom-[5%] right-[-10%] sm:right-[-5%] md:right-[-2%] bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-[#3D3A1A]/10 shadow-lg flex items-center gap-3 z-30">
-              <div className="w-10 h-10 rounded-xl bg-[#8A7C38] flex items-center justify-center text-white shrink-0">
+            <div className="absolute bottom-[5%] right-[-10%] sm:right-[-5%] md:right-[-2%] bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-[var(--text-body)]/10 shadow-lg flex items-center gap-3 z-30">
+              <div className="w-10 h-10 rounded-xl bg-[var(--accent-dark)] flex items-center justify-center text-white shrink-0">
                 <TrendingUp className="w-5 h-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[12px] font-bold text-[#1A1A0A] leading-tight">Operations • Analytics • AI</span>
-                <span className="text-[10px] text-[#5A5530] font-medium mt-0.5">Turning Data Into Impact</span>
+                <span className="text-[12px] font-bold text-[var(--text-primary)] leading-tight">Operations • Analytics • AI</span>
+                <span className="text-[10px] text-[var(--text-muted)] font-medium mt-0.5">Turning Data Into Impact</span>
               </div>
             </div>
 

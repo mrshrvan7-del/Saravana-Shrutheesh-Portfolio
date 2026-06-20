@@ -141,28 +141,28 @@ export default function BlogPage() {
     <>
       <Nav />
 
-      <main className="min-h-screen bg-[#F5F0D8] pt-32 pb-24">
+      <main className="min-h-screen bg-[var(--bg-page)] pt-32 pb-24">
         <div className="section-container">
           
           {/* Header */}
           <div className="mb-12">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-1.5 text-[#5A5530] hover:text-[#1A1A0A] font-bold text-[13px] no-underline mb-6 transition-colors"
+              className="inline-flex items-center gap-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold text-[13px] no-underline mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Home</span>
             </Link>
-            <h1 className="font-display font-extrabold text-[44px] md:text-[56px] text-[#1A1A0A] leading-tight mb-4">
-              reports &amp; projects<span className="text-[#8A7C38]">.</span>
+            <h1 className="font-display font-extrabold text-[44px] md:text-[56px] text-[var(--text-primary)] leading-tight mb-4">
+              reports &amp; projects<span className="text-[var(--accent-dark)]">.</span>
             </h1>
-            <p className="text-[16px] text-[#5A5530] max-w-2xl font-medium leading-relaxed">
+            <p className="text-[16px] text-[var(--text-muted)] max-w-2xl font-medium leading-relaxed">
               Technical documentations, operational analyses, and supply-chain optimizations. Composed as executive-ready reports.
             </p>
           </div>
 
           {/* Controls Bar: Category Filters & Creator Actions */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#3D3A1A]/12 pb-6 mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--text-body)]/12 pb-6 mb-12">
             {/* Categories */}
             <div className="flex flex-wrap items-center gap-2">
               {categories.map(cat => (
@@ -171,8 +171,8 @@ export default function BlogPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-5 py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     selectedCategory === cat 
-                      ? 'bg-[#1A1A0A] text-[#FAF7EC] shadow-sm'
-                      : 'bg-[#EDE8C4] hover:bg-[#EAE4B8] text-[#5A5530] hover:text-[#1A1A0A] border border-[#3D3A1A]/10'
+                      ? 'bg-[var(--text-primary)] text-[var(--text-cream)] shadow-sm'
+                      : 'bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--text-body)]/10'
                   }`}
                 >
                   {cat}
@@ -186,14 +186,14 @@ export default function BlogPage() {
                 <>
                   <button
                     onClick={() => setShowCreatorModal(true)}
-                    className="px-5 py-2.5 bg-[#8A7C38] hover:bg-[#73672D] text-[#FAF7EC] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                    className="px-5 py-2.5 bg-[var(--accent-dark)] hover:bg-[var(--bg-accent)] text-[var(--text-cream)] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Create Post</span>
                   </button>
                   <button
                     onClick={handleExportDatabase}
-                    className="px-5 py-2.5 bg-[#1A1A0A] hover:bg-[#3D3A1A] text-[#FAF7EC] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                    className="px-5 py-2.5 bg-[var(--text-primary)] hover:bg-[var(--text-body)] text-[var(--text-cream)] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
                     title="Export all posts to updates posts.json"
                   >
                     <Download className="w-4 h-4" />
@@ -201,7 +201,7 @@ export default function BlogPage() {
                   </button>
                   <button
                     onClick={() => setIsAdmin(false)}
-                    className="p-2.5 bg-[#EDE8C4] hover:bg-[#EAE4B8] text-[#5A5530] rounded-full border border-[#3D3A1A]/10 cursor-pointer"
+                    className="p-2.5 bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] rounded-full border border-[var(--text-body)]/10 cursor-pointer"
                     title="Lock Admin Mode"
                   >
                     <Unlock className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function BlogPage() {
                     setAdminPasscode('');
                     setErrorMsg('');
                   }}
-                  className="px-5 py-2.5 bg-[#EDE8C4] hover:bg-[#EAE4B8] text-[#5A5530] hover:text-[#1A1A0A] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider border border-[#3D3A1A]/10 flex items-center gap-1.5 transition-all cursor-pointer"
+                  className="px-5 py-2.5 bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider border border-[var(--text-body)]/10 flex items-center gap-1.5 transition-all cursor-pointer"
                 >
                   <Lock className="w-3.5 h-3.5" />
                   <span>Admin Panel</span>
@@ -225,10 +225,10 @@ export default function BlogPage() {
 
           {/* Blog posts list */}
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-20 bg-[#EDE8C4]/40 rounded-xl border border-dashed border-[#3D3A1A]/15">
-              <AlertCircle className="w-10 h-10 text-[#5A5530] mx-auto mb-3 opacity-60" />
-              <p className="font-display text-[18px] font-semibold text-[#1A1A0A] mb-1">No reports found</p>
-              <p className="text-[13px] text-[#5A5530]">Try switching categories or create a new post in the Admin Panel.</p>
+            <div className="text-center py-20 bg-[var(--bg-card)]/40 rounded-xl border border-dashed border-[var(--text-body)]/15">
+              <AlertCircle className="w-10 h-10 text-[var(--text-muted)] mx-auto mb-3 opacity-60" />
+              <p className="font-display text-[18px] font-semibold text-[var(--text-primary)] mb-1">No reports found</p>
+              <p className="text-[13px] text-[var(--text-muted)]">Try switching categories or create a new post in the Admin Panel.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -238,16 +238,16 @@ export default function BlogPage() {
                   <article
                     key={post.id}
                     id={`post-${post.id}`}
-                    className="flex flex-col justify-between bg-[#EDE8C4] border border-[#3D3A1A]/12 rounded-xl p-6 hover:shadow-md hover:border-[#3D3A1A]/25 transition-all duration-300 relative group min-h-[340px]"
+                    className="flex flex-col justify-between bg-[var(--bg-card)] border border-[var(--text-body)]/12 rounded-xl p-6 hover:shadow-md hover:border-[var(--text-body)]/25 transition-all duration-300 relative group min-h-[340px]"
                   >
                     <div>
                       {/* Meta header */}
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-[#FAF7EC] bg-[#1A1A0A] px-2.5 py-1 rounded-md font-bold">
+                        <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--text-cream)] bg-[var(--text-primary)] px-2.5 py-1 rounded-md font-bold">
                           {post.category}
                         </span>
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-[10px] text-[#5A5530] font-semibold flex items-center gap-1">
+                          <span className="font-mono text-[10px] text-[var(--text-muted)] font-semibold flex items-center gap-1">
                             <Clock className="w-3 h-3" />
                             {post.date}
                           </span>
@@ -269,13 +269,13 @@ export default function BlogPage() {
                       {/* Title */}
                       <h3 
                         onClick={() => setSelectedPost(post)}
-                        className="font-display font-extrabold text-[22px] text-[#1A1A0A] leading-snug mb-3 cursor-pointer hover:text-[#8A7C38] transition-colors"
+                        className="font-display font-extrabold text-[22px] text-[var(--text-primary)] leading-snug mb-3 cursor-pointer hover:text-[var(--accent-dark)] transition-colors"
                       >
                         {post.title}
                       </h3>
 
                       {/* Summary */}
-                      <p className="text-[13.5px] leading-relaxed text-[#5A5530] line-clamp-4">
+                      <p className="text-[13.5px] leading-relaxed text-[var(--text-muted)] line-clamp-4">
                         {post.summary}
                       </p>
                     </div>
@@ -284,7 +284,7 @@ export default function BlogPage() {
                     <div className="mt-6">
                       <div className="flex flex-wrap gap-1.5 mb-4">
                         {post.tags?.map((tag: string) => (
-                          <span key={tag} className="font-mono text-[9px] text-[#5A5530] bg-[#1A1A0A]/5 px-2 py-0.5 rounded font-semibold">
+                          <span key={tag} className="font-mono text-[9px] text-[var(--text-muted)] bg-[var(--text-primary)]/5 px-2 py-0.5 rounded font-semibold">
                             #{tag}
                           </span>
                         ))}
@@ -292,7 +292,7 @@ export default function BlogPage() {
 
                       <button
                         onClick={() => setSelectedPost(post)}
-                        className="text-[12px] font-bold text-[#8A7C38] hover:text-[#1A1A0A] flex items-center gap-1 bg-transparent border-none p-0 cursor-pointer transition-colors"
+                        className="text-[12px] font-bold text-[var(--accent-dark)] hover:text-[var(--text-primary)] flex items-center gap-1 bg-transparent border-none p-0 cursor-pointer transition-colors"
                       >
                         <span>View report details</span>
                         <Eye className="w-3.5 h-3.5" />
@@ -312,17 +312,17 @@ export default function BlogPage() {
       {/* ----------------- ADMIN PASSCODE MODAL ----------------- */}
       {showAdminLogin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-[#F5F0D8] border border-[#3D3A1A]/20 rounded-xl p-6 max-w-sm w-full shadow-lg relative">
+          <div className="bg-[var(--bg-page)] border border-[var(--text-body)]/20 rounded-xl p-6 max-w-sm w-full shadow-lg relative">
             <button 
               onClick={() => setShowAdminLogin(false)}
-              className="absolute top-4 right-4 text-[#5A5530] hover:text-[#1A1A0A] cursor-pointer"
+              className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
             <div className="text-center mb-6">
-              <Lock className="w-8 h-8 text-[#8A7C38] mx-auto mb-2" />
-              <h3 className="font-display font-extrabold text-[20px] text-[#1A1A0A]">Admin Unlock</h3>
-              <p className="text-[12px] text-[#5A5530] mt-1">Provide passcode to unlock content creator dashboard.</p>
+              <Lock className="w-8 h-8 text-[var(--accent-dark)] mx-auto mb-2" />
+              <h3 className="font-display font-extrabold text-[20px] text-[var(--text-primary)]">Admin Unlock</h3>
+              <p className="text-[12px] text-[var(--text-muted)] mt-1">Provide passcode to unlock content creator dashboard.</p>
             </div>
             
             <form onSubmit={handleAdminLogin} className="flex flex-col gap-4">
@@ -332,7 +332,7 @@ export default function BlogPage() {
                   placeholder="Passcode (e.g. saravana)"
                   value={adminPasscode}
                   onChange={(e) => setAdminPasscode(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13px] text-[#1A1A0A] placeholder-[#5A5530]/60 focus:outline-none focus:border-[#8A7C38]"
+                  className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/60 focus:outline-none focus:border-[var(--accent-dark)]"
                   autoFocus
                 />
                 {errorMsg && <p className="text-[11px] text-red-700 font-semibold mt-1 flex items-center gap-1">⚠️ {errorMsg}</p>}
@@ -340,7 +340,7 @@ export default function BlogPage() {
               
               <button 
                 type="submit"
-                className="w-full py-2.5 bg-[#1A1A0A] hover:bg-[#8A7C38] text-[#FAF7EC] font-mono text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+                className="w-full py-2.5 bg-[var(--text-primary)] hover:bg-[var(--accent-dark)] text-[var(--text-cream)] font-mono text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
               >
                 Unlock Dashboard
               </button>
@@ -352,44 +352,44 @@ export default function BlogPage() {
       {/* ----------------- COMPOSER / CREATOR MODAL ----------------- */}
       {showCreatorModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-[#F5F0D8] border border-[#3D3A1A]/20 rounded-xl p-8 max-w-2xl w-full shadow-lg relative my-8 max-h-[90vh] overflow-y-auto">
+          <div className="bg-[var(--bg-page)] border border-[var(--text-body)]/20 rounded-xl p-8 max-w-2xl w-full shadow-lg relative my-8 max-h-[90vh] overflow-y-auto">
             <button 
               onClick={() => setShowCreatorModal(false)}
-              className="absolute top-4 right-4 text-[#5A5530] hover:text-[#1A1A0A] cursor-pointer"
+              className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
             
             <div className="mb-6">
-              <h3 className="font-display font-extrabold text-[24px] text-[#1A1A0A] flex items-center gap-2">
-                <FileText className="w-6 h-6 text-[#8A7C38]" />
+              <h3 className="font-display font-extrabold text-[24px] text-[var(--text-primary)] flex items-center gap-2">
+                <FileText className="w-6 h-6 text-[var(--accent-dark)]" />
                 Compose New Report
               </h3>
-              <p className="text-[12px] text-[#5A5530] mt-1">Compose case studies or log projects. Save locally to review, then export JSON to embed permanently.</p>
+              <p className="text-[12px] text-[var(--text-muted)] mt-1">Compose case studies or log projects. Save locally to review, then export JSON to embed permanently.</p>
             </div>
 
             <form onSubmit={handleCreatePost} className="flex flex-col gap-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Title */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Report Title *</label>
+                  <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Report Title *</label>
                   <input 
                     type="text"
                     required
                     placeholder="e.g. Optimizing Picker Travel Times"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13px] text-[#1A1A0A] placeholder-[#5A5530]/50 focus:outline-none focus:border-[#8A7C38]"
+                    className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--accent-dark)]"
                   />
                 </div>
                 
                 {/* Category */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Category</label>
+                  <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Category</label>
                   <select 
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13px] text-[#1A1A0A] focus:outline-none focus:border-[#8A7C38]"
+                    className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-dark)]"
                   >
                     <option value="Operations">Operations</option>
                     <option value="Analytics">Analytics</option>
@@ -401,66 +401,66 @@ export default function BlogPage() {
 
               {/* Summary */}
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Executive Summary *</label>
+                <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Executive Summary *</label>
                 <input 
                   type="text"
                   required
                   placeholder="One-sentence description of challenge and outcomes..."
                   value={newSummary}
                   onChange={(e) => setNewSummary(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13px] text-[#1A1A0A] placeholder-[#5A5530]/50 focus:outline-none focus:border-[#8A7C38]"
+                  className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--accent-dark)]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Tags */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Tags (comma-separated)</label>
+                  <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Tags (comma-separated)</label>
                   <input 
                     type="text"
                     placeholder="e.g. SQL, Power BI, Automation"
                     value={newTags}
                     onChange={(e) => setNewTags(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13px] text-[#1A1A0A] placeholder-[#5A5530]/50 focus:outline-none focus:border-[#8A7C38]"
+                    className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--accent-dark)]"
                   />
                 </div>
 
                 {/* Cover Image */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Cover Image (Optional)</label>
+                  <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Cover Image (Optional)</label>
                   <input 
                     type="file"
                     accept="image/*"
                     onChange={handleImageUpload}
-                    className="w-full text-[12px] text-[#5A5530] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[11px] file:font-bold file:bg-[#1A1A0A]/10 file:text-[#1A1A0A] hover:file:bg-[#1A1A0A]/20 file:cursor-pointer"
+                    className="w-full text-[12px] text-[var(--text-muted)] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[11px] file:font-bold file:bg-[var(--text-primary)]/10 file:text-[var(--text-primary)] hover:file:bg-[var(--text-primary)]/20 file:cursor-pointer"
                   />
                 </div>
               </div>
 
               {/* Content */}
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[10px] font-bold text-[#5A5530] uppercase">Full Report Content (Markdown supported) *</label>
+                <label className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">Full Report Content (Markdown supported) *</label>
                 <textarea 
                   required
                   rows={8}
                   placeholder="### Challenge&#10;Describe bottleneck here...&#10;&#10;### SQL Query / Logic&#10;```sql&#10;SELECT...&#10;```&#10;&#10;### Business Outcome&#10;- Metric 1..."
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#EDE8C4] border border-[#3D3A1A]/15 rounded-lg text-[13.5px] text-[#1A1A0A] placeholder-[#5A5530]/50 focus:outline-none focus:border-[#8A7C38] font-mono leading-relaxed resize-y"
+                  className="w-full px-4 py-3 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13.5px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--accent-dark)] font-mono leading-relaxed resize-y"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#3D3A1A]/12">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--text-body)]/12">
                 <button
                   type="button"
                   onClick={() => setShowCreatorModal(false)}
-                  className="px-5 py-2.5 bg-[#EDE8C4] hover:bg-[#EAE4B8] text-[#5A5530] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider border border-[#3D3A1A]/10 cursor-pointer"
+                  className="px-5 py-2.5 bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider border border-[var(--text-body)]/10 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-[#8A7C38] hover:bg-[#73672D] text-[#FAF7EC] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+                  className="px-6 py-2.5 bg-[var(--accent-dark)] hover:bg-[var(--bg-accent)] text-[var(--text-cream)] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
                 >
                   Save Post
                 </button>
@@ -473,50 +473,50 @@ export default function BlogPage() {
       {/* ----------------- FULL POST DETAILS DIALOG ----------------- */}
       {selectedPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-[#F5F0D8] border border-[#3D3A1A]/20 rounded-xl p-8 max-w-3xl w-full shadow-lg relative my-8 max-h-[90vh] overflow-y-auto animate-[scaleIn_0.2s_ease-out]">
+          <div className="bg-[var(--bg-page)] border border-[var(--text-body)]/20 rounded-xl p-8 max-w-3xl w-full shadow-lg relative my-8 max-h-[90vh] overflow-y-auto animate-[scaleIn_0.2s_ease-out]">
             {/* Close Button */}
             <button 
               onClick={() => setSelectedPost(null)}
-              className="absolute top-5 right-5 p-2 bg-[#EDE8C4] hover:bg-[#EAE4B8] text-[#5A5530] hover:text-[#1A1A0A] rounded-full border border-[#3D3A1A]/10 cursor-pointer transition-colors"
+              className="absolute top-5 right-5 p-2 bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-full border border-[var(--text-body)]/10 cursor-pointer transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Post Category & Date */}
             <div className="flex items-center gap-3 mb-4 mt-2">
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[#FAF7EC] bg-[#1A1A0A] px-2.5 py-1 rounded-md font-bold">
+              <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--text-cream)] bg-[var(--text-primary)] px-2.5 py-1 rounded-md font-bold">
                 {selectedPost.category}
               </span>
-              <span className="font-mono text-[11px] text-[#5A5530] font-semibold flex items-center gap-1">
+              <span className="font-mono text-[11px] text-[var(--text-muted)] font-semibold flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5" />
                 {selectedPost.date}
               </span>
             </div>
 
             {/* Post Title */}
-            <h2 className="font-display font-extrabold text-[28px] md:text-[36px] text-[#1A1A0A] leading-tight mb-4">
+            <h2 className="font-display font-extrabold text-[28px] md:text-[36px] text-[var(--text-primary)] leading-tight mb-4">
               {selectedPost.title}
             </h2>
 
             {/* Post Tags */}
             <div className="flex flex-wrap gap-1.5 mb-6">
               {selectedPost.tags?.map((tag: string) => (
-                <span key={tag} className="font-mono text-[9px] text-[#5A5530] bg-[#1A1A0A]/5 px-2 py-0.5 rounded font-semibold">
+                <span key={tag} className="font-mono text-[9px] text-[var(--text-muted)] bg-[var(--text-primary)]/5 px-2 py-0.5 rounded font-semibold">
                   #{tag}
                 </span>
               ))}
             </div>
 
             {/* Post Summary */}
-            <div className="p-4 bg-[#EDE8C4] border-l-4 border-[#8A7C38] rounded-r-lg mb-8">
-              <p className="font-sans italic text-[14px] leading-relaxed text-[#3D3A1A] font-medium">
+            <div className="p-4 bg-[var(--bg-card)] border-l-4 border-[var(--accent-dark)] rounded-r-lg mb-8">
+              <p className="font-sans italic text-[14px] leading-relaxed text-[var(--text-body)] font-medium">
                 <strong>Executive Summary:</strong> {selectedPost.summary}
               </p>
             </div>
 
             {/* Base64 Cover image if present */}
             {selectedPost.image && (
-              <div className="w-full h-[240px] md:h-[320px] rounded-lg overflow-hidden mb-8 bg-[#1A1A0A]/5 border border-[#3D3A1A]/10">
+              <div className="w-full h-[240px] md:h-[320px] rounded-lg overflow-hidden mb-8 bg-[var(--text-primary)]/5 border border-[var(--text-body)]/10">
                 <img 
                   src={selectedPost.image} 
                   alt={selectedPost.title} 
@@ -526,25 +526,25 @@ export default function BlogPage() {
             )}
 
             {/* Markdown Body Content - rendered with basic HTML formatting rules */}
-            <div className="prose prose-stone max-w-none text-[#3D3A1A] text-[14.5px] leading-relaxed font-sans mt-4 border-t border-[#3D3A1A]/12 pt-6">
+            <div className="prose prose-stone max-w-none text-[var(--text-body)] text-[14.5px] leading-relaxed font-sans mt-4 border-t border-[var(--text-body)]/12 pt-6">
               {selectedPost.content.split('\n').map((paragraph: string, idx: number) => {
                 const trimmed = paragraph.trim();
                 
                 // Headings
                 if (trimmed.startsWith('### ')) {
-                  return <h4 key={idx} className="font-display font-bold text-[19px] text-[#1A1A0A] mt-6 mb-3">{trimmed.replace('### ', '')}</h4>;
+                  return <h4 key={idx} className="font-display font-bold text-[19px] text-[var(--text-primary)] mt-6 mb-3">{trimmed.replace('### ', '')}</h4>;
                 }
                 if (trimmed.startsWith('## ')) {
-                  return <h3 key={idx} className="font-display font-bold text-[22px] text-[#1A1A0A] mt-8 mb-4">{trimmed.replace('## ', '')}</h3>;
+                  return <h3 key={idx} className="font-display font-bold text-[22px] text-[var(--text-primary)] mt-8 mb-4">{trimmed.replace('## ', '')}</h3>;
                 }
                 if (trimmed.startsWith('# ')) {
-                  return <h2 key={idx} className="font-display font-bold text-[26px] text-[#1A1A0A] mt-10 mb-4">{trimmed.replace('# ', '')}</h2>;
+                  return <h2 key={idx} className="font-display font-bold text-[26px] text-[var(--text-primary)] mt-10 mb-4">{trimmed.replace('# ', '')}</h2>;
                 }
 
                 // Bullets
                 if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
                   return (
-                    <ul key={idx} className="list-disc list-inside ml-4 mb-2 text-[#3D3A1A]">
+                    <ul key={idx} className="list-disc list-inside ml-4 mb-2 text-[var(--text-body)]">
                       <li>{trimmed.substring(2)}</li>
                     </ul>
                   );
@@ -558,7 +558,7 @@ export default function BlogPage() {
                 // Inline code formatting (simplified)
                 if (trimmed.startsWith('SELECT') || trimmed.startsWith('JOIN') || trimmed.startsWith('GROUP BY') || trimmed.startsWith('if ') || trimmed.startsWith('slack.')) {
                   return (
-                    <pre key={idx} className="bg-[#1A1A0A] text-[#FAF7EC] p-4 rounded-lg font-mono text-[12px] overflow-x-auto leading-relaxed my-4">
+                    <pre key={idx} className="bg-[var(--text-primary)] text-[var(--text-cream)] p-4 rounded-lg font-mono text-[12px] overflow-x-auto leading-relaxed my-4">
                       <code>{paragraph}</code>
                     </pre>
                   );
@@ -600,10 +600,10 @@ export default function BlogPage() {
             </div>
 
             {/* Dialog Action Footer */}
-            <div className="flex items-center justify-end gap-3 mt-12 pt-6 border-t border-[#3D3A1A]/12">
+            <div className="flex items-center justify-end gap-3 mt-12 pt-6 border-t border-[var(--text-body)]/12">
               <button
                 onClick={() => setSelectedPost(null)}
-                className="px-6 py-2.5 bg-[#1A1A0A] hover:bg-[#8A7C38] text-[#FAF7EC] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                className="px-6 py-2.5 bg-[var(--text-primary)] hover:bg-[var(--accent-dark)] text-[var(--text-cream)] rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
                 Close Report
               </button>

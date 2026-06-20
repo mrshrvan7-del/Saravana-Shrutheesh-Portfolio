@@ -4,20 +4,20 @@ import { Mail, FileText } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A1A0A] text-[#F5F0D8]/60 py-12 border-t border-[#3D3A1A]/20">
+    <footer className="bg-[var(--bg-nav)] text-[var(--text-cream)]/60 py-12 border-t border-[var(--text-body)]/20">
       <div className="section-container flex flex-col gap-8">
         
         {/* Top Section with Quick Contact Links */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b border-[#F5F0D8]/10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b border-[var(--text-cream)]/10">
           <div className="flex flex-col">
-            <span className="font-display font-extrabold text-[22px] text-[#FAF7EC]">Let&apos;s Connect</span>
-            <span className="text-[13px] text-[#F5F0D8]/50 mt-1">Bengaluru, India · Open for Relocation</span>
+            <span className="font-display font-extrabold text-[22px] text-[var(--text-cream)]">Let&apos;s Connect</span>
+            <span className="text-[13px] text-[var(--text-cream)]/50 mt-1">Bengaluru, India · Open for Relocation</span>
           </div>
           
           <div className="flex flex-wrap items-center gap-4">
             <a 
               href="mailto:Saravanashrutheesh@gmail.com"
-              className="flex items-center gap-2 px-4 py-2 bg-[#FAF7EC]/5 hover:bg-[#FAF7EC]/10 text-[#FAF7EC] rounded-full text-[13px] font-semibold transition-all border border-[#F5F0D8]/10 no-underline"
+              className="flex items-center gap-2 px-4 py-2 bg-[var(--text-cream)]/5 hover:bg-[var(--text-cream)]/10 text-[var(--text-cream)] rounded-full text-[13px] font-semibold transition-all border border-[var(--text-cream)]/10 no-underline"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Email</span>
@@ -27,7 +27,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/saravana-shrutheesh-m-001402344"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-[#FAF7EC]/5 hover:bg-[#FAF7EC]/10 text-[#FAF7EC] rounded-full text-[13px] font-semibold transition-all border border-[#F5F0D8]/10 no-underline"
+              className="flex items-center gap-2 px-4 py-2 bg-[var(--text-cream)]/5 hover:bg-[var(--text-cream)]/10 text-[var(--text-cream)] rounded-full text-[13px] font-semibold transition-all border border-[var(--text-cream)]/10 no-underline"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -41,7 +41,7 @@ export default function Footer() {
               href="https://github.com/mrshrvan7-del"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-[#FAF7EC]/5 hover:bg-[#FAF7EC]/10 text-[#FAF7EC] rounded-full text-[13px] font-semibold transition-all border border-[#F5F0D8]/10 no-underline"
+              className="flex items-center gap-2 px-4 py-2 bg-[var(--text-cream)]/5 hover:bg-[var(--text-cream)]/10 text-[var(--text-cream)] rounded-full text-[13px] font-semibold transition-all border border-[var(--text-cream)]/10 no-underline"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -53,7 +53,7 @@ export default function Footer() {
             <a 
               href="/Saravana_Shrutheesh_CV.pdf"
               download="Saravana_Shrutheesh_CV.pdf"
-              className="flex items-center gap-2 px-4 py-2 bg-[#8A7C38] hover:bg-[#73672D] text-[#FAF7EC] rounded-full text-[13px] font-semibold transition-all shadow-sm no-underline"
+              className="flex items-center gap-2 px-4 py-2 bg-[var(--accent-dark)] hover:bg-[var(--bg-accent)] text-[var(--text-cream)] rounded-full text-[13px] font-semibold transition-all shadow-sm no-underline"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Resume</span>
@@ -64,7 +64,7 @@ export default function Footer() {
         {/* Bottom copyright notice */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] opacity-70">
           <p>© 2026 Saravana Shrutheesh. All rights reserved.</p>
-          <div className="flex flex-col items-center md:items-end gap-1 text-[#F5F0D8]/40">
+          <div className="flex flex-col items-center md:items-end gap-1 text-[var(--text-cream)]/40">
             <p>Built with intent. Open to opportunities.</p>
             <p className="font-mono text-[10px] tracking-wider italic">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>
           </div>

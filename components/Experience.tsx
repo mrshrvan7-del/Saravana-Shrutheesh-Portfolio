@@ -50,7 +50,7 @@ export default function Experience() {
                   href="https://github.com/mrshrvan7-del/Ai-Call-Auditor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline text-[#8A7C38] font-bold"
+                  className="hover:underline text-[var(--accent-dark)] font-bold"
                   style={{ textDecoration: 'underline' }}
                 >
                   Ai-Call-Auditor (Fully Built)
