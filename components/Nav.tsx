@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const navLinks = [
@@ -11,8 +12,22 @@ const navLinks = [
 ];
 
 export default function Nav() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="absolute top-0 inset-x-0 z-50 py-6 bg-transparent">
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'py-4 bg-[var(--bg-page)]/90 backdrop-blur-md shadow-sm' 
+        : 'py-6 bg-transparent'
+    }`}>
       <nav className="section-container flex items-center justify-between">
         <Link href="/" className="font-playfair text-[26px] font-extrabold text-[var(--text-primary)] no-underline" style={{ fontFamily: 'var(--font-playfair)' }}>
           S<span className="text-[var(--accent-dark)]">.</span>
@@ -39,6 +54,15 @@ export default function Nav() {
           Hire Me <span className="font-sans text-[13px]">→</span>
         </a>
       </nav>
+
+      {/* Bottom Gradient Accent Line (revealed on scroll) */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#6B8E7F] via-[#8FB996] to-[#A8C9B3] transition-all duration-300 origin-left"
+        style={{
+          opacity: isScrolled ? 1 : 0,
+          transform: isScrolled ? 'scaleX(1)' : 'scaleX(0)',
+        }}
+      />
     </header>
   );
 }
