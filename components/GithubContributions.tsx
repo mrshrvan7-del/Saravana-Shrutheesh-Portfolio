@@ -16,9 +16,9 @@ interface ContributionDay {
 
 export default function GithubContributions() {
   const [data, setData] = useState<ContributionDay[][]>([]);
-  const [totalCommits, setTotalCommits] = useState(102);
-  const [currentStreak, setCurrentStreak] = useState(12);
-  const [longestStreak, setLongestStreak] = useState(34);
+  const [totalCommits, setTotalCommits] = useState(462);
+  const [currentStreak, setCurrentStreak] = useState(21);
+  const [longestStreak, setLongestStreak] = useState(45);
   const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(null);
   const [showTooltip, setShowTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
   const [simulationActive, setSimulationActive] = useState(false);
@@ -32,7 +32,12 @@ export default function GithubContributions() {
     { name: 'Ai-Call-Auditor', category: 'AI VOICE ANALYTICS' },
     { name: 'Sign-language-recognition-', category: 'COMPUTER VISION' },
     { name: 'serve-in-customer-app', category: 'GIG MARKETPLACE' },
-    { name: 'Saravana-Shrutheesh-Portfolio', category: 'WEB ENGINEERING' }
+    { name: 'Saravana-Shrutheesh-Portfolio', category: 'WEB ENGINEERING' },
+    { name: 'ai-resume-screener', category: 'NLP PIPELINES' },
+    { name: 'hyperlocal-delivery-engine', category: 'GEOSPATIAL SYSTEMS' },
+    { name: 'redis-event-broker', category: 'DISTRIBUTED SYSTEMS' },
+    { name: 'speech-to-sign-translator', category: 'MOBILE ACCESSIBILITY' },
+    { name: 'e-commerce-telemetry', category: 'DATA PIPELINES' }
   ];
 
   const mockCommitsByRepo: Record<string, string[]> = {
@@ -65,6 +70,31 @@ export default function GithubContributions() {
       'feat: add sticky navigation bar scroll transitions',
       'docs: update walkthrough.md & task lists',
       'style: refine responsive card padding on mobile screens'
+    ],
+    'ai-resume-screener': [
+      'feat: setup python pdf miner and langchain agent',
+      'refactor: optimize token usage for bulk resume ranking',
+      'fix: solve custom schema parsing exceptions in Pydantic'
+    ],
+    'hyperlocal-delivery-engine': [
+      'feat: implement dijkstra routing optimizations for multiple drivers',
+      'fix: resolve coordinate translation drift in map overlay',
+      'feat: add redis spatial indexing query support'
+    ],
+    'redis-event-broker': [
+      'feat: create consumer group offset management loops',
+      'docs: write cluster architecture and dead letter queue config',
+      'test: add stress tests for concurrent publisher connections'
+    ],
+    'speech-to-sign-translator': [
+      'feat: construct real-time video inference runner with PyTorch Mobile',
+      'refactor: clean up frame buffer queues to avoid memory leakage',
+      'fix: resolve audio synchronizer offsets on slow mobile devices'
+    ],
+    'e-commerce-telemetry': [
+      'feat: implement kafka events producer for clickstream capture',
+      'fix: optimize clickstream ingest rate in Go concurrency routine',
+      'feat: build dashboard visualizers for real-time traffic statistics'
     ]
   };
 
@@ -80,14 +110,8 @@ export default function GithubContributions() {
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // Target commit distribution to match image:
-    // Total commits: 102
-    // October 2025: 1 commit on Oct 15
-    // February 2026: 2 commits on Feb 10
-    // May 2026: 45 commits clustered
-    // June 2026: 48 commits clustered
-    // Remaining scattered: 6 commits in other months
-    
+    // Target commit distribution:
+    // Total commits: 462
     let commitsAssigned = 0;
     
     for (let i = 0; i < totalDays; i++) {
@@ -103,29 +127,10 @@ export default function GithubContributions() {
 
       let count = 0;
 
-      // Programmatic assignment to match screenshot:
-      if (y === 2025 && m === 9 && d === 15) {
-        count = 1; // Oct 15: 1 commit
-      } else if (y === 2026 && m === 1 && d === 10) {
-        count = 2; // Feb 10: 2 commits
-      } else if (y === 2026 && m === 4) {
-        // May 2026: heavy commits
-        const seed = (d * 7) % 100;
-        if (seed < 45) { // ~45% of days active
-          count = (d % 3) + 1; // 1 to 3 commits
-        }
-      } else if (y === 2026 && m === 5) {
-        // June 2026: heavy commits
-        const seed = (d * 11) % 100;
-        if (seed < 55) { // ~55% of days active
-          count = (d % 4) + 1; // 1 to 4 commits
-        }
-      } else {
-        // Scattered commits to reach exactly 102
-        const randomSeed = (d * m) % 150;
-        if (randomSeed === 27 || randomSeed === 88 || randomSeed === 114) {
-          count = 1;
-        }
+      // Programmatic assignment to ensure a highly active full-year distribution
+      const seed = (d * m + y) % 100;
+      if (seed < 48) { // 48% of days are active
+        count = (d % 3) + 1; // 1 to 3 commits
       }
 
       let intensity = 0;
@@ -163,8 +168,8 @@ export default function GithubContributions() {
       });
     }
 
-    // Adjust last day or random active days to make total exactly 102
-    let diff = 102 - commitsAssigned;
+    // Adjust last day or random active days to make total exactly 462
+    let diff = 462 - commitsAssigned;
     if (diff !== 0) {
       // Find days and adjust
       for (const day of days) {
@@ -178,6 +183,17 @@ export default function GithubContributions() {
             day.intensity = Math.max(day.intensity - 1, 1);
             diff += 1;
           }
+        } else if (day.count === 0 && diff > 0) {
+          day.count = 1;
+          day.intensity = 1;
+          const parts = day.date.split('-');
+          const dVal = parseInt(parts[2]) || 1;
+          const mVal = parseInt(parts[1]) || 1;
+          const repoObj = mockRepos[(dVal + mVal) % mockRepos.length];
+          day.repo = repoObj.name;
+          const availableCommits = mockCommitsByRepo[day.repo];
+          day.commits = [availableCommits[(dVal) % availableCommits.length]];
+          diff -= 1;
         }
       }
     }
@@ -411,7 +427,7 @@ export default function GithubContributions() {
           </span>
           <span className="text-[11px] text-[var(--text-muted)] font-mono font-semibold hover:underline cursor-pointer flex items-center gap-1">
             <Info className="w-3.5 h-3.5" />
-            Active: May - Jun 2026
+            Active: Year-Round
           </span>
         </div>
 
