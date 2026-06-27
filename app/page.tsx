@@ -7,6 +7,7 @@ import About from '@/components/About';
 import Experience from '@/components/Experience';
 import Education from '@/components/Education';
 import Projects from '@/components/Projects';
+import GithubContributions from '@/components/GithubContributions';
 import Skills from '@/components/Skills';
 import Certs from '@/components/Certs';
 import BlogPreview from '@/components/BlogPreview';
@@ -75,6 +76,12 @@ export default function Home() {
           </div>
           
           <Projects />
+          
+          <div className="section-divider section-container">
+            <span>+</span>
+          </div>
+
+          <GithubContributions />
           
           <div className="section-divider section-container">
             <span>+</span>
