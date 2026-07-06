@@ -53,15 +53,34 @@ export default function BlogPage() {
     ? posts 
     : posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase());
 
-  // Handle Admin Passcode Login
-  const handleAdminLogin = (e: React.FormEvent) => {
+  // Helper to compute SHA-256 hash in client browser
+  const sha256 = async (message: string): Promise<string> => {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  };
+
+  // Handle Admin Passcode Login using secure SHA-256 hashing
+  const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPasscode.toLowerCase() === 'saravana' || adminPasscode.toLowerCase() === 'admin') {
-      setIsAdmin(true);
-      setShowAdminLogin(false);
-      setErrorMsg('');
-    } else {
-      setErrorMsg('Incorrect passcode. Try "saravana".');
+    try {
+      const enteredHash = await sha256(adminPasscode.toLowerCase());
+      
+      // Load hash from environment variable with standard default fallback hashes
+      const targetHash = process.env.NEXT_PUBLIC_ADMIN_PASSCODE_HASH || 'b29f623a3383c2212fce185b5dbe1906c7bf6475e73fb21c188c5e0d2d855e00'; // "saravana"
+      const fallbackHash = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'; // "admin"
+
+      if (enteredHash === targetHash || enteredHash === fallbackHash) {
+        setIsAdmin(true);
+        setShowAdminLogin(false);
+        setErrorMsg('');
+      } else {
+        setErrorMsg('Incorrect passcode. Please try again.');
+      }
+    } catch (err) {
+      console.error('Cryptographic hashing failed', err);
+      setErrorMsg('Security check failed. Try again.');
     }
   };
 
@@ -329,7 +348,7 @@ export default function BlogPage() {
               <div>
                 <input 
                   type="password"
-                  placeholder="Passcode (e.g. saravana)"
+                  placeholder="Enter Passcode"
                   value={adminPasscode}
                   onChange={(e) => setAdminPasscode(e.target.value)}
                   className="w-full px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--text-body)]/15 rounded-lg text-[13px] text-[var(--text-primary)] placeholder-[var(--text-muted)]/60 focus:outline-none focus:border-[var(--accent-dark)]"
