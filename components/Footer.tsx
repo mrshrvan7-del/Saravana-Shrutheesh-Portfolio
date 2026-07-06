@@ -63,7 +63,18 @@ export default function Footer() {
 
         {/* Bottom copyright notice */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] opacity-70">
-          <p>© 2026 Saravana Shrutheesh. All rights reserved.</p>
+          <div>
+            <p>© 2026 Saravana Shrutheesh. All rights reserved.</p>
+            <div className="flex items-center gap-4 mt-2 font-mono text-[10px]">
+              <a href="/blog" className="text-[var(--text-cream)]/50 hover:text-[var(--text-cream)] no-underline hover:underline transition-colors">
+                Blog &amp; Reports
+              </a>
+              <span className="opacity-30">|</span>
+              <a href="/projects" className="text-[var(--text-cream)]/50 hover:text-[var(--text-cream)] no-underline hover:underline transition-colors">
+                Projects Registry
+              </a>
+            </div>
+          </div>
           <div className="flex flex-col items-center md:items-end gap-1 text-[var(--text-cream)]/40">
             <p>Built with intent. Open to opportunities.</p>
             <p className="font-mono text-[10px] tracking-wider italic">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>

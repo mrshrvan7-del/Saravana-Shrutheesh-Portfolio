@@ -1,0 +1,52 @@
+[
+  {
+    "meta": "01 / SAAS PLATFORM ARCHITECTURE",
+    "title": "Colide",
+    "image": "/colide.png",
+    "description": "An enterprise-grade multi-branch retail operations and business intelligence platform. Centralizes real-time sales intelligence, inventory management, cash flow tracking, billing operations, and AI-driven business insights across distributed store/warehouse locations.",
+    "role": "Platform architect, backend database design, and real-time offline-first sync engine designer.",
+    "impact": "Designed a resilient multi-tenant architecture for retail operations. Supports real-time monitoring and offline branch resiliency.",
+    "coreTech": "Next.js 15 · Node.js/FastAPI · PostgreSQL · Redis · WebSockets · TailwindCSS",
+    "repo": "https://github.com/mrshrvan7-del/COLIDE-"
+  },
+  {
+    "meta": "02 / AI VOICE ANALYTICS",
+    "title": "Ai-Call-Auditor",
+    "image": "/ai_call_auditor.png",
+    "description": "An AI-powered call auditing system designed to automatically analyze and evaluate sales and customer support call recordings. Leverages Natural Language Processing (NLP) to extract customer sentiment, compliance flags, and key performance metrics.",
+    "role": "Concept design, business operations workflow mapping, and prototype development.",
+    "impact": "Proposed automation concepts to reduce support auditing SLA times by 80%. Prototype code is fully available.",
+    "coreTech": "Python · NLP · OpenAI API",
+    "repo": "https://github.com/mrshrvan7-del/Ai-Call-Auditor"
+  },
+  {
+    "meta": "03 / COMPUTER VISION",
+    "title": "Sign-language-recognition-",
+    "image": "/sign_language_recognition.png",
+    "description": "Real-time Sign Language Recognition system using Computer Vision and Deep Learning. Translates hand gestures into text and speech to bridge communication barriers, optimized for high-performance mobile deployment.",
+    "role": "Concept design, mobile accessibility design, and deep learning model integration.",
+    "impact": "Proposed ideas for inclusive workplace communications. Full prototype code is available.",
+    "coreTech": "Flutter · Dart · TensorFlow Lite",
+    "repo": "https://github.com/mrshrvan7-del/Sign-language-recognition-"
+  },
+  {
+    "meta": "04 / GIG MARKETPLACE SYSTEMS",
+    "title": "serve-in-customer-app",
+    "image": "/hyperlocal_marketplace.png",
+    "description": "A real-time hyperlocal service marketplace mobile application connecting customers with nearby service providers. Integrates live tracking and interactive interfaces for seamless scheduling and booking.",
+    "role": "Frontend mobile app development, state management, and API integration.",
+    "impact": "Proposed user workflows for gig workers, optimizing order dispatching. Prototype code is fully available.",
+    "coreTech": "Flutter · Dart · Google Maps API",
+    "repo": "https://github.com/mrshrvan7-del/serve-in-customer-app"
+  },
+  {
+    "meta": "05 / WEB ENGINEERING",
+    "title": "Saravana-Shrutheesh-Portfolio",
+    "image": "/portfolio_theme.png",
+    "description": "A high-end personal portfolio website built with Next.js and custom CSS. Features an editorial warm-cream UI, custom animations, responsive bento grids, and interactive showcases for global recruiters.",
+    "role": "Full-stack web engineering, CSS architecture, and animation orchestration.",
+    "impact": "Built a professional digital presence to optimize recruiter vetting and stakeholder engagement. Code fully available.",
+    "coreTech": "Next.js · React · TypeScript · Vanilla CSS",
+    "repo": "https://github.com/mrshrvan7-del/Saravana-Shrutheesh-Portfolio"
+  }
+]
