@@ -16,9 +16,9 @@ interface ContributionDay {
 
 export default function GithubContributions() {
   const [data, setData] = useState<ContributionDay[][]>([]);
-  const [totalCommits, setTotalCommits] = useState(462);
-  const [currentStreak, setCurrentStreak] = useState(21);
-  const [longestStreak, setLongestStreak] = useState(45);
+  const [totalCommits, setTotalCommits] = useState(138);
+  const [currentStreak, setCurrentStreak] = useState(2);
+  const [longestStreak, setLongestStreak] = useState(14);
   const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(null);
   const [showTooltip, setShowTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
   const [simulationActive, setSimulationActive] = useState(false);
@@ -100,7 +100,7 @@ export default function GithubContributions() {
 
   // Generate stable contribution data that matches the user's graph screenshot
   useEffect(() => {
-    const end = new Date(2026, 5, 27); // June 27, 2026 (matching current local year)
+    const end = new Date(2026, 6, 6); // July 6, 2026 (today)
     const days: ContributionDay[] = [];
     
     // We want 53 weeks = 371 days
@@ -110,8 +110,8 @@ export default function GithubContributions() {
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // Target commit distribution:
-    // Total commits: 462
+    // Target commit distribution to match user's real screenshot:
+    // Total commits: 137 up to July 5 + 1 commit today (July 6) = 138 commits
     let commitsAssigned = 0;
     
     for (let i = 0; i < totalDays; i++) {
@@ -127,10 +127,32 @@ export default function GithubContributions() {
 
       let count = 0;
 
-      // Programmatic assignment to ensure a highly active full-year distribution
-      const seed = (d * m + y) % 100;
-      if (seed < 48) { // 48% of days are active
-        count = (d % 3) + 1; // 1 to 3 commits
+      // Deterministic assignment matching the screenshot:
+      if (y === 2025 && m === 9 && d === 15) {
+        count = 1; // Oct 15, 2025 (one single dot in October)
+      } else if (y === 2026 && m === 1 && d === 14) {
+        count = 1; // Feb 14, 2026 (one single dot in February)
+      } else if (y === 2026 && m === 4) {
+        // May 2026: active on weekdays
+        const seed = (d * 13) % 100;
+        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 65) {
+          count = (d % 3) + 1; // 1 to 3 commits
+        }
+      } else if (y === 2026 && m === 5) {
+        // June 2026: active on weekdays
+        const seed = (d * 17) % 100;
+        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 70) {
+          count = (d % 4) + 1; // 1 to 4 commits
+        }
+      } else if (y === 2026 && m === 6 && d < 6) {
+        // July 1 to July 5, 2026
+        const seed = (d * 7) % 100;
+        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 60) {
+          count = (d % 2) + 1; // 1 to 2 commits
+        }
+      } else if (y === 2026 && m === 6 && d === 6) {
+        // July 6, 2026 (today) - "contribute something to this for today"
+        count = 1;
       }
 
       let intensity = 0;
@@ -168,11 +190,13 @@ export default function GithubContributions() {
       });
     }
 
-    // Adjust last day or random active days to make total exactly 462
-    let diff = 462 - commitsAssigned;
+    // Adjust May and June active days to make total exactly 138
+    let diff = 138 - commitsAssigned;
     if (diff !== 0) {
-      // Find days and adjust
       for (const day of days) {
+        // Don't adjust today's commit
+        if (day.date === '2026-07-06') continue;
+
         if (day.count > 0 && diff !== 0) {
           if (diff > 0 && day.count < 4) {
             day.count += 1;
@@ -183,17 +207,6 @@ export default function GithubContributions() {
             day.intensity = Math.max(day.intensity - 1, 1);
             diff += 1;
           }
-        } else if (day.count === 0 && diff > 0) {
-          day.count = 1;
-          day.intensity = 1;
-          const parts = day.date.split('-');
-          const dVal = parseInt(parts[2]) || 1;
-          const mVal = parseInt(parts[1]) || 1;
-          const repoObj = mockRepos[(dVal + mVal) % mockRepos.length];
-          day.repo = repoObj.name;
-          const availableCommits = mockCommitsByRepo[day.repo];
-          day.commits = [availableCommits[(dVal) % availableCommits.length]];
-          diff -= 1;
         }
       }
     }
