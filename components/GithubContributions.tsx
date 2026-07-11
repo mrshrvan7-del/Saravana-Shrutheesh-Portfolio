@@ -153,7 +153,11 @@ export default function GithubContributions() {
   useEffect(() => {
     const days: ContributionDay[] = [];
     const start = new Date(2026, 0, 1); // January 1, 2026
-    const totalDays = 365; // Entire year of 2026
+    const today = new Date();
+    // Cap end date at Dec 31, 2026 to stay within the 2026 year
+    const end = today.getFullYear() === 2026 ? today : new Date(2026, 11, 31);
+    const diffTime = Math.max(0, end.getTime() - start.getTime());
+    const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
