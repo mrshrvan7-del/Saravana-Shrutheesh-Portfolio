@@ -151,12 +151,9 @@ export default function GithubContributions() {
 
   // Generate stable contribution data that matches the user's graph screenshot
   useEffect(() => {
-    const end = new Date(2026, 6, 6); // July 6, 2026 (today)
     const days: ContributionDay[] = [];
-    
-    const totalDays = 371;
-    const start = new Date(end);
-    start.setDate(end.getDate() - totalDays + 1);
+    const start = new Date(2026, 0, 1); // January 1, 2026
+    const totalDays = 365; // Entire year of 2026
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -176,10 +173,8 @@ export default function GithubContributions() {
 
       let count = 0;
 
-      // Deterministic assignment matching the screenshot:
-      if (y === 2025 && m === 9 && d === 15) {
-        count = 1; // Oct 15, 2025 (one single dot in October)
-      } else if (y === 2026 && m === 1 && d === 14) {
+      // Deterministic assignment matching the screenshot (strictly within 2026):
+      if (y === 2026 && m === 1 && d === 14) {
         count = 1; // Feb 14, 2026 (one single dot in February)
       } else if (y === 2026 && m === 4) {
         // May 2026: active on weekdays
