@@ -28,5 +28,25 @@
     "tags": ["Power BI", "SQL", "BigQuery", "Analytics"],
     "date": "May 15, 2026",
     "image": ""
+  },
+  {
+    "id": "4",
+    "title": "Root Cause Analysis: Resolving Global Inventory Discrepancies",
+    "summary": "How we identified a multi-million dollar inventory discrepancy by tracing API mismatch logs between ERP systems and warehouse execution nodes using Python.",
+    "category": "Operations",
+    "content": "### The Problem\nDuring quarterly audits, a major mismatch arose between the inventory levels reported by our primary Enterprise Resource Planning (ERP) platform and the actual quantities tracked on-shelf by the Warehouse Management System (WMS). This discrepancy disrupted supply chain planning, leading to unnecessary re-ordering and stockouts.\n\n### Cross-System Log Investigation\nWe leveraged Python and SQL to query and correlate transactional logs across both systems. By designing a matching hash key composed of `SKU_ID + TRANSACTION_TIMESTAMP + BATCH_NO`, we tracked individual stock adjustments.\n\nWe discovered that a specific category of inventory transfers (inter-warehouse relocations) failed to trigger confirmation API updates when pickers completed tasks on their handheld scanners. The scanner system would record the move locally, but if the API network call timed out, it did not retry, leaving the ERP platform unaware of the relocation.\n\n```python\n# Python log parser to identify un-synced API calls\nimport json\n\ndef find_mismatch_transactions(erp_logs, wms_logs):\n    erp_set = {f\"{tx['sku']}_{tx['timestamp']}\" for tx in erp_logs}\n    mismatches = []\n    \n    for tx in wms_logs:\n        key = f\"{tx['sku']}_{tx['timestamp']}\"\n        if key not in erp_set:\n            mismatches.append(tx)\n    return mismatches\n```\n\n### Systemic Remediation & Automation\n1. **API Retry Loop & Queue**: Implemented an exponential backoff retry queue in the scanner firmware so that timed-out transactions are queued locally and synchronized once a network connection is re-established.\n2. **Automated Reconciliation Script**: Established a daily cron job that runs a python script to reconcile ERP and WMS records, highlighting exceptions for administrators before audit cycles.\n\n### Product and Cost Impact\n- **99.8% Inventory Accuracy** reached and maintained within 30 days of release.\n- **Removed $120,000+** in quarterly stock reconciliation write-offs.\n- **Zero stockouts** caused by transfer syncing errors since release.",
+    "tags": ["Python", "Log Analysis", "Inventory Control", "ERP"],
+    "date": "July 2, 2026",
+    "image": ""
+  },
+  {
+    "id": "5",
+    "title": "Building a High-Performance Real-Time Supply Chain KPI Dashboard",
+    "summary": "A walkthrough on designing and indexing PostgreSQL schemas to handle millions of active tracking events and support real-time operations dashboards.",
+    "category": "Analytics",
+    "content": "### The Challenge\nIn global logistics, tracking fleet and dispatch movements generates massive streams of telemetry data. Our central operational database struggled to render dashboard updates in real time, with SQL queries taking up to **12 seconds** to load, causing delays in shift handovers.\n\n### SQL Bottleneck Identification\nBy examining query execution plans (`EXPLAIN ANALYZE`), we identified major bottlenecks in aggregation queries. The database was performing full-table scans across millions of transaction lines to calculate the daily average dwell time and courier delay rates.\n\n### Performance Engineering Re-Architecture\nTo resolve these bottlenecks without migrating database platforms, we implemented three key optimizations:\n1. **Composite B-Tree Indexes**: Created specialized indexes on query filtering criteria (`status, timestamp, region`).\n2. **TimescaleDB Partitioning**: Partitioned the database table by time intervals (daily chunks), preventing the query engine from checking historical months.\n3. **Materialized Views with pg_cron**: Created pre-aggregated dashboard data tables that refresh every 3 minutes, taking calculations out of the user query loop.\n\n```sql\n-- Index optimization example\nCREATE INDEX CONCURRENTLY idx_delivery_metrics \nON delivery_events (region, status, timestamp DESC);\n```\n\n### The Results\n- **Query response latency decreased from 12 seconds to 85 milliseconds** (a 140x improvement).\n- **99.9% Dashboard Uptime** achieved during peak seasonal traffic spikes.\n- **Operational agility increased**, allowing shift managers to spot routing bottlenecks and redirect fleets in real time.",
+    "tags": ["PostgreSQL", "Database Optimization", "Logistics", "KPI Dashboards"],
+    "date": "June 22, 2026",
+    "image": ""
   }
 ]
