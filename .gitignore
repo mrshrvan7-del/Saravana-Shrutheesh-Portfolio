@@ -44,3 +44,7 @@ next-env.d.ts
 # Cloudflare and OpenNext build artifacts
 /.open-next/
 /.wrangler/
+
+# local agent rules
+/AGENTS.md
+/CLAUDE.md
