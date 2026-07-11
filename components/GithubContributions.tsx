@@ -653,20 +653,23 @@ export default function GithubContributions() {
         </div>
 
         {/* Calendar Map grid wrapper */}
-        <div className="overflow-x-auto w-full pb-4 scrollbar-thin">
-          <div className="min-w-[760px] pl-8 relative">
+        <div className="overflow-x-auto w-full pb-4 scrollbar-thin flex justify-center">
+          <div className="relative inline-block pl-8 pr-2">
             
             {/* Render month titles */}
             {renderMonthLabels()}
 
             {/* Grid display: Days (rows) x Weeks (columns) */}
-            <div className="grid grid-flow-col grid-cols-[repeat(53,_12px)] grid-rows-7 gap-[3px] relative">
+            <div 
+              style={{ gridTemplateColumns: `repeat(${data.length || 28}, 15px)` }}
+              className="grid grid-flow-col grid-rows-7 gap-[4px] relative"
+            >
               
               {/* Day names left margin decoration */}
-              <div className="absolute left-[-30px] top-0 bottom-0 grid grid-rows-7 text-[9px] font-mono text-[var(--text-muted)] select-none">
-                <span className="row-start-2 h-[12px] flex items-center">Mon</span>
-                <span className="row-start-4 h-[12px] flex items-center">Wed</span>
-                <span className="row-start-6 h-[12px] flex items-center">Fri</span>
+              <div className="absolute left-[-32px] top-0 bottom-0 grid grid-rows-7 gap-[4px] text-[10px] font-mono text-[var(--text-muted)] select-none">
+                <span className="row-start-2 h-[15px] flex items-center">Mon</span>
+                <span className="row-start-4 h-[15px] flex items-center">Wed</span>
+                <span className="row-start-6 h-[15px] flex items-center">Fri</span>
               </div>
 
               {data.map((week, weekIdx) => 
@@ -693,7 +696,7 @@ export default function GithubContributions() {
                       onMouseEnter={(e) => handleCellHover(e, day)}
                       onMouseLeave={() => setShowTooltip(null)}
                       style={{ backgroundColor: isEmpty ? 'transparent' : colorValue }}
-                      className={`w-[12px] h-[12px] rounded-[2px] transition-colors duration-150 cursor-pointer ${
+                      className={`w-[15px] h-[15px] rounded-[3px] transition-colors duration-150 cursor-pointer ${
                         isEmpty ? 'opacity-0 cursor-default pointer-events-none' : ''
                       } ${day.count > 0 ? 'hover:shadow-sm' : ''} ${
                         selectedDay?.date === day.date ? 'ring-2 ring-[var(--text-primary)] ring-offset-1 ring-offset-[var(--bg-card)]' : ''
