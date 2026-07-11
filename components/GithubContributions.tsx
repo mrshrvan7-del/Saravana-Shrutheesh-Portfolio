@@ -536,7 +536,7 @@ export default function GithubContributions() {
       </p>
 
       {/* Grid of Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 font-sans">
         
         {/* Stats card 1: Total Commits */}
         <motion.div 
@@ -579,29 +579,6 @@ export default function GithubContributions() {
             <div className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider font-mono font-bold mt-1">Longest Streak</div>
           </div>
         </motion.div>
-
-        {/* Stats card 4: Interactive Commit simulator button */}
-        <motion.button 
-          whileTap={{ scale: 0.98 }}
-          onClick={handleSimulateCommit}
-          disabled={simulationActive}
-          className="p-6 bg-gradient-to-tr from-[var(--accent-dark)] to-[var(--bg-accent)] text-[var(--text-cream)] rounded-2xl shadow-sm flex items-center justify-between text-left group cursor-pointer border-none"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-              {simulationActive ? (
-                <Sparkles className="w-6 h-6 animate-spin" />
-              ) : (
-                <Plus className="w-6 h-6" />
-              )}
-            </div>
-            <div>
-              <div className="text-[16px] font-bold leading-tight">Simulate Commit</div>
-              <div className="text-[10px] opacity-80 font-mono mt-0.5">Click to log your visit!</div>
-            </div>
-          </div>
-          <Sparkles className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" />
-        </motion.button>
       </div>
 
       {/* Main Calendar Content Box */}
