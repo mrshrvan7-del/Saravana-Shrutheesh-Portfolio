@@ -59,9 +59,9 @@ const DEV_FORTUNES = [
 
 export default function GithubContributions() {
   const [data, setData] = useState<ContributionDay[][]>([]);
-  const [totalCommits, setTotalCommits] = useState(138);
-  const [currentStreak, setCurrentStreak] = useState(2);
-  const [longestStreak, setLongestStreak] = useState(14);
+  const [totalCommits, setTotalCommits] = useState(139);
+  const [currentStreak, setCurrentStreak] = useState(203);
+  const [longestStreak, setLongestStreak] = useState(214);
   const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(null);
   const [showTooltip, setShowTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
   const [simulationActive, setSimulationActive] = useState(false);
