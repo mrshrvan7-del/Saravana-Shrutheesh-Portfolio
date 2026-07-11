@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail } from 'lucide-react';
+import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail, FileText } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -32,7 +32,7 @@ export default function Hero() {
           >
             {/* Sub-header */}
             <p className="text-[15px] font-sans font-medium text-[var(--text-muted)] mb-4">
-              Hey, I&apos;m <span className="font-bold text-[var(--text-primary)]">Saravana Shrutheesh M</span> 👋
+              Hey, I&apos;m <span className="font-bold text-[var(--text-primary)]">Saravana Shrutheesh M</span>
             </p>
 
             {/* Primary Title */}
@@ -74,12 +74,13 @@ export default function Hero() {
               >
                 See my work <span className="font-sans text-[15px]">→</span>
               </a>
-              <Link 
-                href="/blog" 
+              <a 
+                href="/Saravana_Shrutheesh_CV.pdf" 
+                download="Saravana_Shrutheesh_CV.pdf"
                 className="bg-white hover:bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--text-body)]/15 font-semibold px-8 py-3.5 rounded-full transition-transform hover:scale-[1.02] text-[14px] flex items-center justify-center gap-2 shadow-sm select-none touch-target no-underline"
               >
-                Read Blog <TrendingUp className="w-4 h-4 text-[var(--text-primary)]/70" />
-              </Link>
+                Download CV <FileText className="w-4 h-4 text-[var(--text-primary)]/70" />
+              </a>
             </div>
 
           </motion.div>
