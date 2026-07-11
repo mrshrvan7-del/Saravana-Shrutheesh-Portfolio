@@ -683,12 +683,17 @@ export default function GithubContributions() {
                   return (
                     <motion.div
                       key={`${weekIdx}-${dayIdx}`}
-                      whileHover={!isEmpty ? { scale: 1.25, zIndex: 10 } : {}}
+                      whileHover={!isEmpty ? { 
+                        scale: 1.7, 
+                        zIndex: 10,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.12)'
+                      } : {}}
+                      transition={{ type: 'spring', stiffness: 450, damping: 12 }}
                       onClick={() => !isEmpty && handleDayClick(day)}
                       onMouseEnter={(e) => handleCellHover(e, day)}
                       onMouseLeave={() => setShowTooltip(null)}
                       style={{ backgroundColor: isEmpty ? 'transparent' : colorValue }}
-                      className={`w-[12px] h-[12px] rounded-[2px] transition-all duration-150 cursor-pointer ${
+                      className={`w-[12px] h-[12px] rounded-[2px] transition-colors duration-150 cursor-pointer ${
                         isEmpty ? 'opacity-0 cursor-default pointer-events-none' : ''
                       } ${day.count > 0 ? 'hover:shadow-sm' : ''} ${
                         selectedDay?.date === day.date ? 'ring-2 ring-[var(--text-primary)] ring-offset-1 ring-offset-[var(--bg-card)]' : ''
