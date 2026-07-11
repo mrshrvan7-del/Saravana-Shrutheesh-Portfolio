@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GitCommit, TrendingUp, Flame, Calendar, Info, Sparkles, Plus } from 'lucide-react';
+import { 
+  GitCommit, TrendingUp, Flame, Calendar, Info, 
+  Sparkles, Plus, Volume2, VolumeX, Award, Palette, Shuffle, Terminal
+} from 'lucide-react';
 
 interface ContributionDay {
   date: string;
@@ -14,6 +17,46 @@ interface ContributionDay {
   commits?: string[];
 }
 
+// 4 different interactive color themes for the contributions grid
+const THEMES = {
+  sage: {
+    name: 'Sage Linen',
+    colors: ['rgba(26, 26, 22, 0.05)', '#C5E1D0', '#8FB996', '#6B8E7F', '#3E5C4E'],
+    accent: '#8FB996'
+  },
+  classic: {
+    name: 'Classic Green',
+    colors: ['rgba(26, 26, 22, 0.05)', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+    accent: '#30a14e'
+  },
+  cyber: {
+    name: 'Cyber Neon',
+    colors: ['rgba(26, 26, 22, 0.05)', '#b3f0ff', '#00d2ff', '#d800ff', '#ff007f'],
+    accent: '#ff007f'
+  },
+  sunset: {
+    name: 'Sunset Orange',
+    colors: ['rgba(26, 26, 22, 0.05)', '#ffe6cc', '#ff9933', '#e65c00', '#993d00'],
+    accent: '#e65c00'
+  }
+};
+
+type ThemeKey = keyof typeof THEMES;
+
+const DEV_FORTUNES = [
+  "In case of fire: git commit, git push, run.",
+  "A branch a day keeps the merge conflicts away.",
+  "There are 10 types of people: those who understand binary, and those who don't.",
+  "Git status: 0 commits, 100 cups of coffee consumed.",
+  "If at first you don't succeed, search StackOverflow.",
+  "May your commits be atomic and your merges conflict-free.",
+  "One developer's bug is another recruiter's feature.",
+  "Do not force push to main on Friday afternoon.",
+  "Clean code is not written, it is rewritten.",
+  "Git happens. Roll with the branches.",
+  "Talk is cheap. Show me the code. — Linus Torvalds"
+];
+
 export default function GithubContributions() {
   const [data, setData] = useState<ContributionDay[][]>([]);
   const [totalCommits, setTotalCommits] = useState(138);
@@ -23,6 +66,14 @@ export default function GithubContributions() {
   const [showTooltip, setShowTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
   const [simulationActive, setSimulationActive] = useState(false);
   const [simulatedCount, setSimulatedCount] = useState(0);
+
+  // New interactive states
+  const [activeTheme, setActiveTheme] = useState<ThemeKey>('sage');
+  const [isMuted, setIsMuted] = useState(false);
+  const [cellClicksCount, setCellClicksCount] = useState(0);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
+  const [activeFortune, setActiveFortune] = useState(DEV_FORTUNES[0]);
+  const [showNotification, setShowNotification] = useState<string | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -103,15 +154,13 @@ export default function GithubContributions() {
     const end = new Date(2026, 6, 6); // July 6, 2026 (today)
     const days: ContributionDay[] = [];
     
-    // We want 53 weeks = 371 days
     const totalDays = 371;
     const start = new Date(end);
     start.setDate(end.getDate() - totalDays + 1);
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // Target commit distribution to match user's real screenshot:
-    // Total commits: 137 up to July 5 + 1 commit today (July 6) = 138 commits
+    // Target commits: 138 (exactly 137 up to July 5 + 1 on July 6)
     let commitsAssigned = 0;
     
     for (let i = 0; i < totalDays; i++) {
@@ -151,7 +200,7 @@ export default function GithubContributions() {
           count = (d % 2) + 1; // 1 to 2 commits
         }
       } else if (y === 2026 && m === 6 && d === 6) {
-        // July 6, 2026 (today) - "contribute something to this for today"
+        // July 6, 2026 (today)
         count = 1;
       }
 
@@ -194,7 +243,6 @@ export default function GithubContributions() {
     let diff = 138 - commitsAssigned;
     if (diff !== 0) {
       for (const day of days) {
-        // Don't adjust today's commit
         if (day.date === '2026-07-06') continue;
 
         if (day.count > 0 && diff !== 0) {
@@ -215,10 +263,8 @@ export default function GithubContributions() {
     const weeks: ContributionDay[][] = [];
     let currentWeek: ContributionDay[] = [];
 
-    // Pads start of week if start date is not Sunday
     const startDayOfWeek = days[0].dayOfWeek;
     for (let k = 0; k < startDayOfWeek; k++) {
-      // Dummy empty block
       currentWeek.push({
         date: '',
         count: -1,
@@ -237,7 +283,6 @@ export default function GithubContributions() {
     });
 
     if (currentWeek.length > 0) {
-      // Pad end of last week
       const endDayOfWeek = currentWeek[currentWeek.length - 1].dayOfWeek;
       for (let k = endDayOfWeek + 1; k < 7; k++) {
         currentWeek.push({
@@ -254,6 +299,72 @@ export default function GithubContributions() {
     setData(weeks);
   }, []);
 
+  // Browser-native Web Audio Synth sound maker (Mechanical keyboard click pop)
+  const playSound = (freq = 800, duration = 0.04, volume = 0.05) => {
+    if (isMuted || typeof window === 'undefined') return;
+    try {
+      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + duration);
+
+      gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Click-clack pop variations
+  const playClick = () => {
+    const pitch = 300 + Math.random() * 200; // tactile clack pitch
+    playSound(pitch, 0.04, 0.03);
+  };
+
+  const playHoverClick = () => {
+    const pitch = 600 + Math.random() * 100; // tiny scroll typewriter tick
+    playSound(pitch, 0.015, 0.008);
+  };
+
+  const playChime = () => {
+    if (isMuted || typeof window === 'undefined') return;
+    try {
+      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const now = audioCtx.currentTime;
+      
+      const osc1 = audioCtx.createOscillator();
+      const gain1 = audioCtx.createGain();
+      osc1.frequency.setValueAtTime(659.25, now); // E5
+      gain1.gain.setValueAtTime(0.08, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+      osc1.connect(gain1);
+      gain1.connect(audioCtx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.15);
+
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.frequency.setValueAtTime(783.99, now + 0.08); // G5
+      gain2.gain.setValueAtTime(0.08, now + 0.08);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc2.connect(gain2);
+      gain2.connect(audioCtx.destination);
+      osc2.start(now + 0.08);
+      osc2.stop(now + 0.25);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Format date to readable e.g., "Oct 15, 2025"
   const formatDate = (dateStr: string) => {
     if (!dateStr) return '';
@@ -264,6 +375,7 @@ export default function GithubContributions() {
 
   const handleCellHover = (event: React.MouseEvent, day: ContributionDay) => {
     if (day.count === -1) return;
+    playHoverClick();
     const rect = event.currentTarget.getBoundingClientRect();
     const containerRect = containerRef.current?.getBoundingClientRect();
     if (containerRect) {
@@ -275,16 +387,67 @@ export default function GithubContributions() {
     }
   };
 
+  const handleDayClick = (day: ContributionDay) => {
+    playClick();
+    setSelectedDay(day);
+    
+    // Increment cell click counts for Sound Explorer badge
+    const newClicks = cellClicksCount + 1;
+    setCellClicksCount(newClicks);
+    checkAchievements(simulatedCount, newClicks);
+
+    // Shuffle fortunes on cell clicks
+    const randomFortune = DEV_FORTUNES[Math.floor(Math.random() * DEV_FORTUNES.length)];
+    setActiveFortune(randomFortune);
+  };
+
+  // Track and trigger Session Achievements
+  const checkAchievements = (commits: number, clicks: number) => {
+    const activeBadges = [...unlockedAchievements];
+    let justUnlocked = null;
+
+    if (commits >= 1 && !activeBadges.includes('First Push')) {
+      activeBadges.push('First Push');
+      justUnlocked = '🥉 Achievement Unlocked: First Push!';
+    }
+    if (commits >= 5 && !activeBadges.includes('Branch Manager')) {
+      activeBadges.push('Branch Manager');
+      justUnlocked = '🥈 Achievement Unlocked: Branch Manager!';
+    }
+    if (commits >= 10 && !activeBadges.includes('Git Deity')) {
+      activeBadges.push('Git Deity');
+      justUnlocked = '🥇 Achievement Unlocked: Git Deity Status!';
+    }
+    if (clicks >= 3 && !activeBadges.includes('Sound Explorer')) {
+      activeBadges.push('Sound Explorer');
+      justUnlocked = '🎵 Achievement Unlocked: Tactile Explorer!';
+    }
+
+    if (justUnlocked) {
+      setUnlockedAchievements(activeBadges);
+      setShowNotification(justUnlocked);
+      playChime();
+      setTimeout(() => setShowNotification(null), 3000);
+    }
+  };
+
+  // Rotate fortunes manually
+  const handleShuffleFortune = () => {
+    playClick();
+    const random = DEV_FORTUNES[Math.floor(Math.random() * DEV_FORTUNES.length)];
+    setActiveFortune(random);
+  };
+
   // Simulate a recruiter commit in real time
   const handleSimulateCommit = () => {
     if (simulationActive) return;
+    playClick();
     setSimulationActive(true);
-    setSimulatedCount(prev => prev + 1);
+    const nextSimCount = simulatedCount + 1;
+    setSimulatedCount(nextSimCount);
 
-    // Create custom recruiter commit
     const todayStr = new Date().toISOString().split('T')[0];
     
-    // Find today's block in data and increment
     const updatedData = data.map(week => 
       week.map(day => {
         if (day.date === todayStr) {
@@ -292,7 +455,7 @@ export default function GithubContributions() {
           const newIntensity = Math.min(Math.floor(newCount / 1.5) + 1, 4);
           
           const newCommits = day.commits ? [...day.commits] : [];
-          newCommits.push(`feat(recruiter-simulation): Checked out portfolio & triggered commit #${simulatedCount + 1}!`);
+          newCommits.push(`feat(recruiter-simulation): Checked out portfolio & triggered commit #${nextSimCount}!`);
 
           const updatedDay = {
             ...day,
@@ -302,7 +465,6 @@ export default function GithubContributions() {
             commits: newCommits
           };
 
-          // Auto-select the newly committed day to show recruiter action in details panel
           setSelectedDay(updatedDay);
           return updatedDay;
         }
@@ -312,14 +474,15 @@ export default function GithubContributions() {
 
     setData(updatedData);
     setTotalCommits(prev => prev + 1);
-    setCurrentStreak(prev => prev === 0 ? 1 : prev); // Make sure streak is active
+    setCurrentStreak(prev => prev === 0 ? 1 : prev);
+
+    checkAchievements(nextSimCount, cellClicksCount);
 
     setTimeout(() => {
       setSimulationActive(false);
-    }, 800);
+    }, 600);
   };
 
-  // Month labels mapping for top of calendar grid
   const renderMonthLabels = () => {
     if (data.length === 0) return null;
     const labels: { label: string; index: number }[] = [];
@@ -351,13 +514,26 @@ export default function GithubContributions() {
   return (
     <section id="developer-activity" ref={containerRef} className="section-container section-padding bg-transparent relative overflow-hidden">
       
-      {/* Decorative background accent grid */}
+      {/* Dynamic Floating Achievement Alerts */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div 
+            initial={{ opacity: 0, y: -50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 16, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.9 }}
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[var(--text-primary)] text-[var(--text-cream)] px-5 py-3 rounded-full font-mono text-[11px] font-bold shadow-lg border border-[var(--bg-accent)]/30 flex items-center gap-2"
+          >
+            <Award className="w-4 h-4 text-yellow-500 animate-bounce" />
+            <span>{showNotification}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="absolute left-0 top-0 w-[400px] h-[300px] bg-gradient-to-br from-[var(--bg-accent)]/5 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* lowercase serif heading */}
       <h2 className="section-heading mb-4">contributions.</h2>
       <p className="text-[15px] text-[var(--text-muted)] max-w-xl font-medium mb-12">
-        A real-time visual registry of code push frequencies, telemetry builds, and automation updates.
+        A tactile registry of code push frequencies, local telemetry builds, and interactive visitor actions.
       </p>
 
       {/* Grid of Stats Cards */}
@@ -433,15 +609,48 @@ export default function GithubContributions() {
       <div className="bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl p-6 md:p-8 shadow-sm">
         
         {/* Calendar Header with title & settings */}
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-[var(--text-body)]/5">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--text-body)]/5">
           <span className="text-[13px] font-mono text-[var(--text-primary)] font-bold uppercase tracking-wider flex items-center gap-1.5">
             <Calendar className="w-4 h-4 text-[var(--accent-dark)]" />
             GitHub Commit Frequency Registry
           </span>
-          <span className="text-[11px] text-[var(--text-muted)] font-mono font-semibold hover:underline cursor-pointer flex items-center gap-1">
-            <Info className="w-3.5 h-3.5" />
-            Active: Year-Round
-          </span>
+          
+          {/* Controls: Audio mute and Theme Swapper */}
+          <div className="flex items-center gap-4">
+            
+            {/* Theme Selector icons */}
+            <div className="flex items-center gap-1.5 bg-[var(--bg-page)]/80 px-2.5 py-1.5 rounded-lg border border-[var(--text-body)]/5">
+              <Palette className="w-3.5 h-3.5 text-[var(--text-muted)] mr-1" />
+              {(Object.keys(THEMES) as ThemeKey[]).map((themeKey) => {
+                const isActive = activeTheme === themeKey;
+                return (
+                  <button
+                    key={themeKey}
+                    onClick={() => { playClick(); setActiveTheme(themeKey); }}
+                    style={{ backgroundColor: THEMES[themeKey].colors[3] }}
+                    className={`w-3.5 h-3.5 rounded-full border-none cursor-pointer hover:scale-110 transition-transform ${
+                      isActive ? 'ring-2 ring-[var(--text-primary)] ring-offset-1 ring-offset-[var(--bg-card)]' : 'opacity-60'
+                    }`}
+                    title={THEMES[themeKey].name}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Mute button */}
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="p-1.5 bg-[var(--bg-page)]/80 hover:bg-[var(--text-body)]/5 rounded-lg border border-[var(--text-body)]/5 cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+              title={isMuted ? 'Unmute key sounds' : 'Mute key sounds'}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+            
+            <span className="text-[11px] text-[var(--text-muted)] font-mono font-semibold hover:underline cursor-pointer flex items-center gap-1">
+              <Info className="w-3.5 h-3.5" />
+              Active: Year-Round
+            </span>
+          </div>
         </div>
 
         {/* Calendar Map grid wrapper */}
@@ -465,24 +674,25 @@ export default function GithubContributions() {
                 week.map((day, dayIdx) => {
                   const isEmpty = day.count === -1;
                   
-                  // Map intensity to brand-safe colors (Linen base to Deep Sage green)
-                  let colorClass = 'bg-[var(--text-body)]/5'; // Intensity 0
-                  if (day.intensity === 1) colorClass = 'bg-[#C5E1D0]'; // soft sage
-                  else if (day.intensity === 2) colorClass = 'bg-[#8FB996]'; // brand sage
-                  else if (day.intensity === 3) colorClass = 'bg-[#6B8E7F]'; // deep sage
-                  else if (day.intensity === 4) colorClass = 'bg-[#3E5C4E]'; // deepest forest sage
+                  // Map intensity to active theme colors dynamically
+                  const currentThemeData = THEMES[activeTheme];
+                  let colorValue = 'rgba(26, 26, 22, 0.05)';
+                  if (day.intensity > 0) {
+                    colorValue = currentThemeData.colors[day.intensity];
+                  }
 
                   return (
                     <motion.div
                       key={`${weekIdx}-${dayIdx}`}
                       whileHover={!isEmpty ? { scale: 1.25, zIndex: 10 } : {}}
-                      onClick={() => !isEmpty && day.count > 0 && setSelectedDay(day)}
+                      onClick={() => !isEmpty && handleDayClick(day)}
                       onMouseEnter={(e) => handleCellHover(e, day)}
                       onMouseLeave={() => setShowTooltip(null)}
-                      className={`w-[12px] h-[12px] rounded-[2px] transition-colors duration-150 cursor-pointer ${colorClass} ${
+                      style={{ backgroundColor: isEmpty ? 'transparent' : colorValue }}
+                      className={`w-[12px] h-[12px] rounded-[2px] transition-all duration-150 cursor-pointer ${
                         isEmpty ? 'opacity-0 cursor-default pointer-events-none' : ''
                       } ${day.count > 0 ? 'hover:shadow-sm' : ''} ${
-                        selectedDay?.date === day.date ? 'ring-2 ring-[var(--accent-dark)] ring-offset-1 ring-offset-[var(--bg-card)]' : ''
+                        selectedDay?.date === day.date ? 'ring-2 ring-[var(--text-primary)] ring-offset-1 ring-offset-[var(--bg-card)]' : ''
                       }`}
                     />
                   );
@@ -495,11 +705,26 @@ export default function GithubContributions() {
               <span>Learn how we count contributions</span>
               <div className="flex items-center gap-1 select-none">
                 <span>Less</span>
-                <span className="w-[10px] h-[10px] rounded-[1px] bg-[var(--text-body)]/5" />
-                <span className="w-[10px] h-[10px] rounded-[1px] bg-[#C5E1D0]" />
-                <span className="w-[10px] h-[10px] rounded-[1px] bg-[#8FB996]" />
-                <span className="w-[10px] h-[10px] rounded-[1px] bg-[#6B8E7F]" />
-                <span className="w-[10px] h-[10px] rounded-[1px] bg-[#3E5C4E]" />
+                <span 
+                  style={{ backgroundColor: THEMES[activeTheme].colors[0] }} 
+                  className="w-[10px] h-[10px] rounded-[1px]" 
+                />
+                <span 
+                  style={{ backgroundColor: THEMES[activeTheme].colors[1] }} 
+                  className="w-[10px] h-[10px] rounded-[1px]" 
+                />
+                <span 
+                  style={{ backgroundColor: THEMES[activeTheme].colors[2] }} 
+                  className="w-[10px] h-[10px] rounded-[1px]" 
+                />
+                <span 
+                  style={{ backgroundColor: THEMES[activeTheme].colors[3] }} 
+                  className="w-[10px] h-[10px] rounded-[1px]" 
+                />
+                <span 
+                  style={{ backgroundColor: THEMES[activeTheme].colors[4] }} 
+                  className="w-[10px] h-[10px] rounded-[1px]" 
+                />
                 <span>More</span>
               </div>
             </div>
@@ -526,61 +751,154 @@ export default function GithubContributions() {
           </div>
         </div>
 
-        {/* Detailed Commit Inspector Display */}
-        <AnimatePresence mode="wait">
-          {selectedDay ? (
-            <motion.div
-              key={selectedDay.date}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-6 p-5 bg-[var(--bg-page)]/60 rounded-xl border border-[var(--text-body)]/10 flex flex-col gap-4 text-left"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--text-body)]/5 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] font-bold text-[var(--accent-dark)] uppercase">Commit Inspector</span>
-                  <span className="text-[11px] text-[var(--text-muted)]">&middot;</span>
-                  <span className="font-mono text-[11px] font-semibold text-[var(--text-body)]">{formatDate(selectedDay.date)}</span>
+        {/* Detailed Commit Inspector & Interactive Achievements Box */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6 border-t border-[var(--text-body)]/5 pt-6">
+          
+          {/* Col 1 & 2: Commit Inspector details */}
+          <div className="lg:col-span-2">
+            <AnimatePresence mode="wait">
+              {selectedDay ? (
+                <motion.div
+                  key={selectedDay.date}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-5 bg-[var(--bg-page)]/60 rounded-xl border border-[var(--text-body)]/10 flex flex-col gap-4 text-left h-full"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--text-body)]/5 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[11px] font-bold text-[var(--accent-dark)] uppercase">Commit Inspector</span>
+                      <span className="text-[11px] text-[var(--text-muted)]">&middot;</span>
+                      <span className="font-mono text-[11px] font-semibold text-[var(--text-body)]">{formatDate(selectedDay.date)}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--text-cream)] bg-[var(--text-primary)] px-2 py-0.5 rounded font-bold">
+                        {selectedDay.count} commit{selectedDay.count !== 1 ? 's' : ''}
+                      </span>
+                      <button 
+                        onClick={() => { playClick(); setSelectedDay(null); }}
+                        className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold bg-transparent border-none cursor-pointer"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">Target Repository:</span>
+                      <span className="font-mono text-[11px] font-bold text-[var(--text-primary)]">{selectedDay.repo}</span>
+                    </div>
+                    <ul className="space-y-2.5">
+                      {selectedDay.commits?.map((commit, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-[var(--text-body)]">
+                          <GitCommit className="w-4 h-4 text-[var(--accent-dark)] shrink-0 mt-0.5" />
+                          <code className="font-mono text-[12px] bg-[var(--bg-card)] px-1.5 py-0.5 rounded border border-[var(--text-body)]/5 flex-1">
+                            {commit}
+                          </code>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="p-6 border border-dashed border-[var(--text-body)]/10 rounded-xl text-center flex flex-col justify-center items-center h-full min-h-[160px]">
+                  <Terminal className="w-8 h-8 text-[var(--accent-dark)] mb-2 opacity-40 animate-[pulse_2s_infinite]" />
+                  <p className="text-[13px] text-[var(--text-muted)] font-medium max-w-sm">
+                    Click any colored square on the grid to inspect details, or tap **Simulate Commit** to push live visitor logs!
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--text-cream)] bg-[var(--text-primary)] px-2 py-0.5 rounded font-bold">
-                    {selectedDay.count} commit{selectedDay.count !== 1 ? 's' : ''}
-                  </span>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Col 3: Fun Fortunes & Session Achievements Dashboard */}
+          <div className="flex flex-col gap-4">
+            
+            {/* Fortune widget */}
+            <div className="p-5 bg-[var(--bg-page)]/60 rounded-xl border border-[var(--text-body)]/10 text-left flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-[10px] font-bold text-[var(--accent-dark)] uppercase tracking-wider">Developer Fortune</span>
                   <button 
-                    onClick={() => setSelectedDay(null)}
-                    className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold bg-transparent border-none cursor-pointer"
+                    onClick={handleShuffleFortune} 
+                    className="p-1 hover:bg-[var(--text-body)]/5 rounded text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer bg-transparent border-none"
+                    title="Next Fortune"
                   >
-                    Clear
+                    <Shuffle className="w-3.5 h-3.5" />
                   </button>
                 </div>
+                <p className="font-mono text-[12px] text-[var(--text-primary)] italic leading-relaxed min-h-[50px]">
+                  &ldquo;{activeFortune}&rdquo;
+                </p>
               </div>
-
-              <div>
-                <div className="flex items-center gap-1.5 mb-3">
-                  <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">Target Repository:</span>
-                  <span className="font-mono text-[11px] font-bold text-[var(--text-primary)]">{selectedDay.repo}</span>
-                </div>
-                <ul className="space-y-2.5">
-                  {selectedDay.commits?.map((commit, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-[var(--text-body)]">
-                      <GitCommit className="w-4 h-4 text-[var(--accent-dark)] shrink-0 mt-0.5" />
-                      <code className="font-mono text-[12px] bg-[var(--bg-card)] px-1.5 py-0.5 rounded border border-[var(--text-body)]/5 flex-1">
-                        {commit}
-                      </code>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ) : (
-            <div className="mt-6 p-6 border border-dashed border-[var(--text-body)]/10 rounded-xl text-center">
-              <GitCommit className="w-8 h-8 text-[var(--accent-dark)] mx-auto mb-2 opacity-40 animate-[pulse_2s_infinite]" />
-              <p className="text-[13px] text-[var(--text-muted)] font-medium">
-                Click any colored square on the calendar grid to inspect commit logs and build records for that day.
-              </p>
             </div>
-          )}
-        </AnimatePresence>
+
+            {/* Achievements widget */}
+            <div className="p-5 bg-[var(--bg-page)]/60 rounded-xl border border-[var(--text-body)]/10 text-left flex-1 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[10px] font-bold text-[var(--accent-dark)] uppercase tracking-wider block mb-3">Recruiter Achievements</span>
+                <div className="space-y-2">
+                  
+                  {/* Badge 1: First Push */}
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Award className={`w-3.5 h-3.5 ${unlockedAchievements.includes('First Push') ? 'text-amber-600' : 'text-[var(--text-muted)]/30'}`} />
+                      <span>Bronze Push</span>
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      unlockedAchievements.includes('First Push') ? 'bg-amber-100 text-amber-800' : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      {unlockedAchievements.includes('First Push') ? 'Unlocked' : '1 Commit'}
+                    </span>
+                  </div>
+
+                  {/* Badge 2: Branch Manager */}
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Award className={`w-3.5 h-3.5 ${unlockedAchievements.includes('Branch Manager') ? 'text-zinc-500' : 'text-[var(--text-muted)]/30'}`} />
+                      <span>Silver Push</span>
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      unlockedAchievements.includes('Branch Manager') ? 'bg-zinc-100 text-zinc-800' : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      {unlockedAchievements.includes('Branch Manager') ? 'Unlocked' : '5 Commits'}
+                    </span>
+                  </div>
+
+                  {/* Badge 3: Git Deity */}
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Award className={`w-3.5 h-3.5 ${unlockedAchievements.includes('Git Deity') ? 'text-yellow-500' : 'text-[var(--text-muted)]/30'}`} />
+                      <span>Gold Push</span>
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      unlockedAchievements.includes('Git Deity') ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      {unlockedAchievements.includes('Git Deity') ? 'Unlocked' : '10 Commits'}
+                    </span>
+                  </div>
+
+                  {/* Badge 4: Sound Explorer */}
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Award className={`w-3.5 h-3.5 ${unlockedAchievements.includes('Sound Explorer') ? 'text-blue-500' : 'text-[var(--text-muted)]/30'}`} />
+                      <span>Tactile Explorer</span>
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      unlockedAchievements.includes('Sound Explorer') ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      {unlockedAchievements.includes('Sound Explorer') ? 'Unlocked' : '3 Clicks'}
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
     </section>
