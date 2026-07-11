@@ -59,7 +59,7 @@ const DEV_FORTUNES = [
 
 export default function GithubContributions() {
   const [data, setData] = useState<ContributionDay[][]>([]);
-  const [totalCommits, setTotalCommits] = useState(139);
+  const [totalCommits, setTotalCommits] = useState(4565);
   const [currentStreak, setCurrentStreak] = useState(203);
   const [longestStreak, setLongestStreak] = useState(214);
   const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(null);
@@ -177,30 +177,21 @@ export default function GithubContributions() {
 
       let count = 0;
 
-      // Deterministic assignment matching the screenshot (strictly within 2026):
-      if (y === 2026 && m === 1 && d === 14) {
-        count = 1; // Feb 14, 2026 (one single dot in February)
-      } else if (y === 2026 && m === 4) {
-        // May 2026: active on weekdays
-        const seed = (d * 13) % 100;
-        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 65) {
-          count = (d % 3) + 1; // 1 to 3 commits
+      // High-density assignment matching the newly backfilled dark-green commits:
+      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+        // Weekdays: 80% chance of being highly active (intensity 4 - dark green)
+        const seed = (d * 17 + m * 31) % 100;
+        if (seed < 80) {
+          count = 4 + (d % 6); // 4 to 9 commits (intensity 4)
+        } else if (seed < 92) {
+          count = 2 + (d % 2); // 2 to 3 commits (intensity 2 or 3)
         }
-      } else if (y === 2026 && m === 5) {
-        // June 2026: active on weekdays
-        const seed = (d * 17) % 100;
-        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 70) {
-          count = (d % 4) + 1; // 1 to 4 commits
+      } else {
+        // Weekends: 25% chance of moderate activity
+        const seed = (d * 11 + m * 7) % 100;
+        if (seed < 25) {
+          count = 1 + (d % 3); // 1 to 3 commits
         }
-      } else if (y === 2026 && m === 6 && d < 6) {
-        // July 1 to July 5, 2026
-        const seed = (d * 7) % 100;
-        if (dayOfWeek >= 1 && dayOfWeek <= 5 && seed < 60) {
-          count = (d % 2) + 1; // 1 to 2 commits
-        }
-      } else if (y === 2026 && m === 6 && d === 6) {
-        // July 6, 2026 (today)
-        count = 1;
       }
 
       let intensity = 0;
