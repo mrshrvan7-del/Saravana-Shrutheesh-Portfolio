@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useScroll, useVelocity, useTransform } from 'framer-motion';
 
 export default function Cursor() {
   const [mounted, setMounted] = useState(false);
@@ -14,6 +14,23 @@ export default function Cursor() {
   const springConfig = { damping: 25, stiffness: 250 };
   const ringX = useSpring(cursorX, springConfig);
   const ringY = useSpring(cursorY, springConfig);
+
+  // Scroll velocity tracking for stretch effects
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+
+  // Transform absolute scroll speed into a normalized stretch factor (0 to 0.6)
+  const stretchY = useTransform(scrollVelocity, (vel) => {
+    const speed = Math.abs(vel);
+    return Math.min(speed / 3000, 0.6); // Clamp max stretch to 0.6
+  });
+
+  // Apply spring physics to the stretch factor for bouncy jelly transitions
+  const springStretch = useSpring(stretchY, { damping: 15, stiffness: 120 });
+
+  // Map stretch factor to scale: vertical elongation (scaleY) and horizontal contraction (scaleX)
+  const scaleY = useTransform(springStretch, [0, 0.6], [1, 1.6]);
+  const scaleX = useTransform(springStretch, [0, 0.6], [1, 0.7]);
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 10);
@@ -65,9 +82,9 @@ export default function Cursor() {
         <div className="w-2 h-2 bg-white rounded-full" />
       </motion.div>
 
-      {/* Outer Ring */}
+      {/* Outer Ring with dynamic scroll jelly stretch */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] border border-white/30 rounded-full"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] border rounded-full transition-colors duration-300"
         style={{
           x: ringX,
           y: ringY,
@@ -75,11 +92,13 @@ export default function Cursor() {
           translateY: '-50%',
           width: isHovering ? 56 : 32,
           height: isHovering ? 56 : 32,
-          backgroundColor: isHovering ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-          borderColor: isHovering ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+          scaleX,
+          scaleY,
+          backgroundColor: isHovering ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+          borderColor: isHovering ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.3)',
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20, duration: 0.2 }}
       />
     </>
   );
 }
+
