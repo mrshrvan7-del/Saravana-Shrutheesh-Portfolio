@@ -3,7 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Zap } from 'lucide-react';
 
-export default function VisitorCounter() {
+interface VisitorCounterProps {
+  variant?: 'hero' | 'footer';
+}
+
+export default function VisitorCounter({ variant = 'footer' }: VisitorCounterProps) {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
@@ -43,9 +47,18 @@ export default function VisitorCounter() {
 
   if (count === null) return null;
 
+  if (variant === 'hero') {
+    return (
+      <div className="flex items-center gap-1.5 bg-[var(--text-primary)]/5 border border-[var(--text-primary)]/10 px-3 py-1.5 rounded-md font-bold text-[11px] text-[var(--text-primary)] tracking-wider uppercase shadow-xs">
+        <Zap className="w-3.5 h-3.5 text-[var(--accent-dark)] animate-pulse shrink-0" />
+        <span>{count.toLocaleString()} VISITS</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--text-cream)]/10 border border-[var(--text-cream)]/15 rounded-full text-[11px] font-mono text-[var(--text-cream)]/80 tracking-wide select-none">
-      <Zap className="w-3 h-3 text-[var(--bg-accent)] animate-pulse shrink-0" />
+    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--text-cream)]/15 border border-[var(--text-cream)]/30 rounded-full text-[12px] font-mono text-[var(--text-cream)] font-bold tracking-wide select-none shadow-sm">
+      <Zap className="w-3.5 h-3.5 text-[var(--bg-accent)] animate-pulse shrink-0" />
       <span>{count.toLocaleString()} Total Visits</span>
     </div>
   );

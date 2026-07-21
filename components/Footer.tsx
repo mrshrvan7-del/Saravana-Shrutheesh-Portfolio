@@ -76,10 +76,10 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-2 text-[var(--text-cream)]/40">
-            <VisitorCounter />
-            <p>Built with intent. Open to opportunities.</p>
-            <p className="font-mono text-[10px] tracking-wider italic">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <VisitorCounter variant="footer" />
+            <p className="text-[12px] text-[var(--text-cream)]/60">Built with intent. Open to opportunities.</p>
+            <p className="font-mono text-[10px] tracking-wider italic text-[var(--text-cream)]/40">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>
           </div>
         </div>
 

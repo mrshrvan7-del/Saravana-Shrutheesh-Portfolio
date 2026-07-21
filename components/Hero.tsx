@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Briefcase, Building2, Globe, TrendingUp, BarChart3, Star, Mail, FileText } from 'lucide-react';
+import VisitorCounter from '@/components/VisitorCounter';
 
 export default function Hero() {
   return (
@@ -58,6 +59,8 @@ export default function Hero() {
                 <Globe className="w-3.5 h-3.5 text-[var(--accent-dark)]" />
                 <span>GLOBAL IMPACT</span>
               </div>
+              <div className="w-[1px] h-3 bg-[var(--text-body)]/20 hidden sm:block" />
+              <VisitorCounter variant="hero" />
             </div>
 
             {/* Core Narrative */}
