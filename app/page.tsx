@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 import SplashScreen from '@/src/components/SplashScreen/SplashScreen';
 
 const FeedbackPoster = dynamic(() => import('@/components/FeedbackPoster'), { ssr: false });
+const VisitorPopup = dynamic(() => import('@/components/VisitorPopup'), { ssr: false });
 
 export default function Home() {
   const [splashDone, setSplashDone] = useState(() => {
@@ -105,6 +106,7 @@ export default function Home() {
         </main>
         <Footer />
         {splashDone && <FeedbackPoster />}
+        {splashDone && <VisitorPopup />}
       </div>
     </>
   );
