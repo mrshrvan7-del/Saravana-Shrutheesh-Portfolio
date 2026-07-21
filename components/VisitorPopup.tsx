@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, X, Sparkles } from 'lucide-react';
+import { Zap, X, Sparkles, ArrowRight } from 'lucide-react';
 
 function getOrdinalSuffix(n: number): string {
   const s = ['th', 'st', 'nd', 'rd'];
@@ -59,12 +59,12 @@ export default function VisitorPopup() {
     };
   }, []);
 
-  // Auto dismiss after 7 seconds
+  // Auto dismiss after 8 seconds
   useEffect(() => {
     if (!visible) return;
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 7000);
+    }, 8000);
     return () => clearTimeout(timer);
   }, [visible]);
 
@@ -74,42 +74,67 @@ export default function VisitorPopup() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-6 right-6 z-40 max-w-sm w-[calc(100vw-3rem)]"
-          initial={{ opacity: 0, y: 40, scale: 0.92 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={(e) => { if (e.target === e.currentTarget) setVisible(false); }}
         >
-          <div className="relative bg-[var(--bg-nav)] text-[var(--text-cream)] p-4 sm:p-5 rounded-2xl border-2 border-[var(--accent-dark)] shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md overflow-hidden">
-            
-            {/* Top accent glow line */}
+          <motion.div
+            className="relative w-full max-w-md bg-[var(--bg-nav)] text-[var(--text-cream)] p-6 sm:p-8 rounded-3xl border-2 border-[var(--accent-dark)] shadow-[0_25px_70px_rgba(0,0,0,0.6)] text-center overflow-hidden"
+            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+          >
+            {/* Top glowing accent bar */}
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--accent-dark)] via-[var(--bg-accent)] to-[var(--accent-dark)]" />
 
-            {/* Close button */}
+            {/* Corner close button */}
             <button
               onClick={() => setVisible(false)}
-              className="absolute top-3 right-3 text-[var(--text-cream)]/50 hover:text-[var(--text-cream)] bg-transparent border-0 cursor-pointer p-1 rounded-full hover:bg-[var(--text-cream)]/10 transition-all"
-              aria-label="Close notification"
+              className="absolute top-4 right-4 text-[var(--text-cream)]/50 hover:text-[var(--text-cream)] bg-transparent border-0 cursor-pointer p-1.5 rounded-full hover:bg-[var(--text-cream)]/10 transition-all"
+              aria-label="Close dialog"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-start gap-3.5 pr-6">
-              <div className="w-10 h-10 rounded-xl bg-[var(--bg-accent)]/15 border border-[var(--bg-accent)]/30 flex items-center justify-center text-[var(--bg-accent)] shrink-0 mt-0.5">
-                <Sparkles className="w-5 h-5 animate-pulse" />
-              </div>
-
-              <div className="flex flex-col">
-                <span className="text-[11px] font-mono font-bold tracking-widest text-[var(--bg-accent)] uppercase mb-1 flex items-center gap-1">
-                  <Zap className="w-3 h-3 inline-block" /> Welcome Visitor
-                </span>
-                <p className="text-[13.5px] leading-snug font-sans text-[var(--text-cream)]/90">
-                  You are the <span className="font-extrabold text-[var(--bg-accent)] underline decoration-[var(--bg-accent)]/40 underline-offset-2">{getOrdinalSuffix(count)}</span> visitor to this website. Thank you for stopping by!
-                </p>
-              </div>
+            {/* Glowing Icon Badge */}
+            <div className="w-14 h-14 rounded-2xl bg-[var(--bg-accent)]/15 border border-[var(--bg-accent)]/30 flex items-center justify-center text-[var(--bg-accent)] mx-auto mb-4 shadow-inner">
+              <Sparkles className="w-7 h-7 animate-pulse" />
             </div>
 
-          </div>
+            {/* Sub-label */}
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-widest text-[var(--bg-accent)] uppercase mb-2">
+              <Zap className="w-3.5 h-3.5" /> Welcome Visitor
+            </div>
+
+            {/* Hero Number Display */}
+            <div className="my-4 py-4 px-6 bg-[var(--text-cream)]/5 border border-[var(--text-cream)]/10 rounded-2xl flex flex-col items-center justify-center shadow-inner">
+              <span className="text-[11px] font-mono tracking-widest text-[var(--text-cream)]/50 uppercase">YOU ARE OUR</span>
+              <span className="text-[40px] sm:text-[48px] font-display font-extrabold text-[var(--bg-accent)] leading-tight my-0.5 tracking-tight drop-shadow-sm">
+                {getOrdinalSuffix(count)}
+              </span>
+              <span className="text-[12px] font-mono text-[var(--text-cream)]/70 tracking-wider">VISITOR TO THIS WEBSITE</span>
+            </div>
+
+            {/* Body Text */}
+            <p className="text-[14px] leading-relaxed text-[var(--text-cream)]/80 mb-6 font-sans">
+              Thank you for stopping by! I hope you enjoy exploring my work, operational insights, and projects.
+            </p>
+
+            {/* Primary Action Button */}
+            <button
+              onClick={() => setVisible(false)}
+              className="w-full py-3.5 px-6 rounded-xl font-mono text-[13px] font-bold text-[var(--bg-nav)] tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer transition-all hover:opacity-95 transform hover:-translate-y-0.5 shadow-md border-0"
+              style={{ background: 'linear-gradient(135deg, #6B8E7F 0%, #8FB996 50%, #A8C9B3 100%)' }}
+            >
+              <span>Explore Portfolio</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
