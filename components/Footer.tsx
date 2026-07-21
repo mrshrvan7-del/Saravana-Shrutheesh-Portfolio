@@ -1,6 +1,7 @@
 'use client';
 
 import { Mail, FileText } from 'lucide-react';
+import VisitorCounter from '@/components/VisitorCounter';
 
 export default function Footer() {
   return (
@@ -75,7 +76,8 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-1 text-[var(--text-cream)]/40">
+          <div className="flex flex-col items-center md:items-end gap-2 text-[var(--text-cream)]/40">
+            <VisitorCounter />
             <p>Built with intent. Open to opportunities.</p>
             <p className="font-mono text-[10px] tracking-wider italic">&ldquo;PRO + portfolio = Protfolio&rdquo;</p>
           </div>

@@ -84,7 +84,7 @@ export default function Cursor() {
 
       {/* Outer Ring with dynamic scroll jelly stretch */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] border rounded-full transition-colors duration-300"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] border rounded-full transition-colors duration-300 mix-blend-difference"
         style={{
           x: ringX,
           y: ringY,

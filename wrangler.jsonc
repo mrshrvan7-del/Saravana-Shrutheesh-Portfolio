@@ -10,6 +10,12 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "kv_namespaces": [
+    {
+      "binding": "VISIT_COUNTER",
+      "id": "800ac9a3b7944994a759828de2a24dc8"
+    }
+  ],
   "observability": {
     "enabled": true
   }

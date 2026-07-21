@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -13,6 +14,8 @@ import Certs from '@/components/Certs';
 import BlogPreview from '@/components/BlogPreview';
 import Footer from '@/components/Footer';
 import SplashScreen from '@/src/components/SplashScreen/SplashScreen';
+
+const FeedbackPoster = dynamic(() => import('@/components/FeedbackPoster'), { ssr: false });
 
 export default function Home() {
   const [splashDone, setSplashDone] = useState(() => {
@@ -101,6 +104,7 @@ export default function Home() {
           <BlogPreview />
         </main>
         <Footer />
+        {splashDone && <FeedbackPoster />}
       </div>
     </>
   );
