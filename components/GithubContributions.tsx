@@ -532,7 +532,7 @@ export default function GithubContributions() {
         {/* Stats card 1: Total Commits */}
         <motion.div 
           whileHover={{ y: -3 }}
-          className="p-6 bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl shadow-sm flex items-center gap-4"
+          className="p-6 clay-card flex items-center gap-4"
         >
           <div className="w-12 h-12 rounded-xl bg-[var(--accent-dark)]/10 flex items-center justify-center text-[var(--accent-dark)]">
             <GitCommit className="w-6 h-6" />
@@ -546,7 +546,7 @@ export default function GithubContributions() {
         {/* Stats card 2: Current Streak */}
         <motion.div 
           whileHover={{ y: -3 }}
-          className="p-6 bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl shadow-sm flex items-center gap-4"
+          className="p-6 clay-card flex items-center gap-4"
         >
           <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600">
             <Flame className="w-6 h-6" />
@@ -560,7 +560,7 @@ export default function GithubContributions() {
         {/* Stats card 3: Longest Streak */}
         <motion.div 
           whileHover={{ y: -3 }}
-          className="p-6 bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl shadow-sm flex items-center gap-4"
+          className="p-6 clay-card flex items-center gap-4"
         >
           <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-600">
             <TrendingUp className="w-6 h-6" />
@@ -573,7 +573,7 @@ export default function GithubContributions() {
       </div>
 
       {/* Main Calendar Content Box */}
-      <div className="bg-[var(--bg-card)] border border-[var(--text-body)]/10 rounded-2xl p-6 md:p-8 shadow-sm">
+      <div className="clay-card p-6 md:p-8">
         
         {/* Calendar Header with title & settings */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--text-body)]/5">

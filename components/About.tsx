@@ -38,7 +38,7 @@ export default function About() {
       </svg>
 
       {/* 1. Top Metrics Bar (Sleek Horizontal Capsule, merged seamlessly with warm cream background) */}
-      <div className="w-full mb-20 bg-[var(--bg-card)]/40 backdrop-blur-sm rounded-3xl md:rounded-full border border-[var(--text-body)]/10 shadow-[inset_0_1px_2px_rgba(42,42,36,0.05),_0_8px_30px_rgba(42,42,36,0.03)] p-6 md:p-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 animate-on-scroll fade-up">
+      <div className="w-full mb-20 clay-card p-6 md:p-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 animate-on-scroll fade-up" style={{ borderRadius: '9999px' }}>
         {/* Stat 1 */}
         <div className="flex-1 flex items-start gap-4">
           <div className="w-12 h-12 rounded-full border border-[var(--text-body)]/10 flex items-center justify-center text-[var(--accent-dark)] shrink-0 bg-transparent">

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface SkillChip {
   name: string;
@@ -28,11 +29,131 @@ const filterOptions = [
   { label: 'Languages & DB', value: 'technical' },
 ];
 
+function BentoCardItem({
+  card,
+  cardStyle,
+  hoveredDetails,
+  setHoveredDetails
+}: {
+  card: BentoCard;
+  cardStyle: React.CSSProperties;
+  hoveredDetails: Record<string, string>;
+  setHoveredDetails: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+}) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Subtle 3D tilt (max 6 degrees) to ensure interactive chips remain easy to target
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { damping: 22, stiffness: 220 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), { damping: 22, stiffness: 220 });
+
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    const mouseX = (e.clientX - rect.left) / width - 0.5;
+    const mouseY = (e.clientY - rect.top) / height - 0.5;
+    
+    x.set(mouseX);
+    y.set(mouseY);
+    setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+    setIsHovered(false);
+  };
+
+  const activeDetail = hoveredDetails[card.id];
+
+  return (
+    <motion.div
+      style={{
+        ...cardStyle,
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      className={`bento-item ${card.sizeClass} ${card.extraClass || ''} ${card.bgClass} cursor-pointer`}
+    >
+      {/* Dynamic light spotlight following cursor */}
+      {isHovered && (
+        <div 
+          className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden"
+          style={{
+            background: `radial-gradient(circle 200px at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.35), transparent)`,
+            mixBlendMode: 'overlay',
+            zIndex: 1,
+          }}
+        />
+      )}
+
+      {/* Floating metadata & icon header */}
+      <div 
+        style={{ transform: 'translateZ(15px)' }} 
+        className="bento-card-header relative z-10"
+      >
+        <span className="bento-meta">{card.meta}</span>
+        {card.icon}
+      </div>
+
+      {/* Floating text description */}
+      <div 
+        style={{ transform: 'translateZ(25px)', transformStyle: 'preserve-3d' }} 
+        className="bento-card-body relative z-10"
+      >
+        <h3 className="bento-title">{card.title}</h3>
+        <p className="bento-desc">
+          {activeDetail ? (
+            <>
+              <strong>{activeDetail.split(':')[0]}:</strong>
+              {activeDetail.split(':').slice(1).join(':')}
+            </>
+          ) : (
+            card.defaultDescription
+          )}
+        </p>
+      </div>
+
+      {/* Floating interactive chips */}
+      <div 
+        style={{ transform: 'translateZ(10px)' }} 
+        className="bento-chips relative z-10"
+      >
+        {card.chips.map((chip) => (
+          <span
+            key={chip.name}
+            className="bento-chip"
+            onMouseEnter={() => setHoveredDetails(prev => ({
+              ...prev,
+              [card.id]: `${chip.name}: ${chip.detail}`
+            }))}
+            onMouseLeave={() => setHoveredDetails(prev => {
+              const updated = { ...prev };
+              delete updated[card.id];
+              return updated;
+            })}
+          >
+            <span className="chip-indicator"></span>
+            {chip.name}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
-  
-  // Track hovered chip for each card ID to swap the description text reactively
   const [hoveredDetails, setHoveredDetails] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -190,7 +311,6 @@ export default function Skills() {
         {bentoCards.map((card) => {
           const isSelected = selectedFilter === 'all' || card.category === selectedFilter;
           
-          // Compute inline styles based on filter selections
           const cardStyle: React.CSSProperties = {
             opacity: isSelected ? 1 : 0.25,
             transform: selectedFilter === 'all' 
@@ -200,60 +320,20 @@ export default function Skills() {
                 : 'scale(0.97)',
             borderColor: isSelected && selectedFilter !== 'all'
               ? 'var(--text-primary)'
-              : 'rgba(61, 58, 26, 0.12)',
+              : 'rgba(255, 255, 255, 0.7)',
             pointerEvents: isSelected ? 'auto' : 'none',
             zIndex: isSelected && selectedFilter !== 'all' ? 2 : 1,
             transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
           };
 
-          const activeDetail = hoveredDetails[card.id];
-
           return (
-            <div
+            <BentoCardItem
               key={card.id}
-              className={`bento-item ${card.sizeClass} ${card.extraClass || ''} ${card.bgClass}`}
-              style={cardStyle}
-            >
-              <div className="bento-card-header">
-                <span className="bento-meta">{card.meta}</span>
-                {card.icon}
-              </div>
-              <div className="bento-card-body">
-                <h3 className="bento-title">{card.title}</h3>
-                
-                {/* Dynamically swap text based on hovered chip state */}
-                <p className="bento-desc">
-                  {activeDetail ? (
-                    <>
-                      <strong>{activeDetail.split(':')[0]}:</strong>
-                      {activeDetail.split(':').slice(1).join(':')}
-                    </>
-                  ) : (
-                    card.defaultDescription
-                  )}
-                </p>
-              </div>
-              <div className="bento-chips">
-                {card.chips.map((chip) => (
-                  <span
-                    key={chip.name}
-                    className="bento-chip"
-                    onMouseEnter={() => setHoveredDetails(prev => ({
-                      ...prev,
-                      [card.id]: `${chip.name}: ${chip.detail}`
-                    }))}
-                    onMouseLeave={() => setHoveredDetails(prev => {
-                      const updated = { ...prev };
-                      delete updated[card.id];
-                      return updated;
-                    })}
-                  >
-                    <span className="chip-indicator"></span>
-                    {chip.name}
-                  </span>
-                ))}
-              </div>
-            </div>
+              card={card}
+              cardStyle={cardStyle}
+              hoveredDetails={hoveredDetails}
+              setHoveredDetails={setHoveredDetails}
+            />
           );
         })}
       </div>

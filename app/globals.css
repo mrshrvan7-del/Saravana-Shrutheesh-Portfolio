@@ -178,22 +178,31 @@
 
 .bento-item {
   background: var(--bg-card);
-  border: 1px solid rgba(61, 58, 26, 0.12);
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
   padding: 2.25rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-image 0.4s ease-in-out !important;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(26, 26, 10, 0.02);
+  box-shadow:
+    8px 12px 24px rgba(107, 142, 127, 0.1),
+    -8px -8px 24px rgba(255, 255, 255, 0.8),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.7),
+    inset -4px -4px 8px rgba(107, 142, 127, 0.08);
+  backdrop-filter: blur(12px);
 }
 
 .bento-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(26, 26, 10, 0.06);
-  border-color: rgba(61, 58, 26, 0.25);
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    12px 18px 32px rgba(107, 142, 127, 0.16),
+    -12px -12px 32px rgba(255, 255, 255, 0.9),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.85),
+    inset -6px -6px 12px rgba(107, 142, 127, 0.1);
 }
 
 .bento-card-header {
@@ -1120,4 +1129,36 @@
     opacity: 0.85;
   }
 }
+
+/* Claymorphism styles for interactive cards */
+.clay-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  /* Premium claymorphic outer & inner shadows */
+  box-shadow:
+    /* Soft colored outer drop shadow */
+    8px 12px 24px rgba(107, 142, 127, 0.12),
+    /* Soft white outer highlight */
+    -8px -8px 24px rgba(255, 255, 255, 0.8),
+    /* Inset white light highlight for 3D puffiness */
+    inset 4px 4px 8px rgba(255, 255, 255, 0.7),
+    /* Inset soft dark shadow at the bottom right to complete the clay feel */
+    inset -4px -4px 8px rgba(107, 142, 127, 0.08);
+  backdrop-filter: blur(12px);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  perspective: 1000px;
+}
+
+.clay-card:hover {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    /* Deeper shadow on hover */
+    12px 18px 30px rgba(107, 142, 127, 0.18),
+    -12px -12px 30px rgba(255, 255, 255, 0.9),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.85),
+    inset -6px -6px 12px rgba(107, 142, 127, 0.1);
+}
+
 
