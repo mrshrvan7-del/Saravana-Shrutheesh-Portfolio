@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, X, Sparkles, ArrowRight } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 
 function getOrdinalSuffix(n: number): string {
   const s = ['th', 'st', 'nd', 'rd'];
@@ -59,12 +59,12 @@ export default function VisitorPopup() {
     };
   }, []);
 
-  // Auto dismiss after 8 seconds
+  // Auto dismiss after 10 seconds
   useEffect(() => {
     if (!visible) return;
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 8000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, [visible]);
 
@@ -74,7 +74,7 @@ export default function VisitorPopup() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1A1A16]/20 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -82,55 +82,45 @@ export default function VisitorPopup() {
           onClick={(e) => { if (e.target === e.currentTarget) setVisible(false); }}
         >
           <motion.div
-            className="relative w-full max-w-md bg-[var(--bg-nav)] text-[var(--text-cream)] p-6 sm:p-8 rounded-3xl border-2 border-[var(--accent-dark)] shadow-[0_25px_70px_rgba(0,0,0,0.6)] text-center overflow-hidden"
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            className="relative w-full max-w-[420px] bg-[#F6F4EC] text-[#1A1A16] p-7 sm:p-9 rounded-[32px] border border-[#2A2A24]/10 shadow-[0_30px_80px_-15px_rgba(42,42,36,0.25)] overflow-hidden"
+            initial={{ opacity: 0, scale: 0.94, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 10 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+            exit={{ opacity: 0, scale: 0.96, y: 10 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 24 }}
           >
-            {/* Top glowing accent bar */}
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--accent-dark)] via-[var(--bg-accent)] to-[var(--accent-dark)]" />
+            {/* Top clean accent line in theme sage */}
+            <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#6B8E7F]" />
 
-            {/* Corner close button */}
+            {/* Clean top-right close button */}
             <button
               onClick={() => setVisible(false)}
-              className="absolute top-4 right-4 text-[var(--text-cream)]/50 hover:text-[var(--text-cream)] bg-transparent border-0 cursor-pointer p-1.5 rounded-full hover:bg-[var(--text-cream)]/10 transition-all"
+              className="absolute top-5 right-5 text-[#2A2A24]/40 hover:text-[#2A2A24] bg-transparent border-0 cursor-pointer p-1 rounded-full hover:bg-[#2A2A24]/5 transition-all"
               aria-label="Close dialog"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Glowing Icon Badge */}
-            <div className="w-14 h-14 rounded-2xl bg-[var(--bg-accent)]/15 border border-[var(--bg-accent)]/30 flex items-center justify-center text-[var(--bg-accent)] mx-auto mb-4 shadow-inner">
-              <Sparkles className="w-7 h-7 animate-pulse" />
+            {/* Editorial Heading */}
+            <div className="text-left space-y-4 font-sans text-[#1A1A16]">
+              <h3 className="font-display font-extrabold text-[34px] sm:text-[38px] tracking-tight leading-none text-[#1A1A16]">
+                Welcome.
+              </h3>
+              
+              <p className="text-[15.5px] leading-relaxed text-[#2A2A24] font-medium pt-2">
+                You are the <span className="font-display font-extrabold text-[28px] sm:text-[32px] text-[#6B8E7F] mx-0.5 align-middle select-all">{getOrdinalSuffix(count)}</span> visitor to my space.
+              </p>
+              
+              <p className="text-[13.5px] leading-relaxed text-[#6B7280] pb-2 font-medium">
+                Thank you for taking the time to visit. I design operational systems, data models, and business intelligence pipelines. I hope you find something interesting.
+              </p>
             </div>
 
-            {/* Sub-label */}
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-widest text-[var(--bg-accent)] uppercase mb-2">
-              <Zap className="w-3.5 h-3.5" /> Welcome Visitor
-            </div>
-
-            {/* Hero Number Display */}
-            <div className="my-4 py-4 px-6 bg-[var(--text-cream)]/5 border border-[var(--text-cream)]/10 rounded-2xl flex flex-col items-center justify-center shadow-inner">
-              <span className="text-[11px] font-mono tracking-widest text-[var(--text-cream)]/50 uppercase">YOU ARE OUR</span>
-              <span className="text-[40px] sm:text-[48px] font-display font-extrabold text-[var(--bg-accent)] leading-tight my-0.5 tracking-tight drop-shadow-sm">
-                {getOrdinalSuffix(count)}
-              </span>
-              <span className="text-[12px] font-mono text-[var(--text-cream)]/70 tracking-wider">VISITOR TO THIS WEBSITE</span>
-            </div>
-
-            {/* Body Text */}
-            <p className="text-[14px] leading-relaxed text-[var(--text-cream)]/80 mb-6 font-sans">
-              Thank you for stopping by! I hope you enjoy exploring my work, operational insights, and projects.
-            </p>
-
-            {/* Primary Action Button */}
+            {/* Sleek human-designed action button */}
             <button
               onClick={() => setVisible(false)}
-              className="w-full py-3.5 px-6 rounded-xl font-mono text-[13px] font-bold text-[var(--bg-nav)] tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer transition-all hover:opacity-95 transform hover:-translate-y-0.5 shadow-md border-0"
-              style={{ background: 'linear-gradient(135deg, #6B8E7F 0%, #8FB996 50%, #A8C9B3 100%)' }}
+              className="w-full py-3.5 px-6 rounded-xl font-sans font-bold text-[13.5px] text-[#F6F4EC] bg-[#2A2A24] hover:bg-[#3D3D35] tracking-wide flex items-center justify-center gap-2 cursor-pointer transition-all hover:opacity-95 transform hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(42,42,36,0.15)] border-0"
             >
-              <span>Explore Portfolio</span>
+              <span>Explore work</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
