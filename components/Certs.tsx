@@ -28,7 +28,7 @@ const leadershipList: Credential[] = [
   },
   { 
     year: '2024–25', 
-    title: 'Director, Rotaract Club', 
+    title: 'Club Service Co-Director, Rotaract Club', 
     issuer: 'Rotaract Club',
     description: 'Led community initiatives and organized large-scale events, demonstrating strong project management.' 
   },
